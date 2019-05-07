@@ -67,7 +67,8 @@ public class SsoAuthorizationServerConfig extends AuthorizationServerConfigurerA
      * @author zgw
      */
     @Bean
-    public TokenStore tokenStore() {
+    public TokenStore tokenStore()
+    {
         return new JwtTokenStore(jwtAccessTokenConverter());
     }
 

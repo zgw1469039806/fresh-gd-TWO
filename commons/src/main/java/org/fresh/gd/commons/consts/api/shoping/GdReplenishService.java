@@ -7,6 +7,7 @@ import org.fresh.gd.commons.consts.pojo.dto.shoping.GdReplenishDTO;
 import org.fresh.gd.commons.consts.pojo.dto.shoping.GdShopAllDTO;
 import org.fresh.gd.commons.consts.pojo.dto.shoping.ReplenishInDTO;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -45,11 +46,17 @@ public interface GdReplenishService {
     /**
      * 功能描述
      * 查询入库前综合信息
+     *
      * @param replenishInDTORequestData
      * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List < org.fresh.gd.commons.consts.pojo.dto.shoping.GdShopAllDTO>>
      * @author zgw
      */
     @PostMapping("/selGdShopAll")
-        ResponseData<List<GdReplenishDTO>> selGdShopAll(RequestData<ReplenishInDTO> replenishInDTORequestData);
+    ResponseData<List<GdReplenishDTO>> selGdShopAll(RequestData<ReplenishInDTO> replenishInDTORequestData);
+
+
+
+    @PostMapping("/delReplenishById")
+    ResponseData<Integer> delReplenishById(@RequestBody RequestData<Integer> requestData);
 
 }

@@ -1,5 +1,6 @@
 package org.gw.shoping.impl;
 
+import com.codingapi.txlcn.tc.annotation.LcnTransaction;
 import com.codingapi.txlcn.tc.annotation.TxTransaction;
 import org.fresh.gd.commons.consts.api.shoping.GdStorageService;
 import org.fresh.gd.commons.consts.pojo.RequestData;
@@ -45,7 +46,7 @@ public class GdStorageServiceImpl implements GdStorageService {
      * @date: 2019/4/29 15:08
      */
     @Override
-    @TxTransaction
+    @LcnTransaction
     @Transactional
     public ResponseData<Integer> saveStora(@RequestBody RequestData<GdStorageDTO> requestData) {
         ResponseData<Integer> responseData = new ResponseData<>();

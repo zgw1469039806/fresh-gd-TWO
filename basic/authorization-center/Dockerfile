@@ -6,7 +6,6 @@ WORKDIR /app
 # 添加
 ADD target /app
 
-
 # 暴露端口
 EXPOSE 8111
 # 执行 jar

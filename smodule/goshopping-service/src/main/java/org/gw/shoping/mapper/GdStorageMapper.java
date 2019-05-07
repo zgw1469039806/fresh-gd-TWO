@@ -1,6 +1,7 @@
 package org.gw.shoping.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.fresh.gd.commons.consts.pojo.dto.management.GdStoreDTO;
 import org.fresh.gd.commons.consts.pojo.dto.shoping.GdStorageDTO;
 import org.gw.shoping.entity.GdStorage;
@@ -27,4 +28,14 @@ public interface GdStorageMapper extends BaseMapper<GdStorage> {
      * @date: 2019/4/29 15:10
      */
     Integer saveStorage(GdStorageDTO gdStoreDTO);
+    /**
+     * 功能描述:
+     * 根据进货编号删除入库信息
+     *
+     * @param: [rid]
+     * @return: java.lang.Integer
+     * @auther: 郭家恒
+     * @date: 2019/5/6 16:15
+     */
+    Integer delStorageByRid(@Param("rid") Integer rid);
 }

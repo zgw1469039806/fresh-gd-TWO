@@ -60,24 +60,29 @@ public class GdReplenishServiceImpl implements GdReplenishService {
     public ResponseData<Integer> saveGdReplenish(@RequestBody RequestData<GdReplenishDTO> replenishDTORequestData) {
         ResponseData<Integer> responseData = new ResponseData<>();
         GdReplenishDTO gdReplenishDTO = replenishDTORequestData.getData();
-        if (StringUtils.isEmpty(gdReplenishDTO.getUsername())) {
+        if (StringUtils.isEmpty(gdReplenishDTO.getUsername())
+        ) {
             throw new BizException("制单人员不能为空");
         }
-        if (gdReplenishDTO.getStoreid() == 0 || gdReplenishDTO.getStoreid() == null) {
+        if (gdReplenishDTO.getStoreid() == 0 || gdReplenishDTO.getStoreid() == null)
+        {
             throw new BizException("店铺ID不能为空");
         }
-        if (gdReplenishDTO.getSupplierID() == 0 || gdReplenishDTO.getSupplierID() == null) {
+        if (gdReplenishDTO.getSupplierID() == 0 || gdReplenishDTO.getSupplierID() == null)
+        {
             throw new BizException("供应商ID不能为空");
         }
         gdReplenishDTO.setReceiptNo(Consts.getStringRandom(6).toUpperCase());
         gdReplenishDTO.setReplenishTime("" + VeDate.getStringDate());
         Integer saveGdReplen = gdReplenishMapper.saveGdReplen(gdReplenishDTO);
 
-        for (GdPurchaseDTO gdPurchaseDTO : replenishDTORequestData.getData().getList()) {
+        for (GdPurchaseDTO gdPurchaseDTO : replenishDTORequestData.getData().getList())
+        {
             gdPurchaseDTO.setReplenishId(gdReplenishDTO.getReplenishId());
         }
 
-        if (saveGdReplen > 0) {
+        if (saveGdReplen > 0)
+        {
             gdPurchaseService.saveGdPurchase(replenishDTORequestData);
             return responseData;
         }
@@ -94,7 +99,8 @@ public class GdReplenishServiceImpl implements GdReplenishService {
      * @author zgw
      */
     @Override
-    public ResponseData<List<GdReplenishAndPurchaseDTO>> selReAndPuAll() {
+    public ResponseData<List<GdReplenishAndPurchaseDTO>> selReAndPuAll()
+    {
         ResponseData<List<GdReplenishAndPurchaseDTO>> responseData = new ResponseData<>();
         List<GdReplenishAndPurchaseDTO> gdReplenishAndPurchaseDTOS = gdReplenishMapper.selReAndPuAll();
         responseData.setData(gdReplenishAndPurchaseDTOS);
@@ -115,7 +121,8 @@ public class GdReplenishServiceImpl implements GdReplenishService {
         ReplenishInDTO replenishInDTO = replenishInDTORequestData.getData();
         List<Integer> mdid = new ArrayList<>();
         List<GdReplenishDTO> gdShopAllDTOS = gdReplenishMapper.selGdShopAllByBh(replenishInDTO);
-        for (GdReplenishDTO allDTO : gdShopAllDTOS) {
+        for (GdReplenishDTO allDTO : gdShopAllDTOS)
+        {
             List<GdPurchaseDTO> list = gdReplenishMapper.QueryPurByreId(allDTO.getReplenishId());
             allDTO.setList(list);
             mdid.add(allDTO.getStoreid());
@@ -123,9 +130,12 @@ public class GdReplenishServiceImpl implements GdReplenishService {
         RequestData<List<Integer>> mdids = new RequestData<>();
         mdids.setData(mdid);
         ResponseData<List<GdStoreDTO>> responseData1 = manageFeginService.QueryByid(mdids);
-        for (GdReplenishDTO purdto : gdShopAllDTOS) {
-            for (GdStoreDTO dto : responseData1.getData()) {
-                if (purdto.getStoreid().equals(dto.getStoreid())) {
+        for (GdReplenishDTO purdto : gdShopAllDTOS)
+        {
+            for (GdStoreDTO dto : responseData1.getData())
+            {
+                if (purdto.getStoreid().equals(dto.getStoreid()))
+                {
                     purdto.setStorename(dto.getStorename());
                     break;
                 }

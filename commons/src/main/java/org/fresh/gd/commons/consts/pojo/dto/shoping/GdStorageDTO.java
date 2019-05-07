@@ -29,7 +29,7 @@ public class GdStorageDTO {
     /**
      * 入库时间
      */
-    private Date storageTime;
+    private String storageTime;
 
     /**
      * 入库人员ID

@@ -57,5 +57,5 @@ public interface GdReplenishMapper extends BaseMapper<GdReplenish> {
      * @auther: 郭家恒
      * @date: 2019/4/29 15:29
      */
-    List<Integer> updPurById(@Param("receiptNo") String rno);
+    Integer  updPurById(@Param("receiptNo") String rno);
 }
