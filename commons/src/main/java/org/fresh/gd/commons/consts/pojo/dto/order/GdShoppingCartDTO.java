@@ -1,43 +1,39 @@
-package org.fresh.gd.commons.consts.pojo.dto.shoping;
+package org.fresh.gd.commons.consts.pojo.dto.order;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
 
 /**
  * @author 贾轶飞
- * @data 2019/4/22 14:44
+ * @dat e2019/5/6 10:02
  */
-@ApiModel("商品详细数据模型")
-@Data
-public class GdCommodityListDTO {
-    /**
-     * 图片编号
-     */
-    @ApiModelProperty("图片编号")
-    private Integer imagesId;
+public class GdShoppingCartDTO {
 
     /**
-     * 图片地址
+     * 购物车编号
      */
-    @ApiModelProperty("图片地址")
-    private String imagesurl;
+    @ApiModelProperty("购物车编号")
+    private Integer cartid;
+
+
+    /**
+     * 所属用户
+     */
+    @ApiModelProperty("所属用户账号")
+    private Integer useraccount;
+
+    /**
+     * 数量
+     */
+    @ApiModelProperty("数量")
+    private Integer num;
 
     /**
      * 商品ID
      */
-    @ApiModelProperty("图片等级")
+    @ApiModelProperty("商品ID")
     private Integer comdityId;
-
-    /**
-     * 图片等级
-     */
-    @ApiModelProperty("图片等级")
-    private String imageslv;
-
 
     /**
      * 商品名称
@@ -48,7 +44,7 @@ public class GdCommodityListDTO {
     /**
      * 商品类别
      */
-    @ApiModelProperty("商品类别")
+    @TableField("comditytypeId")
     private Integer comditytypeId;
 
     /**
@@ -69,10 +65,10 @@ public class GdCommodityListDTO {
     @ApiModelProperty("商品单价")
     private String comdityprice;
 
-    /**
-     * 商品数
-     */
-    @ApiModelProperty("商品数")
-    private Integer num;
 
+    /**
+     * 活动id
+     */
+    @ApiModelProperty("活动id")
+    private Integer activityId;
 }
