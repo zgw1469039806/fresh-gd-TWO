@@ -36,30 +36,30 @@ public class ManageServiceImpl implements ManageService {
 
     @Transactional
     @Override
-    public ResponseData<Integer> inserStore(@RequestBody GdStoreDTO requestData) {
+    public ResponseData<Integer> inserStore(@RequestBody GdStoreDTO requestData)
+    {
         ResponseData<Integer> responseData = new ResponseData<>();
         String storename = requestData.getStorename();
-        if (StringUtils.isEmpty(storename)) {
+        if (StringUtils.isEmpty(storename))
+        {
             throw new BizException("门店名称不能为空");
         }
         ManageStoreDTO manageStoreDTO = gdStoreMapper.selByName(storename);
-        if (manageStoreDTO != null) {
+        if (manageStoreDTO != null)
+        {
             throw new BizException("门店名称不能重复");
         }
-
-
         GdStore gdStore = new GdStore();
         gdStore.setStorename(requestData.getStorename());
         gdStore.setStoreaddress(requestData.getStoreaddress());
         Integer save = gdStoreMapper.save(gdStore);
-
-        if (save > 0) {
+        if (save > 0)
+        {
             responseData.setCode(Consts.Result.SUCCESS.getCode());
             ManageStoreDTO manage = new ManageStoreDTO();
             manage.setStoreid(gdStore.getStoreid());
             manage.setStoreImages(requestData.getStoreImagesUri());
             manageImageService.inserImagesStore(manage);
-
         }
         responseData.setCode(Consts.Result.ERROR_PARAM.getCode());
         return responseData;
@@ -119,7 +119,6 @@ public class ManageServiceImpl implements ManageService {
      */
     @Override
     public ResponseData<List<GdStoreDTO>> QueryByid(@RequestBody RequestData<List<Integer>> list) {
-        System.out.println("拿到的ID:" + list);
         ResponseData<List<GdStoreDTO>> listResponseData = new ResponseData<>();
         listResponseData.setData(gdStoreMapper.QueryById(list.getData()));
         return listResponseData;

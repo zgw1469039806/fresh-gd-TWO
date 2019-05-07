@@ -119,7 +119,7 @@ public class GdComditytypeServiceImpl implements GdComditytypeService {
     public ResponseData<List<GdActivitiesAndShopDTO>> selActAndShop(Integer requestData) {
         ResponseData<List<GdActivitiesAndShopDTO>> responseData=new ResponseData<>();
 
-        if (requestData==0 || requestData == null)
+        if (requestData == 0 || requestData == null)
         {
             throw new BizException("活动ID不能为空");
         }
