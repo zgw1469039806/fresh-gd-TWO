@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.fresh.gd.unification.mapper.LogMapper">
+    <select id="selAll" resultType="org.fresh.gd.commons.consts.pojo.dto.management.GdLogHdDTO" parameterType="org.fresh.gd.commons.consts.pojo.dto.management.GdLogHdDTO">
+        SELECT * FROM gd_Log
+        <where>
+        <if test="username != null and username !=''">
+            username=#{username}
+        </if>
+        <if test="StartTime != null and StartTime !=''">
+             and
+             createDate &gt;= #{StartTime}
+             and
+             createDate &lt;= #{EndTime}
+        </if>
+        </where>
+
+    </select>
+
+</mapper>

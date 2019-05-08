@@ -40,4 +40,12 @@
         </set>
          WHERE useraccount=#{useraccount}
     </update>
+
+    <select id="selLogByUserName" parameterType="list" resultType="org.fresh.gd.commons.consts.pojo.dto.oauth.UserDTO" >
+        select * from gd_user where useraccount in
+        <foreach collection="list" open="(" item="com" separator="," close=")">
+            #{com.username}
+        </foreach>
+
+    </select>
 </mapper>

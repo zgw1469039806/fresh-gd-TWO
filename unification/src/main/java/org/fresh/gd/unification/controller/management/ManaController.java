@@ -27,6 +27,7 @@ public class ManaController {
     ManaFeginService manaFeginService;
 
 
+
     @PostMapping("/imageAdd")
     public ResponseData<Integer> imageAdd(@RequestBody GdStoreDTO requestData, MultipartFile multipartFile) {
         OSSClientUtil ossClient = new OSSClientUtil();
