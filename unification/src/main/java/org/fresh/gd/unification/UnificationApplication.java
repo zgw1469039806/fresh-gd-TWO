@@ -1,4 +1,5 @@
 package org.fresh.gd.unification;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.cloud.client.SpringCloudApplication;
@@ -24,7 +25,7 @@ import java.util.Arrays;
  * @Author 张国伟  WeChat:17630376104
  * @Description
  */
-
+@MapperScan("org.fresh.gd.unification.mapper")
 @EnableHystrixDashboard
 @ComponentScan({"org.fresh.gd.commons.consts.advice","org.fresh.gd.unification"})
 @EnableGlobalMethodSecurity(prePostEnabled = true)

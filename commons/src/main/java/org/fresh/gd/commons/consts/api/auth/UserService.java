@@ -2,6 +2,7 @@ package org.fresh.gd.commons.consts.api.auth;
 
 import org.fresh.gd.commons.consts.pojo.RequestData;
 import org.fresh.gd.commons.consts.pojo.ResponseData;
+import org.fresh.gd.commons.consts.pojo.dto.management.GdLogHdDTO;
 import org.fresh.gd.commons.consts.pojo.dto.oauth.UserDTO;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,11 +31,22 @@ public interface UserService {
     /**
      * 功能描述
      * 查询所有员工 以及所在门店
+     *
      * @param requestData
      * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List < org.fresh.gd.commons.consts.pojo.dto.oauth.UserDTO>>
      * @author zgw
      */
     @PostMapping("/selAllAndByUsername")
     ResponseData<List<UserDTO>> selAllAndByUsername(RequestData<UserDTO> requestData);
+
+    /**
+     * 功能描述
+     * 根据用户名称拿用户ID
+     * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List < org.fresh.gd.commons.consts.pojo.dto.oauth.UserDTO>>
+     * @author zgw
+     */
+    @PostMapping("/selLogByUserId")
+    ResponseData<List<UserDTO>> selLogByUserId(RequestData<List<GdLogHdDTO>> requestData);
+
 
 }

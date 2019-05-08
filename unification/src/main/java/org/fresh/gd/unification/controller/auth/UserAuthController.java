@@ -5,13 +5,16 @@ import lombok.extern.slf4j.Slf4j;
 import org.fresh.gd.commons.consts.pojo.RequestData;
 import org.fresh.gd.commons.consts.pojo.ResponseData;
 import org.fresh.gd.commons.consts.pojo.dto.oauth.UserDTO;
+import org.fresh.gd.unification.aspectj.GdLogClass;
 import org.fresh.gd.unification.fegin.auth.UserFeignService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.Principal;
 import java.util.List;
 
 /**
@@ -36,8 +39,9 @@ public class UserAuthController {
      * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
      * @author zgw
      */
+    @GdLogClass(value = "添加员工")
     @PostMapping("/savaRoot")
-    public ResponseData<Integer> savaRoot(@RequestBody RequestData<UserDTO> requestData)
+    public ResponseData<Integer> savaRoot(@RequestBody RequestData<UserDTO> requestData,Authentication authentication)
     {
         return userFeignService.saveUser(requestData);
     }
@@ -50,8 +54,9 @@ public class UserAuthController {
      * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List < org.fresh.gd.commons.consts.pojo.dto.oauth.UserDTO>>
      * @author zgw
      */
+    @GdLogClass(value = "查询所有员工信息")
     @PostMapping("/selAllAndByUsername")
-    public ResponseData<List<UserDTO>> selAllAndByUsername(@RequestBody RequestData<UserDTO> requestData)
+    public ResponseData<List<UserDTO>> selAllAndByUsername(@RequestBody RequestData<UserDTO> requestData, Authentication authentication)
     {
         return userFeignService.selAllAndByUsername(requestData);
     }
