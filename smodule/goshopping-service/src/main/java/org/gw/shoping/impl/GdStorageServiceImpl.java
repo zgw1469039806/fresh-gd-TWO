@@ -66,4 +66,19 @@ public class GdStorageServiceImpl implements GdStorageService {
         responseData.setData(save);
         return responseData;
     }
+
+    /**
+     * 功能描述:
+     * 查询入库信息
+     *
+     * @param requestData
+     * @param: [requestData]
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List < org.fresh.gd.commons.consts.pojo.dto.shoping.GdStorageDTO>>
+     * @auther: 郭家恒
+     * @date: 2019/5/7 18:29
+     */
+    @Override
+    public ResponseData<List<GdStorageDTO>> QueryStora(RequestData<GdStorageDTO> requestData) {
+        return null;
+    }
 }
