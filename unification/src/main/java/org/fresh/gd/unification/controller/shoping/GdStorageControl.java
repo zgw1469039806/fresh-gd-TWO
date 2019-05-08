@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @DATA 2019/4/29 15:53
@@ -32,11 +33,16 @@ public class GdStorageControl {
     @Autowired
     private GdStorageFeginService gdStorageFeginService;
 
-    @PostMapping("/updStorage")
-    public ResponseData<Integer> updStorage(@RequestBody RequestData<GdStorageDTO> requestData) {
+    @PostMapping("/saveStora")
+    public ResponseData<Integer> saveStora(@RequestBody RequestData<GdStorageDTO> requestData) {
         ResponseData<Integer> responseData = new ResponseData<>();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         responseData = (gdStorageFeginService.saveStora(requestData));
         return responseData;
+    }
+
+    @PostMapping("/QueryStorage")
+    public ResponseData<List<GdStorageDTO>> QueryStorage(@RequestBody RequestData<GdStorageDTO> requestData) {
+        return gdStorageFeginService.QueryStora(requestData);
     }
 }

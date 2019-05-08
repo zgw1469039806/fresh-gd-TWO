@@ -37,7 +37,7 @@ public interface GdReplenishService {
      * 入库前的查询  查询所有进货信息
      *
      * @param
-     * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List < org.fresh.gd.commons.consts.pojo.dto.shoping.GdReplenishAndPurchaseDTO>>
+     * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List   <   org.fresh.gd.commons.consts.pojo.dto.shoping.GdReplenishAndPurchaseDTO>>
      * @author zgw
      */
     @PostMapping("/selReAndPuAll")
@@ -48,12 +48,11 @@ public interface GdReplenishService {
      * 查询入库前综合信息
      *
      * @param replenishInDTORequestData
-     * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List < org.fresh.gd.commons.consts.pojo.dto.shoping.GdShopAllDTO>>
+     * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List   <   org.fresh.gd.commons.consts.pojo.dto.shoping.GdShopAllDTO>>
      * @author zgw
      */
     @PostMapping("/selGdShopAll")
     ResponseData<List<GdReplenishDTO>> selGdShopAll(RequestData<ReplenishInDTO> replenishInDTORequestData);
-
 
 
     @PostMapping("/delReplenishById")

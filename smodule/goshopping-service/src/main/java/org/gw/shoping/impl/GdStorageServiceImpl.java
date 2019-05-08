@@ -5,9 +5,11 @@ import com.codingapi.txlcn.tc.annotation.TxTransaction;
 import org.fresh.gd.commons.consts.api.shoping.GdStorageService;
 import org.fresh.gd.commons.consts.pojo.RequestData;
 import org.fresh.gd.commons.consts.pojo.ResponseData;
+import org.fresh.gd.commons.consts.pojo.dto.management.GdStoreDTO;
 import org.fresh.gd.commons.consts.pojo.dto.shoping.GdPurchaseDTO;
 import org.fresh.gd.commons.consts.pojo.dto.shoping.GdStorageDTO;
 import org.fresh.gd.commons.consts.utils.DateUtils;
+import org.gw.shoping.fegin.ManageFeginService;
 import org.gw.shoping.mapper.GdComdityparticularMapper;
 import org.gw.shoping.mapper.GdReplenishMapper;
 import org.gw.shoping.mapper.GdStorageMapper;
@@ -16,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -34,6 +37,9 @@ public class GdStorageServiceImpl implements GdStorageService {
 
     @Autowired
     private GdComdityparticularMapper gdComdityparticularMapper;
+
+    @Autowired
+    ManageFeginService manageFeginService;
 
     /**
      * 功能描述:
@@ -73,12 +79,29 @@ public class GdStorageServiceImpl implements GdStorageService {
      *
      * @param requestData
      * @param: [requestData]
-     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List < org.fresh.gd.commons.consts.pojo.dto.shoping.GdStorageDTO>>
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List                               <                               org.fresh.gd.commons.consts.pojo.dto.shoping.GdStorageDTO>>
      * @auther: 郭家恒
      * @date: 2019/5/7 18:29
      */
     @Override
-    public ResponseData<List<GdStorageDTO>> QueryStora(RequestData<GdStorageDTO> requestData) {
-        return null;
+    public ResponseData<List<GdStorageDTO>> QueryStora(@RequestBody RequestData<GdStorageDTO> requestData) {
+        ResponseData<List<GdStorageDTO>> responseData = new ResponseData<>();
+        List<GdStorageDTO> list = gdStorageMapper.QueryStock(requestData.getData());
+        List<Integer> mdIds = new ArrayList<>();
+        RequestData<List<Integer>> requestData1 = new RequestData<>();
+        for (GdStorageDTO dto:list){
+            mdIds.add(dto.getStoreid());
+        }
+        requestData1.setData(mdIds);
+        ResponseData<List<GdStoreDTO>> res = manageFeginService.QueryByid(requestData1);
+        for (GdStorageDTO gdStorageDTO : list) {
+            for (GdStoreDTO gdStoreDTO : res.getData()) {
+                if (gdStorageDTO.getStoreid() == gdStoreDTO.getStoreid()) {
+                    gdStorageDTO.setStorename(gdStoreDTO.getStorename());
+                }
+            }
+        }
+        responseData.setData(list);
+        return responseData;
     }
 }

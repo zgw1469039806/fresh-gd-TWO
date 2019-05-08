@@ -2,6 +2,7 @@ package org.fresh.gd.unification.controller.management;
 
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
+import org.fresh.gd.commons.consts.pojo.RequestData;
 import org.fresh.gd.commons.consts.pojo.ResponseData;
 import org.fresh.gd.commons.consts.pojo.dto.management.GdStoreDTO;
 import org.fresh.gd.commons.consts.utils.OSSClientUtil;
@@ -28,7 +29,8 @@ public class ManaController {
 
 
     @PostMapping("/imageAdd")
-    public ResponseData<Integer> imageAdd(@RequestBody GdStoreDTO requestData, MultipartFile multipartFile) {
+    public ResponseData<Integer> imageAdd(@RequestBody RequestData<GdStoreDTO> requestData) {
+        MultipartFile multipartFile = requestData.getData().getMultipartFile();
         OSSClientUtil ossClient = new OSSClientUtil();
         try {
             if (multipartFile == null || multipartFile.getSize() <= 0) {
@@ -36,11 +38,11 @@ public class ManaController {
             }
             String name = ossClient.uploadImg2Oss(multipartFile);
             String imgUrl = ossClient.getImgUrl(name);
-            requestData.setStoreImagesUri(imgUrl);
+            requestData.getData().setStoreImagesUri(imgUrl);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return manaFeginService.inserStore(requestData);
+        return manaFeginService.inserStore(requestData.getData());
     }
 
     @PostMapping("/selStorAndImage")

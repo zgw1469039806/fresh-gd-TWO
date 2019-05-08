@@ -27,9 +27,8 @@ public class ManaImagesController {
 
 
     @PostMapping("/delImages")
-    public ResponseData<Integer> delImages(@RequestBody GdStoreDTO gdStoreDTO)
-    {
-      return  manaImagesFeginService.delByIdImages(gdStoreDTO);
+    public ResponseData<Integer> delImages(@RequestBody GdStoreDTO gdStoreDTO) {
+        return manaImagesFeginService.delByIdImages(gdStoreDTO);
     }
 
 

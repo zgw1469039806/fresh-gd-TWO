@@ -7,6 +7,8 @@ import org.fresh.gd.commons.consts.pojo.dto.shoping.GdStorageDTO;
 import org.gw.shoping.entity.GdStorage;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
+import java.util.List;
+
 /**
  * <p>
  * 入库表 Mapper 接口
@@ -38,4 +40,13 @@ public interface GdStorageMapper extends BaseMapper<GdStorage> {
      * @date: 2019/5/6 16:15
      */
     Integer delStorageByRid(@Param("rid") Integer rid);
+
+    /** 功能描述:
+    * 查询符合条件的所有入库记录
+    * @param: []
+    * @return: java.util.List<org.gw.shoping.entity.GdStorage>
+    * @auther: 郭家恒
+    * @date: 2019/5/8 14:10
+    */
+    List<GdStorageDTO> QueryStock(GdStorageDTO gdStorageDTO);
 }

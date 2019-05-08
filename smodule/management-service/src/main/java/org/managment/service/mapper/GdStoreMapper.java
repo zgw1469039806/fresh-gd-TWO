@@ -54,7 +54,6 @@ public interface GdStoreMapper extends BaseMapper<GdStore> {
      * @auther: 郭家恒
      * @date: 2019/4/28 14:08
      */
-
     @Select("select * from gd_store")
     List<GdStoreDTO> QueryAll();
 }

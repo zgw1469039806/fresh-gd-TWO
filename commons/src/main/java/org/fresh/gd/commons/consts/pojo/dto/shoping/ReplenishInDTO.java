@@ -18,4 +18,7 @@ public class ReplenishInDTO {
     private String startTime;
     @ApiModelProperty("结束时间")
     private String endTime;
+    @ApiModelProperty("是否入库")
+    private Integer isnostorage;
+
 }

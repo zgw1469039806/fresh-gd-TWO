@@ -84,6 +84,14 @@ public interface ManageService {
     @RequestMapping(value = "/QueryByid", method = RequestMethod.POST)
     ResponseData<List<GdStoreDTO>> QueryByid(RequestData<List<Integer>> list);
 
+    /** 功能描述:
+    * 查询全部门店
+    * @param: []
+    * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List<org.fresh.gd.commons.consts.pojo.dto.management.GdStoreDTO>>
+    * @auther: 郭家恒
+    * @date: 2019/5/8 10:55
+    */
+
     @RequestMapping(value = "/QueryAll",method = RequestMethod.POST)
     ResponseData<List<GdStoreDTO>> QueryAll();
 }
