@@ -80,4 +80,21 @@ public class VipLvServiceImpl implements VipLvService {
     }
 
 
+    /**
+     * 功能描述:
+     * 根据会员等级查看会员等级信息
+     *
+     * @param requestData
+     * @param: [requestData]
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<org.fresh.gd.commons.consts.pojo.dto.vip.GdAddVipLvDTO>
+     * @auther: Mr.Xia
+     * @date: 2019/5/8 16:48
+     */
+    @Override
+    public ResponseData<GdAddVipLvDTO> selVipLvByViplv(@RequestBody RequestData<Integer> requestData) {
+        ResponseData<GdAddVipLvDTO> responseData = new ResponseData<>();
+        GdAddVipLvDTO dto = gdViplvMapper.selVipLvByViplv(requestData.getData());
+        responseData.setData(dto);
+        return responseData;
+    }
 }

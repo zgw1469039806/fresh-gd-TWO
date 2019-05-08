@@ -5,6 +5,7 @@ import org.fresh.gd.commons.consts.pojo.ResponseData;
 import org.fresh.gd.commons.consts.pojo.dto.vip.GdAddVipLvDTO;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -68,5 +69,18 @@ public interface VipLvService {
     */
     @GetMapping("/selAllVipLv")
     ResponseData<List<GdAddVipLvDTO>> selAllVipLv();
+
+
+    /**
+    *
+    * 功能描述:
+    *   根据会员等级查看会员等级信息
+    * @param: [requestData]
+    * @return: org.fresh.gd.commons.consts.pojo.ResponseData<org.fresh.gd.commons.consts.pojo.dto.vip.GdAddVipLvDTO>
+    * @auther: Mr.Xia
+    * @date: 2019/5/8 16:48
+    */
+    @PostMapping("/selVipLvByViplv")
+    ResponseData<GdAddVipLvDTO> selVipLvByViplv(RequestData<Integer> requestData);
 
 }

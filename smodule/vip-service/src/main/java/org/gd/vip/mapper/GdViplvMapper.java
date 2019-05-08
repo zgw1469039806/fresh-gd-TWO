@@ -78,4 +78,16 @@ public interface GdViplvMapper extends BaseMapper<GdViplv> {
     @Select("select * from gd_viplv")
     List<GdAddVipLvDTO> selAllVipLv();
 
+    /**
+    *
+    * 功能描述:
+    *   根据会员等级查看会员等级信息
+    * @param: [vipLv]
+    * @return: org.fresh.gd.commons.consts.pojo.dto.vip.GdAddVipLvDTO
+    * @auther: Mr.Xia
+    * @date: 2019/5/8 16:46
+    */
+    @Select("select * from gd_viplv where viplv = #{vipLv}")
+    GdAddVipLvDTO selVipLvByViplv(@Param("vipLv") Integer vipLv);
+
 }

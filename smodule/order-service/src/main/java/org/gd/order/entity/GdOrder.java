@@ -41,7 +41,7 @@ public class GdOrder implements Serializable {
     private Integer orderscene;
 
     /**
-     * 交易手段(0-现金 1-支付宝 2-微信)
+     * 交易手段(0-现金 1-支付宝 2-微信月 3-会员余额)
      */
     private Integer ordermeans;
 

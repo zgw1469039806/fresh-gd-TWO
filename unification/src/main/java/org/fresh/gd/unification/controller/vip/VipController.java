@@ -72,4 +72,12 @@ public class VipController {
         return vipFeginService.updOneVip(vipUpdDTO);
     }
 
+
+    @ApiOperation(value = "根据会员手机号查询会员")
+    @PostMapping("/selOneVipByPhone")
+    public ResponseData<VipPageDTO> selOneVipByPhone(@RequestBody RequestData<String> vipphone){
+        log.info("进入进入VipController-查询会员信息");
+        return vipFeginService.selOneVipByPhone(vipphone);
+    }
+
 }

@@ -1,6 +1,8 @@
 package org.fresh.gd.unification.controller.vip;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.fresh.gd.commons.consts.pojo.RequestData;
 import org.fresh.gd.commons.consts.pojo.ResponseData;
@@ -55,6 +57,13 @@ public class VipLvController {
     public ResponseData<List<GdAddVipLvDTO>> selAllVipLv(){
         log.info("查询全部-vipLvController");
         return vipLvFeginService.selAllVipLv();
+    }
+
+    @ApiOperation("根据会员等级查看会员等级信息")
+    @PostMapping("/selVipLvByViplv")
+    public ResponseData<GdAddVipLvDTO> selVipLvByViplv(@RequestBody RequestData<Integer> requestData){
+        log.info("查询会员信息-vipLvController");
+        return vipLvFeginService.selVipLvByViplv(requestData);
     }
 
 }

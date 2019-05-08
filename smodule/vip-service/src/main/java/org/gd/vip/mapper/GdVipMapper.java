@@ -79,6 +79,18 @@ public interface GdVipMapper extends BaseMapper<GdVip> {
 
 
     /**
+    * 功能描述:
+    *   根据会员手机号查询会员信息
+    * @param: [vipphone]
+    * @return: org.fresh.gd.commons.consts.pojo.dto.vip.VipPageDTO
+    * @auther: Mr.Xia
+    * @date: 2019/5/8 15:23
+    */
+    @Select("select * from gd_vip where vipphone = #{vipphone}")
+    VipPageDTO selOneVipByPhone(String vipphone);
+
+
+    /**
      * 功能描述:
      * 修改会员
      *
