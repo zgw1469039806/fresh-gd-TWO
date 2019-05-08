@@ -2,12 +2,17 @@ package org.fresh.gd.commons.consts.pojo.dto.order;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 /**
  * @author 贾轶飞
  * @dat e2019/5/6 10:02
  */
+
+@Data
+@ApiModel("商品购物车")
 public class GdShoppingCartDTO {
 
     /**
@@ -21,7 +26,7 @@ public class GdShoppingCartDTO {
      * 所属用户
      */
     @ApiModelProperty("所属用户账号")
-    private Integer useraccount;
+    private String useraccount;
 
     /**
      * 数量

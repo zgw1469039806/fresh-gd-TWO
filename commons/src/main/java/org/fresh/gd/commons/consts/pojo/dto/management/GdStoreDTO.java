@@ -14,7 +14,6 @@ import java.util.List;
 @ApiModel("门店信息数据模型")
 @Data
 public class GdStoreDTO {
-
     @ApiModelProperty("店铺ID")
     private Integer storeid;
 

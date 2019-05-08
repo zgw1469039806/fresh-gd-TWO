@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @DATA 2019-04-21 14:42
@@ -31,7 +33,6 @@ public class GdComditytypeServiceImpl implements GdComditytypeService {
 
     @Autowired
     GdCommodityMapper gdCommodityMapper;
-
     /**
      * 功能描述
      * 查询所有商品分类
@@ -41,6 +42,7 @@ public class GdComditytypeServiceImpl implements GdComditytypeService {
      */
     @Override
     public ResponseData<List<GdComditytypeDTO>> selTypeAll() {
+
         ResponseData<List<GdComditytypeDTO>> responseData = new ResponseData<>();
         responseData.setData(gdComditytypeMapper.selTypeAll());
         return responseData;
@@ -49,20 +51,22 @@ public class GdComditytypeServiceImpl implements GdComditytypeService {
     /**
      * 功能描述
      * 添加一条类别
-     *
      * @param dtoRequestData
      * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
      * @author zgw
      */
     @Override
-    public ResponseData<Integer> sevaType(@RequestBody RequestData<GdComditytypeDTO> dtoRequestData) {
+    public ResponseData<Integer> sevaType(@RequestBody RequestData<GdComditytypeDTO> dtoRequestData)
+    {
         ResponseData<Integer> responseData = new ResponseData<>();
         GdComditytypeDTO gdComditytypeDTO = dtoRequestData.getData();
-        if (StringUtils.isEmpty(gdComditytypeDTO.getTypename())) {
+        if (StringUtils.isEmpty(gdComditytypeDTO.getTypename()))
+        {
             throw new BizException("类型不能为空");
         }
         Integer seva = gdComditytypeMapper.savaType(gdComditytypeDTO);
-        if (seva > 0) {
+        if (seva > 0)
+        {
             return responseData;
         }
         responseData.setCode(Consts.Result.BIZ_ERROR.getCode());
@@ -102,6 +106,7 @@ public class GdComditytypeServiceImpl implements GdComditytypeService {
      */
     @Override
     public ResponseData<Integer> delType(@RequestBody RequestData<Integer> requestData) {
+
         ResponseData<Integer> responseData = new ResponseData<>();
         List<GdCommodityDTO> list = gdCommodityMapper.QueryComByType(requestData.getData());
         if (list.size() == 0) {
@@ -147,7 +152,6 @@ public class GdComditytypeServiceImpl implements GdComditytypeService {
         {
             throw new BizException("商品名称不能为空");
         }
-
         List<GdActivitiesAndShopDTO> gdActivitiesAndShopDTOS = gdCommodityMapper.selGdActivAndShopLike(requestData);
         responseData.setData(gdActivitiesAndShopDTOS);
 

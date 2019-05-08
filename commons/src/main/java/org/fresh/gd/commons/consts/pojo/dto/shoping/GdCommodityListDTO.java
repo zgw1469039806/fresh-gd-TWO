@@ -75,4 +75,10 @@ public class GdCommodityListDTO {
     @ApiModelProperty("商品数")
     private Integer num;
 
+    /**
+     * 用户购物车商品编号
+     */
+    @ApiModelProperty("用户购物车编号")
+    private Integer cartid;
+
 }

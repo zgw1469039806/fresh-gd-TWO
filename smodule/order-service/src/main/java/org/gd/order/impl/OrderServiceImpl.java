@@ -54,6 +54,7 @@ public class OrderServiceImpl implements GDOrderService {
 
     @Autowired
     private GdShoppingcartMapper gdShoppingcartMapper;
+
     /**
      * 功能描述:
      * 下订单。订单插入后减库存。
@@ -91,27 +92,29 @@ public class OrderServiceImpl implements GDOrderService {
     /**
      * 功能描述
      * 根据用户id信息 查询购物车商品
+     *
      * @param requestData
-     * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List < org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO>>
+     * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List       <       org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO>>
      * @author zgw
      */
     @Override
     public ResponseData<List<ResponseData<GdCommodityListDTO>>> selGwcByShopId(@RequestBody String
-                                                                                           requestData)
-    {
+                                                                                       requestData) {
 
-        ResponseData<List<ResponseData<GdCommodityListDTO>>> responseData=new ResponseData<>();
-        if (StringUtils.isEmpty(requestData))
-        {
+        ResponseData<List<ResponseData<GdCommodityListDTO>>> responseData = new ResponseData<>();
+        if (StringUtils.isEmpty(requestData)) {
             throw new BizException("用于ID为空");
         }
-        List<ResponseData<GdCommodityListDTO>> listDTOS=new ArrayList<>();
-        List<GdShoppingcart> gdShoppingcart = gdShoppingcartMapper.queryCart(requestData);;
-        for (GdShoppingcart gdShop: gdShoppingcart) {
+        List<ResponseData<GdCommodityListDTO>> listDTOS = new ArrayList<>();
 
+        List<GdShoppingcart> gdShoppingcart = gdShoppingcartMapper.queryCart(requestData);
 
+        for (GdShoppingcart gdShop : gdShoppingcart) {
 
-            listDTOS.add(gdCommodityService.selOne(gdShop.getComdityId())) ;
+            ResponseData<GdCommodityListDTO> commodityDTO = gdCommodityService.selOne(gdShop.getComdityId());
+            commodityDTO.getData().setNum(gdShop.getNum());
+            commodityDTO.getData().setCartid(gdShop.getCartid());
+            listDTOS.add(commodityDTO);
         }
         responseData.setData(listDTOS);
 

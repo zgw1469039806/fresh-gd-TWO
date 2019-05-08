@@ -10,6 +10,7 @@ import org.fresh.gd.commons.consts.consts.Consts;
 import org.fresh.gd.commons.consts.exceptions.BizException;
 import org.fresh.gd.commons.consts.pojo.RequestData;
 import org.fresh.gd.commons.consts.pojo.ResponseData;
+import org.fresh.gd.commons.consts.pojo.dto.management.GdLogHdDTO;
 import org.fresh.gd.commons.consts.pojo.dto.management.GdStoreDTO;
 import org.fresh.gd.commons.consts.pojo.dto.oauth.GdPositionDTO;
 import org.fresh.gd.commons.consts.pojo.dto.oauth.UserDTO;
@@ -45,26 +46,23 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public ResponseData<Integer> saveUser(@RequestBody RequestData<UserDTO> requestData) {
-        ResponseData<Integer> responseData=new ResponseData<>();
-        UserDTO userDTO=requestData.getData();
-        System.err.println("----"+userDTO);
+        ResponseData<Integer> responseData = new ResponseData<>();
+        UserDTO userDTO = requestData.getData();
+        System.err.println("----" + userDTO);
         GdUser gdUserTwo = gdUserMapper.selUserAcc(userDTO.getUseraccount());
 
-        if (gdUserTwo!=null)
-        {
+        if (gdUserTwo != null) {
             throw new BizException("账号不能重复");
         }
-        if (StringUtils.isEmpty(userDTO.getPhone()))
-        {
+        if (StringUtils.isEmpty(userDTO.getPhone())) {
             throw new BizException("手机号不能为空");
         }
         userDTO.setPassword(passwordEncoder.encode("123456"));
-        GdUser gdUser=new GdUser();
-        BeanUtils.copyProperties(userDTO,gdUser);
+        GdUser gdUser = new GdUser();
+        BeanUtils.copyProperties(userDTO, gdUser);
         Integer usersave = gdUserMapper.saveUserYg(gdUser);
-        if (usersave>0)
-        {
-            GdPositionDTO gdPositionDTO=new GdPositionDTO();
+        if (usersave > 0) {
+            GdPositionDTO gdPositionDTO = new GdPositionDTO();
             gdPositionDTO.setUserId(gdUser.getUserId());
             gdPositionDTO.setPname(requestData.getData().getUsername());
             gdPositionService.savaPosn(gdPositionDTO);
@@ -84,10 +82,9 @@ public class UserServiceImpl implements UserService {
      * @author zgw
      */
     @Override
-    public ResponseData<List<UserDTO>> selAllAndByUsername(@RequestBody RequestData<UserDTO> requestData)
-    {
-        RequestData<List<UserDTO>> listRequestData=new RequestData<>();
-        ResponseData<List<UserDTO>> listResponseData=new ResponseData<>();
+    public ResponseData<List<UserDTO>> selAllAndByUsername(@RequestBody RequestData<UserDTO> requestData) {
+        RequestData<List<UserDTO>> listRequestData = new RequestData<>();
+        ResponseData<List<UserDTO>> listResponseData = new ResponseData<>();
 
 
         List<UserDTO> userDTOS = gdUserMapper.selYgByMd(requestData.getData().getUseraccount());
@@ -96,18 +93,34 @@ public class UserServiceImpl implements UserService {
         ResponseData<List<GdStoreDTO>> gdStoreDTOResponseData = manageFeignService.selByYg(listRequestData);
 
         List<GdStoreDTO> data = gdStoreDTOResponseData.getData();
-        for (UserDTO userDTO:userDTOS)
-        {
-          for (GdStoreDTO gdStoreDTO:data)
-          {
-            if (userDTO.getIsnoYg().equals(gdStoreDTO.getStoreid().toString())){
-                userDTO.setGdStoreName(gdStoreDTO.getStorename());
-                userDTO.setStoreaddress(gdStoreDTO.getStoreaddress());
-                break;
+        for (UserDTO userDTO : userDTOS) {
+            for (GdStoreDTO gdStoreDTO : data) {
+                if (userDTO.getIsnoYg().equals(gdStoreDTO.getStoreid().toString())) {
+                    userDTO.setGdStoreName(gdStoreDTO.getStorename());
+                    userDTO.setStoreaddress(gdStoreDTO.getStoreaddress());
+                    break;
+                }
             }
-          }
         }
         listResponseData.setData(userDTOS);
         return listResponseData;
+    }
+
+    /**
+     * 功能描述
+     * 根据用户名称拿用户ID
+     *
+     * @param requestData
+     * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List < org.fresh.gd.commons.consts.pojo.dto.oauth.UserDTO>>
+     * @author zgw
+     */
+    @Override
+    public ResponseData<List<UserDTO>> selLogByUserId(@RequestBody RequestData<List<GdLogHdDTO>> requestData) {
+        ResponseData<List<UserDTO>> responseData = new ResponseData<>();
+
+        List<GdLogHdDTO> logHdDTOS = requestData.getData();
+        List<UserDTO> userDTOS = gdUserMapper.selLogByUserName(logHdDTOS);
+        responseData.setData(userDTOS);
+        return responseData;
     }
 }

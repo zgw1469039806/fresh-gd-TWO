@@ -3,6 +3,7 @@ package org.auth.client.mapper;
 import org.apache.ibatis.annotations.*;
 import org.auth.client.entity.GdUser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.fresh.gd.commons.consts.pojo.dto.management.GdLogHdDTO;
 import org.fresh.gd.commons.consts.pojo.dto.oauth.UserDTO;
 
 import java.util.List;
@@ -47,4 +48,7 @@ public interface GdUserMapper extends BaseMapper<GdUser> {
      */
     @Select("select count(*) from gd_user where useraccount=#{useraccount}")
     Integer wxUsercount(@Param("useraccount") String useraccount);
+
+
+    List<UserDTO> selLogByUserName(List<GdLogHdDTO> logHdDTOS);
 }

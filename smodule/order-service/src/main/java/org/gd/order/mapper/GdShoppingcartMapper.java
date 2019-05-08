@@ -1,10 +1,9 @@
 package org.gd.order.mapper;
 
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.gd.order.entity.GdShoppingcart;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springframework.security.access.method.P;
 
 import java.util.List;
 
@@ -20,16 +19,52 @@ import java.util.List;
 public interface GdShoppingcartMapper extends BaseMapper<GdShoppingcart> {
 
     @Select("select * from gd_shoppingcart where userid=#{userid}")
-    GdShoppingcart selGwcByUserId(@Param("userid")String userid);
+    GdShoppingcart selGwcByUserId(@Param("userid") String userid);
 
+    @Select("select * from gd_shoppingcart where useraccount=#{useraccount} and comdityId =#{comdityId}")
+    GdShoppingcart queryOne(@Param("useraccount")String useraccount, @Param("comdityId")Integer comdityId);
+    /**
+     * 功能描述:
+     * 根据用户查询当前用户购物车信息
+     *
+     * @param: [useraccount]用户账号
+     * @return: java.util.List<org.gd.order.entity.GdShoppingcart>
+     * @auther: 贾轶飞
+     * @date: 2019/5/6 10:10
+     */
+    @Select("select * from gd_shoppingcart where useraccount = #{useraccount}")
+    public List<GdShoppingcart> queryCart(@Param("useraccount") String useraccount);
 
     /** 功能描述:
-    * 根据用户查询当前用户购物车信息
-    * @param: [useraccount]用户账号
-    * @return: java.util.List<org.gd.order.entity.GdShoppingcart>
+    *  删除某个购物车个商品
+    * @param: [cartid]
+    * @return: java.lang.Integer
     * @auther: 贾轶飞
-    * @date: 2019/5/6 10:10
+    * @date: 2019/5/8 10:33
     */
-    @Select("select * from gd_shoppingcart where useraccount = #{useraccount}")
-    public List<GdShoppingcart> queryCart(@Param("useraccount")String useraccount);
+    @Delete("delete from gd_shoppingcart where cartid = #{cartid}")
+    public Integer delCartGoods(@Param("cartid") Integer cartid);
+
+    /** 功能描述:
+    * 添加购物车中的商品
+    * @param: [gdShoppingcart]购物车商品参数对象
+    * @return: org.gd.order.entity.GdShoppingcart
+    * @auther: 贾轶飞
+    * @date: 2019/5/8 10:47
+    */
+    @Insert("insert into gd_shoppingcart values(null,#{comdityId},#{useraccount},#{num})")
+    public Integer addCartGoods(GdShoppingcart gdShoppingcart);
+
+    /** 功能描述:
+    * 修改购物车中已有商品的数量
+    * @param: [gdShoppingcart]
+    * @return: java.lang.Integer
+    * @auther: 贾轶飞
+    * @date: 2019/5/8 10:50
+    */
+    @Update("update gd_shoppingcart set num=#{num} where cartid=#{cartid}")
+    public Integer updCartGoods(GdShoppingcart gdShoppingcart);
+
+    @Select("select count(*) from gd_shoppingcart where useraccount=#{useraccount} and comdityId =#{comdityId}")
+    public Integer  queryCount(@Param("useraccount")String useraccount, @Param("comdityId")Integer comdityId);
 }
