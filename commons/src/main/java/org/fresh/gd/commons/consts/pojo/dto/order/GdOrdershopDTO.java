@@ -16,7 +16,7 @@ public class GdOrdershopDTO {
      * 订单ID
      */
     @ApiModelProperty("订单ID")
-    private Integer orderid;
+    private String orderid;
 
     /**
      * 商品id

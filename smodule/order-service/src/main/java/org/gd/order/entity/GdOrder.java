@@ -27,13 +27,13 @@ public class GdOrder implements Serializable {
      * 订单ID
      */
     @TableId
-    private Integer orderid;
+    private String orderid;
 
     /**
      * 会员编号(0-不是会员 1=普通用户)
      */
     @TableField("vipId")
-    private Integer vipId;
+    private String vipId;
 
     /**
      * 交易场景(0-线上 1-线下)

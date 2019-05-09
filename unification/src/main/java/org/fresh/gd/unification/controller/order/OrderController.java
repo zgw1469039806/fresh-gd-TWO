@@ -30,6 +30,7 @@ public class OrderController {
 
     @PostMapping("/insertOrder")
     public ResponseData<List> insertOrder(@RequestBody RequestData<GdOrderDTO> requestData) {
+        System.out.println();
         ResponseData<List> responseData = orderFeginService.insertOrder(requestData);
         return responseData;
     }

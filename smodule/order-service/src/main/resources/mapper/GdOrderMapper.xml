@@ -19,6 +19,6 @@
         orderid, vipId, orderscene, ordermeans, ordertype, ordermoney, orderTime, storeid
     </sql>
     <insert id="insertOrder" useGeneratedKeys="true" keyProperty="orderid" parameterType="org.gd.order.entity.GdOrder">
-        insert into gd_order(vipId, orderscene, ordermeans, ordertype, ordermoney, orderStat, orderTime, storeid, belongStoreNam)  value (#{vipId},#{orderscene},#{ordermeans},#{ordertype},#{ordermoney},#{orderStat},#{orderTime},#{storeid},#{belongStoreNam});
+        insert into gd_order(orderid,vipId, orderscene, ordermeans, ordertype, ordermoney, orderStat, orderTime, storeid, belongStoreNam)  value (#{orderid},#{vipId},#{orderscene},#{ordermeans},#{ordertype},#{ordermoney},#{orderStat},#{orderTime},#{storeid},#{belongStoreNam});
     </insert>
 </mapper>
