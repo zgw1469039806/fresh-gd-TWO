@@ -43,4 +43,6 @@ public interface GDOrderService {
     */
     @PostMapping("/selGwcByShopId")
     ResponseData<List<ResponseData<GdCommodityListDTO>>> selGwcByShopId(String requestData);
+
+
 }

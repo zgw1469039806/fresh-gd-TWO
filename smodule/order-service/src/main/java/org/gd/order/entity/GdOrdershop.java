@@ -24,7 +24,7 @@ public class GdOrdershop implements Serializable {
     /**
      * 订单编号
      */
-    private Integer orderid;
+    private String orderid;
 
     /**
      * 商品ID

@@ -29,8 +29,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 /**
  * @DATA 2019/4/24 13:56
@@ -41,6 +44,7 @@ import java.util.List;
 public class OrderServiceImpl implements GDOrderService {
 
 
+    @Autowired
     private GdOrderMapper gdOrderMapper;
 
     @Autowired
@@ -54,6 +58,7 @@ public class OrderServiceImpl implements GDOrderService {
 
     @Autowired
     private GdShoppingcartMapper gdShoppingcartMapper;
+
     /**
      * 功能描述:
      * 下订单。订单插入后减库存。
@@ -68,50 +73,61 @@ public class OrderServiceImpl implements GDOrderService {
     @Transactional
     @Override
     public ResponseData<List> insertOrder(@RequestBody RequestData<GdOrderDTO> gdOrderDTORequestData) {
+        //TODO: 判断是否使用会员余额支付 扣减会员余额 调用会员服务
         RequestData<List<GdComdityparticularDTO>> requestData = new RequestData<>();
-        requestData.setData(gdOrderDTORequestData.getData().getComdityparticularDTOS());
-        ResponseData<List> responseData = orderFeginToShopping.editStock(requestData);
-        if (responseData.getMsg().equals("库存不足")) {
-            return responseData;
-        } else {
-            GdOrder gdOrder = new GdOrder();
-            BeanUtils.copyProperties(gdOrderDTORequestData.getData(), gdOrder);
-            int save = gdOrderMapper.insertOrder(gdOrder);
-            ResponseData responseData1 = orderFeginToShopping.reduceStock(requestData);
-            if (responseData1.getCode() == 1000) {
-                for (GdComdityparticularDTO dto : gdOrderDTORequestData.getData().getComdityparticularDTOS()) {
-                    gdOrdershopMapper.insertOrderShop(gdOrder.getOrderid(), dto.getComdityId(), dto.getStock());
-                }
+        ResponseData<List> responseData = new ResponseData<>();
+        requestData.setData(gdOrderDTORequestData.getData().getTableData());
+        if (gdOrderDTORequestData.getData().getOrderscene() == 0) {//如果交易场景为线上
+            responseData = orderFeginToShopping.editStock(requestData);
+            if (responseData.getMsg().equals("库存不足")) {
+                return responseData;
             }
-            responseData.setCode(Consts.Result.SUCCESS.getCode());
         }
+        GdOrder gdOrder = new GdOrder();
+        BeanUtils.copyProperties(gdOrderDTORequestData.getData(), gdOrder);
+
+        //随机单号
+        Random re = new Random();
+        int i = re.nextInt(10000);
+        gdOrder.setOrderid((new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date())) + i);
+
+        int save = gdOrderMapper.insertOrder(gdOrder);//插入订单
+        ResponseData responseData1 = orderFeginToShopping.reduceStock(requestData);//减少库存
+        if (responseData1.getCode() == 1000) {
+            for (GdComdityparticularDTO dto : gdOrderDTORequestData.getData().getTableData()) {
+                gdOrdershopMapper.insertOrderShop(gdOrder.getOrderid(), dto.getComdityId(), dto.getComdnum());//插入订单详细
+            }
+        }
+        responseData.setCode(Consts.Result.SUCCESS.getCode());
         return responseData;
     }
 
     /**
      * 功能描述
      * 根据用户id信息 查询购物车商品
+     *
      * @param requestData
-     * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List < org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO>>
+     * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List                               <                               org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO>>
      * @author zgw
      */
     @Override
     public ResponseData<List<ResponseData<GdCommodityListDTO>>> selGwcByShopId(@RequestBody String
-                                                                                           requestData)
-    {
+                                                                                       requestData) {
 
-        ResponseData<List<ResponseData<GdCommodityListDTO>>> responseData=new ResponseData<>();
-        if (StringUtils.isEmpty(requestData))
-        {
+        ResponseData<List<ResponseData<GdCommodityListDTO>>> responseData = new ResponseData<>();
+        if (StringUtils.isEmpty(requestData)) {
             throw new BizException("用于ID为空");
         }
-        List<ResponseData<GdCommodityListDTO>> listDTOS=new ArrayList<>();
-        List<GdShoppingcart> gdShoppingcart = gdShoppingcartMapper.queryCart(requestData);;
-        for (GdShoppingcart gdShop: gdShoppingcart) {
+        List<ResponseData<GdCommodityListDTO>> listDTOS = new ArrayList<>();
 
+        List<GdShoppingcart> gdShoppingcart = gdShoppingcartMapper.queryCart(requestData);
 
+        for (GdShoppingcart gdShop : gdShoppingcart) {
 
-            listDTOS.add(gdCommodityService.selOne(gdShop.getComdityId())) ;
+            ResponseData<GdCommodityListDTO> commodityDTO = gdCommodityService.selOne(gdShop.getComdityId());
+            commodityDTO.getData().setNum(gdShop.getNum());
+            commodityDTO.getData().setCartid(gdShop.getCartid());
+            listDTOS.add(commodityDTO);
         }
         responseData.setData(listDTOS);
 

@@ -28,6 +28,7 @@ public class ManaController {
     ManaFeginService manaFeginService;
 
 
+
     @PostMapping("/imageAdd")
     public ResponseData<Integer> imageAdd(@RequestBody RequestData<GdStoreDTO> requestData) {
         MultipartFile multipartFile = requestData.getData().getMultipartFile();

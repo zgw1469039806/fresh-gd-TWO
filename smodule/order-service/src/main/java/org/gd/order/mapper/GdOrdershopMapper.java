@@ -25,5 +25,5 @@ public interface GdOrdershopMapper extends BaseMapper<GdOrdershop> {
      * @auther: 郭家恒
      * @date: 2019/4/25 16:08
      */
-    int insertOrderShop(@Param("oid") Integer oid, @Param("cid") Integer cid, @Param("num") Integer num);
+    int insertOrderShop(@Param("oid") String oid, @Param("cid") Integer cid, @Param("num") Integer num);
 }

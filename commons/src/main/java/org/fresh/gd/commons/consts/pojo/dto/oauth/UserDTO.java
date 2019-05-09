@@ -16,6 +16,9 @@ import org.fresh.gd.commons.consts.pojo.dto.management.GdStoreDTO;
 @ApiModel("用户信息")
 @Data
 public class UserDTO {
+
+    @ApiModelProperty("ID")
+    private Integer userId;
     /**
      * 用户姓名
      */

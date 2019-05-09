@@ -20,8 +20,8 @@ public class GdComdityparticularDTO {
     @ApiModelProperty("是否打折")
     private Integer isnodiscount;
 
-    @ApiModelProperty("库存数量")
-    private Integer stock;
+    @ApiModelProperty("库存数量、商品数量")
+    private Integer comdnum;
 
     @ApiModelProperty("对应积分")
     private String corresponding;

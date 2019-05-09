@@ -53,7 +53,7 @@ public class GDComdityParticularServiceImpl implements GDComdityParticularServic
         responseData.setMsg("库存充足!");
         for (GdComdityparticularDTO dto : requestData.getData()) {
             for (GdComdityparticular comdityparticular : comdityparticulars) {
-                if (dto.getStock() > comdityparticular.getStock()) {
+                if (dto.getComdnum() > comdityparticular.getStock()) {
                     errorlist.add(comdityparticular);
                     responseData.setMsg("库存不足!");
                 }
@@ -82,7 +82,7 @@ public class GDComdityParticularServiceImpl implements GDComdityParticularServic
         List<Integer> comdityIds = new ArrayList<>();
         List<GdComdityparticular> errorlist = new ArrayList<>();
         for (GdComdityparticularDTO dto : requestData.getData()) {
-            gdComdityparticularMapper.reduceStock(dto.getComdityId(), dto.getStock(), 0);
+            gdComdityparticularMapper.reduceStock(dto.getComdityId(), dto.getComdnum(), 0);
         }
         responseData.setCode(1000);
         return responseData;
