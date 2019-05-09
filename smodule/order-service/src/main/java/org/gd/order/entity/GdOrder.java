@@ -27,13 +27,13 @@ public class GdOrder implements Serializable {
      * 订单ID
      */
     @TableId
-    private Integer orderid;
+    private String orderid;
 
     /**
      * 会员编号(0-不是会员 1=普通用户)
      */
     @TableField("vipId")
-    private Integer vipId;
+    private String vipId;
 
     /**
      * 交易场景(0-线上 1-线下)
@@ -41,7 +41,7 @@ public class GdOrder implements Serializable {
     private Integer orderscene;
 
     /**
-     * 交易手段(0-现金 1-支付宝 2-微信)
+     * 交易手段(0-现金 1-支付宝 2-微信月 3-会员余额)
      */
     private Integer ordermeans;
 

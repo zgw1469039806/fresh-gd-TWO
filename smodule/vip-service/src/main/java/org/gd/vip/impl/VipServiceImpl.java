@@ -197,4 +197,20 @@ public class VipServiceImpl implements VipService {
         responseData.setCode(Consts.Result.BIZ_ERROR.getCode());
         return responseData;
     }
+
+    /**
+     * 功能描述:
+     * 根据会员手机号查询会员信息
+     * @param vipphone
+     * @param: [vipphone]
+     * @return: org.fresh.gd.commons.consts.pojo.dto.vip.VipPageDTO
+     * @auther: Mr.Xia
+     * @date: 2019/5/8 15:24
+     */
+    @Override
+    public ResponseData<VipPageDTO> selOneVipByPhone(@RequestBody RequestData<String> vipphone) {
+        ResponseData<VipPageDTO> responseData = new ResponseData<>();
+        responseData.setData(gdVipMapper.selOneVipByPhone(vipphone.getData()));
+        return responseData;
+    }
 }
