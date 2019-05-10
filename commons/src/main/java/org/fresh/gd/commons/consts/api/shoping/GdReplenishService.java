@@ -40,9 +40,9 @@ public interface GdReplenishService {
      * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List   <   org.fresh.gd.commons.consts.pojo.dto.shoping.GdReplenishAndPurchaseDTO>>
      * @author zgw
      */
-    @PostMapping("/selReAndPuAll")
+    /*@PostMapping("/selReAndPuAll")
     ResponseData<List<GdReplenishAndPurchaseDTO>> selReAndPuAll();
-
+*/
     /**
      * 功能描述
      * 查询入库前综合信息

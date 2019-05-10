@@ -49,4 +49,7 @@ public interface GdVipInSetMapper extends BaseMapper<GdVipInSet> {
     @Select("select * from gd_vipinset where storeid = #{storeid}")
     VipInSetDTO selVipInSetById(@Param("storeid") Integer storeid);
 
+
+
+
 }

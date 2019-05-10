@@ -16,10 +16,12 @@ import org.fresh.gd.commons.consts.pojo.dto.order.GdOrderDTO;
 import org.fresh.gd.commons.consts.pojo.dto.shoping.GdComdityparticularDTO;
 import org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO;
 import org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityListDTO;
+import org.fresh.gd.commons.consts.utils.VeDate;
 import org.gd.order.entity.GdOrder;
 import org.gd.order.entity.GdShoppingcart;
 import org.gd.order.fegin.OrderFeginToGoods;
 import org.gd.order.fegin.OrderFeginToShopping;
+import org.gd.order.fegin.OrderFeginToVip;
 import org.gd.order.mapper.GdOrderMapper;
 import org.gd.order.mapper.GdOrdershopMapper;
 import org.gd.order.mapper.GdShoppingcartMapper;
@@ -59,6 +61,9 @@ public class OrderServiceImpl implements GDOrderService {
     @Autowired
     private GdShoppingcartMapper gdShoppingcartMapper;
 
+    @Autowired
+    private OrderFeginToVip orderFeginToVip;
+
     /**
      * 功能描述:
      * 下订单。订单插入后减库存。
@@ -74,6 +79,7 @@ public class OrderServiceImpl implements GDOrderService {
     @Override
     public ResponseData<List> insertOrder(@RequestBody RequestData<GdOrderDTO> gdOrderDTORequestData) {
         //TODO: 判断是否使用会员余额支付 扣减会员余额 调用会员服务
+        //TODO: 调用会员服务 增加积分 参数（店铺id、会员手机号、订单金额）
         RequestData<List<GdComdityparticularDTO>> requestData = new RequestData<>();
         ResponseData<List> responseData = new ResponseData<>();
         requestData.setData(gdOrderDTORequestData.getData().getTableData());
@@ -90,6 +96,8 @@ public class OrderServiceImpl implements GDOrderService {
         Random re = new Random();
         int i = re.nextInt(10000);
         gdOrder.setOrderid((new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date())) + i);
+        gdOrder.setOrderStat(4);
+        gdOrder.setOrderTime(VeDate.getStringDate());
 
         int save = gdOrderMapper.insertOrder(gdOrder);//插入订单
         ResponseData responseData1 = orderFeginToShopping.reduceStock(requestData);//减少库存
@@ -98,6 +106,11 @@ public class OrderServiceImpl implements GDOrderService {
                 gdOrdershopMapper.insertOrderShop(gdOrder.getOrderid(), dto.getComdityId(), dto.getComdnum());//插入订单详细
             }
         }
+
+        if(gdOrderDTORequestData.getData().getVipId() != null){
+            Integer i1 = orderFeginToVip.upgVipIntegral(gdOrderDTORequestData.getData().getVipId(),gdOrderDTORequestData.getData().getStoreid(),gdOrderDTORequestData.getData().getOrdermoney());
+        }
+
         responseData.setCode(Consts.Result.SUCCESS.getCode());
         return responseData;
     }

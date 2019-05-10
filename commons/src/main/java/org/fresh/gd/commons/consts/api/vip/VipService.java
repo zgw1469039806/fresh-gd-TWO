@@ -109,4 +109,16 @@ public interface VipService {
     */
     @PostMapping("/selOneVipByPhone")
     ResponseData<VipPageDTO> selOneVipByPhone(RequestData<String> vipphone);
+
+    /**
+    *
+    * 功能描述:
+    *   增加会员积分  会员购买物品增加积分
+    * @param: [vipphone, viplv, vipintegral]
+    * @return: java.lang.Integer
+    * @auther: Mr.Xia
+    * @date: 2019/5/10 14:08
+    */
+    @PostMapping("/upgVipIntegral")
+    Integer upgVipIntegral(@RequestParam String vipphone , @RequestParam Integer storeid , @RequestParam String ordermoney);
 }

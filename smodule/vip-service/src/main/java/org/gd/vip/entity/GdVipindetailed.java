@@ -27,9 +27,9 @@ public class GdVipindetailed implements Serializable {
     private Integer vipindetailedid;
 
     /**
-     *   会员编号
+     *   会员手机号
      */
-    private Integer vipid;
+    private String vipPhone;
 
     /**
      *   会员消费类型

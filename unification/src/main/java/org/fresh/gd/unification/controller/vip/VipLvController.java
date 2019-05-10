@@ -21,7 +21,7 @@ import java.util.List;
 
 @Api(description = "会员等级管理")
 @Slf4j
-@RequestMapping("/vipLvController")
+@RequestMapping("/unification")
 @RestController
 public class VipLvController {
 

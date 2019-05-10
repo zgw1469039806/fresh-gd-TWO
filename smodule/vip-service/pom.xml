@@ -25,6 +25,10 @@
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
+
+        <!-- 加入分布式事务基础依赖 -->
+
+
     </dependencies>
 
 </project>
