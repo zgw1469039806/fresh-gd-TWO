@@ -1,29 +1,23 @@
-package org.auth.client.entity;
+package org.fresh.gd.commons.consts.pojo.dto.user;
+
+import com.baomidou.mybatisplus.annotation.TableField;
+import io.swagger.annotations.ApiModel;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-
-import java.io.Serializable;
-
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
-
 /**
- * <p>
- * 收货地址详细
- * </p>
- *
- * @author guowei.zhang
- * @since 2019-04-11
+ * @author 贾轶飞
+ * @dat e2019/5/9 15:39
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
-public class GdTakedelivery implements Serializable {
+@ApiModel("用户收获地址")
+public class UserAddressDTO {
 
-    private static final long serialVersionUID = 1L;
+    /**
+     * 用户账号
+     */
+    private String useraccount;
 
     /**
      * 地址编号
