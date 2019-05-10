@@ -21,7 +21,8 @@ import java.util.List;
 @Mapper
 public interface GdStoreMapper extends BaseMapper<GdStore> {
 
-    @Insert("INSERT into gd_store(storename,storeaddress) value(#{storename},#{storeaddress})")
+    @Insert("INSERT into gd_store(storename,storeaddress,storeaLogo) value(#{storename},#{storeaddress},#{storeaLogo})")
+    @Options(useGeneratedKeys=true, keyProperty="storeid", keyColumn="storeid")
     Integer save(GdStore gdStore);
 
     @Select("select storeid,storename,storeaddress from gd_store where storename=#{storename}")
@@ -44,16 +45,4 @@ public interface GdStoreMapper extends BaseMapper<GdStore> {
      * @return
      */
     List<GdStoreDTO> QueryById(List<Integer> list);
-
-    /**
-     * 功能描述:
-     * 查询所有
-     *
-     * @param: []
-     * @return: java.util.List<org.fresh.gd.commons.consts.pojo.dto.management.GdStoreDTO>
-     * @auther: 郭家恒
-     * @date: 2019/4/28 14:08
-     */
-    @Select("select * from gd_store")
-    List<GdStoreDTO> QueryAll();
 }

@@ -58,7 +58,6 @@ public class OrderServiceImpl implements GDOrderService {
 
     @Autowired
     private GdShoppingcartMapper gdShoppingcartMapper;
-
     /**
      * 功能描述:
      * 下订单。订单插入后减库存。
@@ -105,9 +104,8 @@ public class OrderServiceImpl implements GDOrderService {
     /**
      * 功能描述
      * 根据用户id信息 查询购物车商品
-     *
      * @param requestData
-     * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List                               <                               org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO>>
+     * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List < org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO>>
      * @author zgw
      */
     @Override

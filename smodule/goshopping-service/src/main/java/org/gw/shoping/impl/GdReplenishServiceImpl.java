@@ -95,7 +95,7 @@ public class GdReplenishServiceImpl implements GdReplenishService {
      * 功能描述
      * 入库前的查询  查询所有进货信息
      *
-     * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List < sts.pojo.dto.shoping.GdShopAllDTO>>
+     * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List   <   sts.pojo.dto.shoping.GdShopAllDTO>>
      * @author zgw
      */
     @Override
@@ -154,5 +154,17 @@ public class GdReplenishServiceImpl implements GdReplenishService {
         //删除入库详细表
         save = gdPurchaseMapper.deletePurById(requestData.getData());
         return responseData;
+    }
+
+    /**
+     * 功能描述
+     * 入库前的查询  查询所有进货信息
+     *
+     * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List   <   or       g.fresh.gd.commons.consts.pojo.dto.shoping.GdReplenishAndPurchaseDTO>>
+     * @author zgw
+     */
+    @Override
+    public ResponseData<List<GdReplenishAndPurchaseDTO>> selReAndPuAll() {
+        return null;
     }
 }

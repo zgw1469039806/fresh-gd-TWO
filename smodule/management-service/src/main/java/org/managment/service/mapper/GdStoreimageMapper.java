@@ -4,8 +4,12 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.fresh.gd.commons.consts.pojo.dto.management.GdStoreDTO;
+import org.fresh.gd.commons.consts.pojo.dto.management.ManageStoreDTO;
 import org.managment.service.entity.GdStoreimage;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -18,8 +22,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 @Mapper
 public interface GdStoreimageMapper extends BaseMapper<GdStoreimage> {
 
-    @Insert("INSERT into gd_storeImage(storeid,storeImages) value(#{storeid},#{storeImages})")
-    Integer saveImage(GdStoreimage gdStoreimage);
+    Integer saveImage(List<ManageStoreDTO> gdStoreimage);
 
     @Delete(" delete from  gd_storeImage  where storeid=#{storeid} ")
     Integer deleteByIdStro(@Param("storeid") Integer storeid);

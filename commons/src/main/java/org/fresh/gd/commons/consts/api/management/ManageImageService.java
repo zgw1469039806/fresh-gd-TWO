@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.List;
+
 
 /**
  * @DATA 2019-04-17 14:36
@@ -20,12 +22,12 @@ public interface ManageImageService {
     /**
      * 功能描述
      * 添加门店图片
-     * @param manageStoreDTO
+     * @param
      * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
      * @author zgw
      */
     @RequestMapping(value = "/inserImagesStore", method = RequestMethod.POST)
-    ResponseData<Integer> inserImagesStore(ManageStoreDTO manageStoreDTO);
+    ResponseData<Integer> inserImagesStore(RequestData<List<ManageStoreDTO>> requestData);
 
 
     @RequestMapping(value = "/delByIdImages", method = RequestMethod.POST)
