@@ -14,6 +14,7 @@
         <id column="storeid" property="storeid"/>
         <result column="storename" property="storename"/>
         <result column="storeaddress" property="storeaddress"/>
+        <result column="storeaLogo" property="storeaLogo"/>
         <collection property="manageStoreDTOList" ofType="org.fresh.gd.commons.consts.pojo.dto.management.ManageStoreDTO">
             <result column="storeImages" property="storeImages"/>
         </collection>

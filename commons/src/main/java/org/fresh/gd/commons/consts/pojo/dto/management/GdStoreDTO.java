@@ -20,7 +20,6 @@ public class GdStoreDTO {
     @ApiModelProperty("店铺ID")
     private Integer storeid;
 
-
     @ApiModelProperty("店铺名称")
     private String storename;
 
@@ -30,11 +29,15 @@ public class GdStoreDTO {
     @ApiModelProperty("图片链接")
     private String storeImagesUri;
 
-    @ApiModelProperty("图片文件")
-    private MultipartFile multipartFile;
+    /**
+     * 店铺LogoUrl
+     */
+    @ApiModelProperty("门店Logo")
+    private String storeaLogo;
 
-    @ApiModelProperty("图片File文件")
-    private File file;
-
+    /**
+     * 门店简介图片集合
+     */
+    @ApiModelProperty("门店简介图片")
     private List<ManageStoreDTO> manageStoreDTOList;
 }
