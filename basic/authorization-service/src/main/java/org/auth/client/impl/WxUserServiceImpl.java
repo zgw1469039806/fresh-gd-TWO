@@ -1,12 +1,15 @@
 package org.auth.client.impl;
 
 import org.apache.ibatis.annotations.Insert;
+import org.auth.client.entity.GdTakedelivery;
 import org.auth.client.entity.GdUser;
 import org.auth.client.fegin.WxVipFeginService;
+import org.auth.client.mapper.GdTakedeliveryMapper;
 import org.auth.client.mapper.GdUserMapper;
 import org.auth.client.utils.HttpClientUtil;
 import org.auth.client.utils.JsonUtils;
 import org.fresh.gd.commons.consts.api.wx.GdWxUserService;
+import org.fresh.gd.commons.consts.api.wx.user.GdWxUserManageService;
 import org.fresh.gd.commons.consts.consts.Consts;
 import org.fresh.gd.commons.consts.pojo.RequestData;
 import org.fresh.gd.commons.consts.pojo.ResponseData;
@@ -14,6 +17,7 @@ import org.fresh.gd.commons.consts.pojo.dto.oauth.GdPositionDTO;
 import org.fresh.gd.commons.consts.pojo.dto.oauth.UserDTO;
 import org.fresh.gd.commons.consts.pojo.dto.oauth.WXUserDTO;
 import org.fresh.gd.commons.consts.pojo.dto.user.RoleAndUserDTO;
+import org.fresh.gd.commons.consts.pojo.dto.user.UserAddressDTO;
 import org.fresh.gd.commons.consts.pojo.dto.user.UserAndVipDTO;
 import org.fresh.gd.commons.consts.pojo.dto.vip.GdAddVipDTO;
 import org.springframework.beans.BeanUtils;
@@ -23,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -30,10 +35,13 @@ import java.util.Map;
  * @date 2019/4/24 9:41
  */
 @RestController
-public class WxUserServiceImpl implements GdWxUserService {
+public class WxUserServiceImpl implements GdWxUserService, GdWxUserManageService {
 
     @Autowired
     GdUserMapper gdUserMapper;
+
+    @Autowired
+    GdTakedeliveryMapper gdTakedeliveryMapper;
 
     @Autowired
     WxVipFeginService wxVipFeginService;
@@ -157,4 +165,103 @@ public class WxUserServiceImpl implements GdWxUserService {
     }
 
 
+    /**
+     * 功能描述:
+     * 查询微信小程序用户自定义的收获地址
+     *
+     * @param: [useraccount]用户账号
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List                                                               <                                                               org.fresh.gd.commons.consts.pojo.dto.user.UserAddressDTO>>
+     * @auther: 贾轶飞
+     * @date: 2019/5/9 15:44
+     */
+    @Override
+    public ResponseData<List<UserAddressDTO>> queryUserAddress(@RequestBody RequestData<String> requestData) {
+
+        ResponseData<List<UserAddressDTO>> responseData = new ResponseData<>();
+        GdUser gdUser = gdUserMapper.selUserAcc(requestData.getData());
+        responseData.setData(gdTakedeliveryMapper.queryAddress(gdUser.getUserId()));
+        return responseData;
+    }
+
+    /**
+     * 功能描述:
+     * 删除的收获地址
+     *
+     * @param: 地址的id
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List                                                               <                                                               org.fresh.gd.commons.consts.pojo.dto.user.UserAddressDTO>>
+     * @auther: 贾轶飞
+     * @date: 2019/5/9 15:44
+     */
+    @Override
+    public ResponseData<Integer> delUserAddress(@RequestBody RequestData<UserAddressDTO> requestData) {
+        GdUser gdUser = gdUserMapper.selUserAcc(requestData.getData().getUseraccount());
+        ResponseData<Integer> responseData = new ResponseData<>();
+        if (gdUser.getUserId() == null && requestData.getData().getUseraccount() == "") {
+            responseData.setMsg("用户不存在");
+            return responseData;
+        }
+
+        responseData.setData(gdTakedeliveryMapper.delAddress(gdUser.getUserId()));
+        return responseData;
+    }
+
+    /**
+     * 功能描述:
+     * 添加收获地址
+     *
+     * @param:
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List                                                               <                                                               org.fresh.gd.commons.consts.pojo.dto.user.UserAddressDTO>>
+     * @auther: 贾轶飞
+     * @date: 2019/5/9 15:44
+     */
+    @Override
+    public ResponseData<Integer> addUserAddress(@RequestBody RequestData<UserAddressDTO> requestData) {
+
+        GdUser gdUser = gdUserMapper.selUserAcc(requestData.getData().getUseraccount());
+
+        ResponseData<Integer> responseData = new ResponseData<>();
+        GdTakedelivery gdTakedelivery = new GdTakedelivery();
+        BeanUtils.copyProperties(requestData, gdTakedelivery);
+        responseData.setData(gdTakedeliveryMapper.addAddress(gdTakedelivery));
+        return responseData;
+    }
+
+    /**
+     * 功能描述:
+     * 编辑的收获地址
+     *
+     * @param: [useraccount]用户账号
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List   <   org.fresh.gd.commons.consts.pojo.dto.user.UserAddressDTO>>
+     * @auther: 贾轶飞
+     * @date: 2019/5/9 15:44
+     */
+    @Override
+    public ResponseData<Integer> updUserAddress(@RequestBody RequestData<UserAddressDTO> requestData) {
+        int status = 1;
+        GdTakedelivery userAddressDTO = new GdTakedelivery();
+        ResponseData<Integer> responseData = new ResponseData<>();
+        GdTakedelivery gdTakedelivery = new GdTakedelivery();
+
+        GdUser gdUser = gdUserMapper.selUserAcc(requestData.getData().getUseraccount());
+
+        userAddressDTO.setUserid(gdUser.getUserId());
+        userAddressDTO.setStatus(status);
+        Integer count = gdTakedeliveryMapper.queryCount(userAddressDTO);
+
+
+
+        BeanUtils.copyProperties(requestData.getData(), gdTakedelivery);
+        gdTakedelivery.setUserid(gdUser.getUserId());
+        if (count == 1) {
+            Integer num = gdTakedeliveryMapper.updAddress(userAddressDTO);
+            if (num == 1) {
+                responseData.setData(gdTakedeliveryMapper.updAddress(gdTakedelivery));
+            }
+        }else{
+            responseData.setData(gdTakedeliveryMapper.updAddress(gdTakedelivery));
+        }
+
+        return responseData;
+
+    }
 }

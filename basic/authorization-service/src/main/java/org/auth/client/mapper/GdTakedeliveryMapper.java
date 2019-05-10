@@ -3,6 +3,7 @@ package org.auth.client.mapper;
 import org.apache.ibatis.annotations.*;
 import org.auth.client.entity.GdTakedelivery;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.fresh.gd.commons.consts.pojo.dto.user.UserAddressDTO;
 
 import java.util.List;
 
@@ -17,16 +18,18 @@ import java.util.List;
 @Mapper
 public interface GdTakedeliveryMapper extends BaseMapper<GdTakedelivery> {
 
-    @Select("select * from gd_takedelivery where userid =#{userid}")
-    public List<GdTakedelivery> queryAddress(@Param("userid") Integer userid);
+    @Select("select * from gd_takedelivery t ,gd_user u where t.userid =u.userid and t.userid =#{userid}")
+    public List<UserAddressDTO> queryAddress(@Param("userid") Integer userid);
 
-    @Insert("inster into gd_takedelivery values (null,#{userid},#{address},#{UPDATED_BY},#{UPDATED_TIME})")
+    @Insert("inster into gd_takedelivery values (null,#{userid},#{address},#{UPDATED_BY},#{UPDATED_TIME},#{phone}," +
+            "#{status},#{consignee})")
     public Integer addAddress(GdTakedelivery gdTakedelivery);
 
     @Delete("delete from gd_takedelivery where takedeliveryidid=#{takedeliveryidid}")
     public Integer delAddress(@Param("takedeliveryidid")Integer takedeliveryidid);
 
-    @Update("update gd_takedelivery set address=#{address},UPDATED_BY=#{updatedBy},UPDATED_TIME=#{updatedTime} where " +
-            "takedeliveryidid =#{takedeliveryidid}")
+
     public Integer updAddress(GdTakedelivery gdTakedelivery);
+
+    public Integer queryCount(GdTakedelivery GdTakedelivery);
 }

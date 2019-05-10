@@ -32,16 +32,6 @@ public interface GdReplenishService {
     @PostMapping("/saveGdReplenish")
     ResponseData<Integer> saveGdReplenish(RequestData<GdReplenishDTO> replenishDTORequestData);
 
-    /**
-     * 功能描述
-     * 入库前的查询  查询所有进货信息
-     *
-     * @param
-     * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List   <   org.fresh.gd.commons.consts.pojo.dto.shoping.GdReplenishAndPurchaseDTO>>
-     * @author zgw
-     */
-    @PostMapping("/selReAndPuAll")
-    ResponseData<List<GdReplenishAndPurchaseDTO>> selReAndPuAll();
 
     /**
      * 功能描述
