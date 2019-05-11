@@ -49,7 +49,6 @@ public class VipServiceImpl implements VipService {
     public ResponseData<UserAndVipDTO> selectOne(@RequestBody RequestData<UserAndVipDTO> requestData) {
         ResponseData<UserAndVipDTO> responseData = new ResponseData<>();
         responseData.setData(gdVipMapper.selevtOne(requestData.getData().getUserId()));
-
         return responseData;
     }
 
