@@ -1,5 +1,6 @@
 package org.fresh.gd.commons.consts.api.management;
 
+import org.apache.ibatis.annotations.Param;
 import org.fresh.gd.commons.consts.pojo.RequestData;
 import org.fresh.gd.commons.consts.pojo.ResponseData;
 import org.fresh.gd.commons.consts.pojo.dto.management.GdStoreDTO;

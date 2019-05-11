@@ -17,7 +17,7 @@
     </sql>
 
     <select id="QueryStock" resultType="org.gw.shoping.entity.GdComdityparticular" parameterType="list">
-        select * from goshopping.gd_comdityparticular where comdityId in
+        select * from gd_comdityparticular where comdityId in
         <foreach collection="list" open="(" item="item" separator="," close=")">
             #{item}
         </foreach>
@@ -25,7 +25,7 @@
     </select>
 
     <update id="reduceStock" parameterType="Integer">
-        update goshopping.gd_comdityparticular
+        update gd_comdityparticular
         <set>
             <if test="type == 0">
                 stock=stock-#{stock}

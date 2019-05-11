@@ -16,16 +16,16 @@
     </sql>
 
     <insert id="saveStorage" parameterType="org.fresh.gd.commons.consts.pojo.dto.shoping.GdStorageDTO">
-        insert into goshopping.gd_storage(replenishId, storageTime, storageuserid) value(#{replenishId},#{storageTime},#{storageuserid});
+        insert into gd_storage(replenishId, storageTime, storageuserid) value(#{replenishId},#{storageTime},#{storageuserid});
     </insert>
 
     <delete id="delStorageByRid" parameterType="Integer">
-        delete from goshopping.gd_storage where replenishId = #{rid}
+        delete from gd_storage where replenishId = #{rid}
     </delete>
 
     <select id="QueryStock" resultType="org.fresh.gd.commons.consts.pojo.dto.shoping.GdStorageDTO"
             parameterType="org.fresh.gd.commons.consts.pojo.dto.shoping.GdStorageDTO">
-        select * from goshopping.gd_storage st, gd_replenish re
+        select * from gd_storage st, gd_replenish re
         <where>
             <if test="staictime != null and staictime != '' ">
                 and st.storageTime &gt;= #{staictime}
