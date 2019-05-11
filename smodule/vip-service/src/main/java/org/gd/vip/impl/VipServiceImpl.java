@@ -1,5 +1,6 @@
 package org.gd.vip.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import org.fresh.gd.commons.consts.api.vip.VipService;
 import org.fresh.gd.commons.consts.consts.Consts;
 import org.fresh.gd.commons.consts.pojo.RequestData;
@@ -28,6 +29,7 @@ import java.util.Random;
  * @author 贾轶飞
  * @date 2019/4/26 13:19
  */
+@Slf4j
 @RestController
 public class VipServiceImpl implements VipService {
     @Autowired
@@ -250,6 +252,7 @@ public class VipServiceImpl implements VipService {
     public Integer upgVipIntegral(String vipphone, Integer storeid, String ordermoney) {
 
         //1、根据会员手机号获取会员信息
+        System.out.println(vipphone+"-"+storeid+"-"+ordermoney);
 
         VipPageDTO vip = gdVipMapper.selOneVipByPhone(vipphone);
 

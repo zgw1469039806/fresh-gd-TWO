@@ -120,5 +120,5 @@ public interface VipService {
     * @date: 2019/5/10 14:08
     */
     @PostMapping("/upgVipIntegral")
-    Integer upgVipIntegral(@RequestParam String vipphone , @RequestParam Integer storeid , @RequestParam String ordermoney);
+    Integer upgVipIntegral(@RequestParam("vipId") String vipphone , @RequestParam("storeid") Integer storeid , @RequestParam("ordermoney") String ordermoney);
 }
