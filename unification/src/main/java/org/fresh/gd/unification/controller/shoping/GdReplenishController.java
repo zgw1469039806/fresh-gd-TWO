@@ -44,6 +44,11 @@ public class GdReplenishController {
 
     @PostMapping("/selGdShopAll")
     public ResponseData<List<GdReplenishDTO>> selGdShopAll(@RequestBody RequestData<ReplenishInDTO> replenishInDTORequestData) {
-          return gdReplenishFeginService.selGdShopAll(replenishInDTORequestData);
+        return gdReplenishFeginService.selGdShopAll(replenishInDTORequestData);
+    }
+
+    @PostMapping("/delGdReplen")
+    public ResponseData<Integer> delGdReplen(@RequestBody RequestData<Integer> requestData) {
+        return gdReplenishFeginService.delReplenishById(requestData);
     }
 }

@@ -4,11 +4,11 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="org.auth.client.entity.GdTakedelivery">
-        <id column="takedeliveryidid" property="takedeliveryidid" />
-        <result column="userid" property="userid" />
-        <result column="address" property="address" />
-        <result column="UPDATED_BY" property="updatedBy" />
-        <result column="UPDATED_TIME" property="updatedTime" />
+        <id column="takedeliveryidid" property="takedeliveryidid"/>
+        <result column="userid" property="userid"/>
+        <result column="address" property="address"/>
+        <result column="UPDATED_BY" property="updatedBy"/>
+        <result column="UPDATED_TIME" property="updatedTime"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -16,4 +16,50 @@
         takedeliveryidid, userid, address, UPDATED_BY, UPDATED_TIME
     </sql>
 
+    <select id="queryCount"  resultType="Integer">
+        select count(*) from gd_takedelivery
+        <trim prefix="where" prefixOverrides="and">
+            <if test="takedeliveryidid !=null and takedeliveryidid !=''">
+                and takedeliveryidid =#{takedeliveryidid}
+            </if>
+            <if test="userid !=null and userid !=''">
+                and userid = #{userid}
+            </if>
+            <if test="address !=null and address !=''">
+                and address = #{address}
+            </if>
+            <if test="status !=null and status !=''">
+                and status = #{status}
+            </if>
+            <if test="phone !=null and phone !=''">
+                and phone = #{phone}
+            </if>
+        </trim>
+    </select>
+
+    <update id="updAddress" parameterType="Integer">
+        UPDATE gd_takedelivery
+        <trim prefix="set" prefixOverrides=",">
+            <if test="address != null and address != ''">
+                address=#{address},phone=#{phone},consignee=#{consignee}
+            </if>
+            <if test="status == 1 and status != '1'">
+                ,status = 0
+            </if>
+            <if test="status == null and status != ''">
+                ,status = 1
+            </if>
+        </trim>
+        <where>
+            <if test="takedeliveryidid != null and takedeliveryidid != ''">
+                and takedeliveryidid = #{takedeliveryidid}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+            <if test="userid != null and userid != ''">
+                and userid = #{userid}
+            </if>
+        </where>
+    </update>
 </mapper>
