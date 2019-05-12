@@ -104,7 +104,7 @@ public interface GdVipMapper extends BaseMapper<GdVip> {
 
 
     //修改会员积分
-    @Update("update gd_vip set viplv = #{viplv} , vipintegral = #{vipintegral} + vipintegral  where vipphone = #{vipphone}")
-    Integer updOneByVipPhone(String vipphone , Integer viplv , String vipintegral);
+    @Update("update gd_vip set viplv = #{newVipLv} , vipintegral = #{addVipIntegral} + vipintegral  where vipphone = #{vipId}")
+    Integer updOneByVipPhone(@Param("vipId") String vipId , @Param("newVipLv") Integer newVipLv , @Param("addVipIntegral") String addVipIntegral);
 
 }
