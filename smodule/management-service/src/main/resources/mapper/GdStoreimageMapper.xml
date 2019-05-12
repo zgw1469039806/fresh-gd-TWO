@@ -4,13 +4,18 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="org.managment.service.entity.GdStoreimage">
-        <result column="storeid" property="storeid" />
-        <result column="storeImages" property="storeImages" />
+        <result column="storeid" property="storeid"/>
+        <result column="storeImages" property="storeImages"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         storeid, storeImages
     </sql>
-
+    <insert id="saveImage" parameterType="list">
+    insert into gd_storeImage(storeid,storeImages) values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.storeid},#{item.storeImages})
+        </foreach>
+    </insert>
 </mapper>

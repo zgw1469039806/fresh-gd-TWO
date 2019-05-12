@@ -1,5 +1,6 @@
 package org.fresh.gd.commons.consts.api.management;
 
+import org.apache.ibatis.annotations.Param;
 import org.fresh.gd.commons.consts.pojo.RequestData;
 import org.fresh.gd.commons.consts.pojo.ResponseData;
 import org.fresh.gd.commons.consts.pojo.dto.management.GdStoreDTO;
@@ -35,7 +36,7 @@ public interface ManageService {
      * 查询门店信息
      *
      * @param
-     * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List < org.fresh.gd.commons.consts.pojo.dto.management.ManageStoreDTO>>
+     * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List   <   org.fresh.gd.commons.consts.pojo.dto.management.ManageStoreDTO>>
      * @author zgw
      */
     @RequestMapping(value = "/selStroreByName", method = RequestMethod.POST)
@@ -58,7 +59,7 @@ public interface ManageService {
      * 根据员工ID集合 查询门店
      *
      * @param requestData
-     * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List < org.fresh.gd.commons.consts.pojo.dto.management.GdStoreDTO>>
+     * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List   <   org.fresh.gd.commons.consts.pojo.dto.management.GdStoreDTO>>
      * @author zgw
      */
     @RequestMapping(value = "/selByYg", method = RequestMethod.POST)
@@ -66,32 +67,48 @@ public interface ManageService {
 
     /**
      * 功能描述
-     *  根据商品门店ID集合
+     * 根据商品门店ID集合
+     *
      * @param gdCommodityDTOList
-     * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List < org.fresh.gd.commons.consts.pojo.dto.management.GdStoreDTO>>
+     * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List       <       org.fresh.gd.commons.consts.pojo.dto.management.GdStoreDTO>>
      * @author zgw
      */
     @RequestMapping(value = "/selByssmd", method = RequestMethod.POST)
     ResponseData<List<GdStoreDTO>> selByssmd(RequestData<List<GdCommodityDTO>> gdCommodityDTOList);
 
-    /** 功能描述:
-    * 根据门店ID集合查询
-    * @param: [list]
-    * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List<org.fresh.gd.commons.consts.pojo.dto.management.GdStoreDTO>>
-    * @auther: 郭家恒
-    * @date: 2019/4/27 17:21
-    */
+    /**
+     * 功能描述:
+     * 根据门店ID集合查询
+     *
+     * @param: [list]
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List   <   org.fresh.gd.commons.consts.pojo.dto.management.GdStoreDTO>>
+     * @auther: 郭家恒
+     * @date: 2019/4/27 17:21
+     */
     @RequestMapping(value = "/QueryByid", method = RequestMethod.POST)
     ResponseData<List<GdStoreDTO>> QueryByid(RequestData<List<Integer>> list);
 
-    /** 功能描述:
-    * 查询全部门店
-    * @param: []
-    * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List<org.fresh.gd.commons.consts.pojo.dto.management.GdStoreDTO>>
-    * @auther: 郭家恒
-    * @date: 2019/5/8 10:55
-    */
+    /**
+     * 功能描述:
+     * 查询全部门店
+     *
+     * @param: []
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List   <   org.fresh.gd.commons.consts.pojo.dto.management.GdStoreDTO>>
+     * @auther: 郭家恒
+     * @date: 2019/5/8 10:55
+     */
+    @RequestMapping(value = "/QueryAll", method = RequestMethod.POST)
+    ResponseData<List<GdStoreDTO>> QueryAll(RequestData<String> requestData);
 
-    @RequestMapping(value = "/QueryAll",method = RequestMethod.POST)
-    ResponseData<List<GdStoreDTO>> QueryAll();
+    /**
+     * 功能描述:
+     * 修改门店信息
+     *
+     * @param: [requestData]
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+     * @auther: 郭家恒
+     * @date: 2019/5/10 13:55
+     */
+    @RequestMapping(value = "/updManna", method = RequestMethod.POST)
+    ResponseData<Integer> updManna(RequestData<GdStoreDTO> requestData);
 }

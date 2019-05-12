@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @Api(description = "会员积分增加规则设定")
-@RequestMapping("/VipInSetController")
+@RequestMapping("/unification")
 @RestController
 public class VipInSetController {
 

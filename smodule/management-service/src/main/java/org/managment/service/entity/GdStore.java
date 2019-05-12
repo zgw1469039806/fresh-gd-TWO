@@ -3,6 +3,7 @@ package org.managment.service.entity;
 import java.io.Serializable;
 import java.util.List;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -25,18 +26,25 @@ public class GdStore implements Serializable {
     /**
      * 店铺ID
      */
+    @TableField("storeid")
     private Integer storeid;
 
     /**
      * 店铺名称
      */
+    @TableField("storename")
     private String storename;
 
     /**
      * 店铺地址
      */
+    @TableField("storeaddress")
     private String storeaddress;
 
-
+    /**
+     * 店铺LogoUrl
+     */
+    @TableField("storeaLogo")
+    private String storeaLogo;
 
 }

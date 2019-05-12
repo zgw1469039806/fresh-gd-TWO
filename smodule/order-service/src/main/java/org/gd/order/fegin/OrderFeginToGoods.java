@@ -1,6 +1,5 @@
 package org.gd.order.fegin;
 
-import org.fresh.gd.commons.consts.api.shoping.GDComdityParticularService;
 import org.fresh.gd.commons.consts.api.shoping.GdCommodityService;
 import org.springframework.cloud.netflix.feign.FeignClient;
 

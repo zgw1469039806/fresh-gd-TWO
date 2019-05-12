@@ -67,7 +67,7 @@ public class GdOrder implements Serializable {
     private Integer storeid;
 
     /**
-     * 订单状态
+     * 订单状态  0:待付款   1:已付款/待发货   2:已取消  3:已发货/待确认  4:已完成  5:订单已取消
      */
     private Integer orderStat;
 

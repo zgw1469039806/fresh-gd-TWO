@@ -92,7 +92,7 @@ public interface GdVipMapper extends BaseMapper<GdVip> {
 
     /**
      * 功能描述:
-     * 修改会员
+     * 根据会员编号修改会员
      *
      * @param: [vipUpdDTO]
      * @return: java.lang.Integer
@@ -103,5 +103,8 @@ public interface GdVipMapper extends BaseMapper<GdVip> {
     Integer updOneVip(VipUpdDTO vipUpdDTO);
 
 
+    //修改会员积分
+    @Update("update gd_vip set viplv = #{viplv} , vipintegral = #{vipintegral} + vipintegral  where vipphone = #{vipphone}")
+    Integer updOneByVipPhone(String vipphone , Integer viplv , String vipintegral);
 
 }

@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @Api(description = "会员接口")
 @RestController
-@RequestMapping("/VipController")
+@RequestMapping("/unification")
 @Slf4j
 public class VipController {
 

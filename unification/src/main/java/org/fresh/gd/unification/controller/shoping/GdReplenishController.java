@@ -37,10 +37,10 @@ public class GdReplenishController {
         return gdReplenishFeginService.saveGdReplenish(requestData);
     }
 
-    @PostMapping("/selReAndPuAll")
+    /*@PostMapping("/selReAndPuAll")
     public ResponseData<List<GdReplenishAndPurchaseDTO>> selReAndPuAll() {
         return gdReplenishFeginService.selReAndPuAll();
-    }
+    }*/
 
     @PostMapping("/selGdShopAll")
     public ResponseData<List<GdReplenishDTO>> selGdShopAll(@RequestBody RequestData<ReplenishInDTO> replenishInDTORequestData) {

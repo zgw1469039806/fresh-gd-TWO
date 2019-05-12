@@ -46,7 +46,7 @@
     </select>
 
     <select id="QueryComByType" resultType="org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO" parameterType="Integer">
-        select * from goshopping.gd_commodity where comditytypeId = #{tid}
+        select * from gd_commodity where comditytypeId = #{tid}
     </select>
 
     <select id="nventoryallmap" resultType="org.fresh.gd.commons.consts.pojo.dto.shoping.GdinventoryallDTO"

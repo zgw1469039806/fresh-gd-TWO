@@ -36,7 +36,7 @@
     <select id="selGdShopAllByBh" parameterType="org.fresh.gd.commons.consts.pojo.dto.shoping.ReplenishInDTO"
             resultType="org.fresh.gd.commons.consts.pojo.dto.shoping.GdReplenishDTO">
         select *
-        from gd_replenish pu,goshopping.gd_supplier su
+        from gd_replenish pu,gd_supplier su
         <where>
             <if test="startTime !=null and startTime !=''">
                 and pu.replenishTime &gt;= #{startTime}
@@ -54,10 +54,10 @@
         </where>
     </select>
     <select id="QueryPurByreId" parameterType="Integer" resultType="org.fresh.gd.commons.consts.pojo.dto.shoping.GdPurchaseDTO">
-        select pu.*,co.comdityname from goshopping.gd_purchase pu,goshopping.gd_commodity co where co.comdityId = pu.shopId and replenishId =#{reid}
+        select pu.*,co.comdityname from gd_Purchase pu,gd_commodity co where co.comdityId = pu.shopId and replenishId =#{reid}
     </select>
 
     <update id="updPurById" parameterType="String">
-        update goshopping.gd_replenish set isnostorage = 1 where receiptNo = #{receiptNo}
+        update gd_replenish set isnostorage = 1 where receiptNo = #{receiptNo}
     </update>
 </mapper>

@@ -4,13 +4,13 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="org.gw.shoping.entity.GdPurchase">
-        <result column="replenishId" property="replenishId" />
-        <result column="shopId" property="shopId" />
-        <result column="shopNumber" property="shopNumber" />
-        <result column="Purchase" property="Purchase" />
-        <result column="GiveNumber" property="GiveNumber" />
-        <result column="purchasingPrice" property="purchasingPrice" />
-        <result column="subtotal" property="subtotal" />
+        <result column="replenishId" property="replenishId"/>
+        <result column="shopId" property="shopId"/>
+        <result column="shopNumber" property="shopNumber"/>
+        <result column="Purchase" property="Purchase"/>
+        <result column="GiveNumber" property="GiveNumber"/>
+        <result column="purchasingPrice" property="purchasingPrice"/>
+        <result column="subtotal" property="subtotal"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -23,11 +23,10 @@
         <foreach collection="list" item="item" separator=",">
             (#{item.replenishId},#{item.shopId},#{item.shopNumber},#{item.purchase},#{item.giveNumber},#{item.purchasingPrice},#{item.subtotal})
         </foreach>
-
     </insert>
 
     <delete id="deletePurById" parameterType="Integer">
-        delete from goshopping.gd_purchase where replenishId = #{rid}
+        delete from gd_purchase where replenishId = #{rid}
     </delete>
 
 </mapper>

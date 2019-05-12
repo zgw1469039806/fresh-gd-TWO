@@ -4,6 +4,7 @@ import org.apache.commons.lang.StringUtils;
 import org.fresh.gd.commons.consts.api.management.ManageImageService;
 import org.fresh.gd.commons.consts.consts.Consts;
 import org.fresh.gd.commons.consts.exceptions.BizException;
+import org.fresh.gd.commons.consts.pojo.RequestData;
 import org.fresh.gd.commons.consts.pojo.ResponseData;
 import org.fresh.gd.commons.consts.pojo.dto.management.GdStoreDTO;
 import org.fresh.gd.commons.consts.pojo.dto.management.ManageStoreDTO;
@@ -14,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * @DATA 2019-04-18 15:07
@@ -30,21 +33,10 @@ public class ManageImageServiceImpl implements ManageImageService {
     ManageServiceImpl manageService;
 
     @Override
-    public ResponseData<Integer> inserImagesStore(ManageStoreDTO manageStoreDTO)
-    {
+    public ResponseData<Integer> inserImagesStore(RequestData<List<ManageStoreDTO>> requestData) {
         ResponseData<Integer> responseData = new ResponseData<>();
-
-        if (StringUtils.isEmpty(manageStoreDTO.getStoreImages()))
-        {
-            throw new BizException("图片地址不能为空");
-        }
-        GdStoreimage gdStoreimag = new GdStoreimage();
-        gdStoreimag.setStoreid(manageStoreDTO.getStoreid().toString());
-        gdStoreimag.setStoreImages(manageStoreDTO.getStoreImages());
-        Integer saveO = gdStoreimageMapper.saveImage(gdStoreimag);
-
-        if (saveO>0)
-        {
+        Integer saveO = gdStoreimageMapper.saveImage(requestData.getData());
+        if (saveO > 0) {
             responseData.setCode(Consts.Result.SUCCESS.getCode());
             return responseData;
         }
@@ -54,20 +46,17 @@ public class ManageImageServiceImpl implements ManageImageService {
 
     @Transactional
     @Override
-    public ResponseData<Integer> delByIdImages(@RequestBody GdStoreDTO gdStoreDTO)
-    {
-        if (gdStoreDTO.getStoreid()==null || gdStoreDTO.getStoreid()== 0 )
-        {
+    public ResponseData<Integer> delByIdImages(@RequestBody GdStoreDTO gdStoreDTO) {
+        if (gdStoreDTO.getStoreid() == null || gdStoreDTO.getStoreid() == 0) {
             throw new BizException("业务错误");
         }
         ResponseData<Integer> responseData = new ResponseData<>();
         Integer byIdStro = gdStoreimageMapper.deleteByIdStro(gdStoreDTO.getStoreid());
-        if (byIdStro>0)
-        {
-           manageService.delByIdStro(gdStoreDTO.getStoreid());
+        if (byIdStro > 0) {
+            manageService.delByIdStro(gdStoreDTO.getStoreid());
         }
-          responseData.setCode(Consts.Result.BIZ_ERROR.getCode());
-       return responseData;
+        responseData.setCode(Consts.Result.BIZ_ERROR.getCode());
+        return responseData;
     }
 
 }
