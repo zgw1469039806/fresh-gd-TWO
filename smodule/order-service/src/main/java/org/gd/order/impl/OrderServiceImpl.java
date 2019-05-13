@@ -124,16 +124,16 @@ public class OrderServiceImpl implements GDOrderService {
      * @author zgw
      */
     @Override
-    public ResponseData<List<ResponseData<GdCommodityListDTO>>> selGwcByShopId(@RequestBody String
+    public ResponseData<List<ResponseData<GdCommodityListDTO>>> selGwcByShopId(@RequestBody RequestData<String>
                                                                                        requestData) {
 
         ResponseData<List<ResponseData<GdCommodityListDTO>>> responseData = new ResponseData<>();
-        if (StringUtils.isEmpty(requestData)) {
+        if (StringUtils.isEmpty(requestData.getData())) {
             throw new BizException("用于ID为空");
         }
         List<ResponseData<GdCommodityListDTO>> listDTOS = new ArrayList<>();
 
-        List<GdShoppingcart> gdShoppingcart = gdShoppingcartMapper.queryCart(requestData);
+        List<GdShoppingcart> gdShoppingcart = gdShoppingcartMapper.queryCart(requestData.getData());
 
         for (GdShoppingcart gdShop : gdShoppingcart) {
 

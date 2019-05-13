@@ -50,10 +50,8 @@ public class ShoppingCartServiceImpl implements GDShoppingCartService {
      */
     @Override
     public ResponseData<Integer> delCartGoods(@RequestBody RequestData<Integer> cartid) {
-
         ResponseData<Integer> responseData = new ResponseData<>();
         responseData.setData(gdShoppingcartMapper.delCartGoods(cartid.getData()));
-
         return responseData;
     }
 
@@ -77,12 +75,12 @@ public class ShoppingCartServiceImpl implements GDShoppingCartService {
             responseData.setMsg("接受的数据为空");
             return responseData;
         } else {
-            //判断购物车中未结算的商品与要添加的商品是否重复
-            Integer i=gdShoppingcartMapper.queryCount(requestData.getData().getUseraccount(), requestData.getData()
+            //判断购物车中未结算的商品与要添加的商品是否重复PRIMARY
+            Integer i=gdShoppingcartMapper.queryCount(requestData.getData().getUserid(), requestData.getData()
                     .getComdityId());
             if ( i== 1) {
                 //重复修改其商品个数
-                GdShoppingcart dto2=gdShoppingcartMapper.queryOne(requestData.getData().getUseraccount(), requestData
+                GdShoppingcart dto2=gdShoppingcartMapper.queryOne(requestData.getData().getUserid(), requestData
                         .getData()
                         .getComdityId());
                 dto.setCartid(dto2.getCartid());

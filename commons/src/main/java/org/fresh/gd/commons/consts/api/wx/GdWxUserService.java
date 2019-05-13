@@ -51,8 +51,8 @@ public interface GdWxUserService {
      * @auther: 贾轶飞
      * @date: 2019/4/24 14:41
      */
-    @GetMapping("/wxselUser")
-    ResponseData<UserDTO> userinfo( String useraccount);
+    @PostMapping("/wxselUser")
+    ResponseData<UserDTO> userinfo(RequestData<String>  useraccount);
 
 
 

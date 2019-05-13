@@ -42,7 +42,7 @@ public interface GDOrderService {
     * @date: 2019/5/7 13:55
     */
     @PostMapping("/selGwcByShopId")
-    ResponseData<List<ResponseData<GdCommodityListDTO>>> selGwcByShopId(String requestData);
+    ResponseData<List<ResponseData<GdCommodityListDTO>>> selGwcByShopId(RequestData<String> requestData);
 
 
 }

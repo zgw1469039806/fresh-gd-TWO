@@ -117,10 +117,10 @@ public class WxUserServiceImpl implements GdWxUserService, GdWxUserManageService
      * @date: 2019/4/24 14:41
      */
     @Override
-    public ResponseData<UserDTO> userinfo(String useraccount) {
+    public ResponseData<UserDTO> userinfo(@RequestBody RequestData<String> useraccount) {
 
         ResponseData<UserDTO> responseData = new ResponseData<>();
-        UserDTO userDTO = gdUserMapper.sellwxUserAcc(useraccount);
+        UserDTO userDTO = gdUserMapper.sellwxUserAcc(useraccount.getData());
         responseData.setData(userDTO);
 
         return responseData;
@@ -179,6 +179,7 @@ public class WxUserServiceImpl implements GdWxUserService, GdWxUserManageService
 
         ResponseData<List<UserAddressDTO>> responseData = new ResponseData<>();
         GdUser gdUser = gdUserMapper.selUserAcc(requestData.getData());
+
         responseData.setData(gdTakedeliveryMapper.queryAddress(gdUser.getUserId()));
         return responseData;
     }
@@ -201,7 +202,7 @@ public class WxUserServiceImpl implements GdWxUserService, GdWxUserManageService
             return responseData;
         }
 
-        responseData.setData(gdTakedeliveryMapper.delAddress(gdUser.getUserId()));
+        responseData.setData(gdTakedeliveryMapper.delAddress(requestData.getData().getTakedeliveryidid(),gdUser.getUserId()));
         return responseData;
     }
 
