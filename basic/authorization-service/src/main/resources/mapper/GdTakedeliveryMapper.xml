@@ -17,7 +17,7 @@
     </sql>
 
     <select id="queryCount"  resultType="Integer">
-        select count(*) from gd_takedelivery
+        select count(1) from gd_takedelivery
         <trim prefix="where" prefixOverrides="and">
             <if test="takedeliveryidid !=null and takedeliveryidid !=''">
                 and takedeliveryidid =#{takedeliveryidid}

@@ -25,8 +25,8 @@ public interface GdTakedeliveryMapper extends BaseMapper<GdTakedelivery> {
             "#{status},#{consignee})")
     public Integer addAddress(GdTakedelivery gdTakedelivery);
 
-    @Delete("delete from gd_takedelivery where takedeliveryidid=#{takedeliveryidid}")
-    public Integer delAddress(@Param("takedeliveryidid")Integer takedeliveryidid);
+    @Delete("delete from gd_takedelivery where takedeliveryidid=#{takedeliveryidid} and userid =#{userid}")
+    public Integer delAddress(@Param("takedeliveryidid")Integer takedeliveryidid,@Param("userid")Integer userid);
 
 
     public Integer updAddress(GdTakedelivery gdTakedelivery);

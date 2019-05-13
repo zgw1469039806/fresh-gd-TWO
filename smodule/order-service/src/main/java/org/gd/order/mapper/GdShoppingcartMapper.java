@@ -21,8 +21,8 @@ public interface GdShoppingcartMapper extends BaseMapper<GdShoppingcart> {
     @Select("select * from gd_shoppingcart where userid=#{userid}")
     GdShoppingcart selGwcByUserId(@Param("userid") String userid);
 
-    @Select("select * from gd_shoppingcart where useraccount=#{useraccount} and comdityId =#{comdityId}")
-    GdShoppingcart queryOne(@Param("useraccount")String useraccount, @Param("comdityId")Integer comdityId);
+    @Select("select * from gd_shoppingcart where userid=#{userid} and comdityId =#{comdityId}")
+    GdShoppingcart queryOne(@Param("userid")Integer userid, @Param("comdityId")Integer comdityId);
     /**
      * 功能描述:
      * 根据用户查询当前用户购物车信息
@@ -32,8 +32,8 @@ public interface GdShoppingcartMapper extends BaseMapper<GdShoppingcart> {
      * @auther: 贾轶飞
      * @date: 2019/5/6 10:10
      */
-    @Select("select * from gd_shoppingcart where useraccount = #{useraccount}")
-    public List<GdShoppingcart> queryCart(@Param("useraccount") String useraccount);
+    @Select("select * from gd_shoppingcart where userid = #{userid}")
+    public List<GdShoppingcart> queryCart(@Param("userid") String userid);
 
     /** 功能描述:
     *  删除某个购物车个商品
@@ -52,7 +52,7 @@ public interface GdShoppingcartMapper extends BaseMapper<GdShoppingcart> {
     * @auther: 贾轶飞
     * @date: 2019/5/8 10:47
     */
-    @Insert("insert into gd_shoppingcart values(null,#{comdityId},#{useraccount},#{num})")
+    @Insert("insert into gd_shoppingcart values(null,#{comdityId},#{userid},#{num})")
     public Integer addCartGoods(GdShoppingcart gdShoppingcart);
 
     /** 功能描述:
@@ -65,6 +65,6 @@ public interface GdShoppingcartMapper extends BaseMapper<GdShoppingcart> {
     @Update("update gd_shoppingcart set num=#{num} where cartid=#{cartid}")
     public Integer updCartGoods(GdShoppingcart gdShoppingcart);
 
-    @Select("select count(*) from gd_shoppingcart where useraccount=#{useraccount} and comdityId =#{comdityId}")
-    public Integer  queryCount(@Param("useraccount")String useraccount, @Param("comdityId")Integer comdityId);
+    @Select("select count(*) from gd_shoppingcart where userid =#{userid} and comdityId =#{comdityId}")
+    public Integer queryCount(@Param("userid")Integer userid, @Param("comdityId")Integer comdityId);
 }
