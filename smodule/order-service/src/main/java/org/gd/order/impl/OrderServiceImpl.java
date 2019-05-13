@@ -108,7 +108,11 @@ public class OrderServiceImpl implements GDOrderService {
         }
 
         if(gdOrderDTORequestData.getData().getVipId() != null){
-            Integer i1 = orderFeginToVip.upgVipIntegral(gdOrderDTORequestData.getData().getVipId(),gdOrderDTORequestData.getData().getStoreid(),gdOrderDTORequestData.getData().getOrdermoney());
+            String str = gdOrderDTORequestData.getData().getOrdermoney().trim();
+
+            System.out.println(str);
+            Integer i1 = orderFeginToVip.upgVipIntegral(gdOrderDTORequestData.getData().getVipId().trim(),gdOrderDTORequestData.getData().getStoreid(),str);
+            /*Integer i1 = orderFeginToVip.upgVipIntegral("18376645457",gdOrderDTORequestData.getData().getStoreid(),"127.00");*/
         }
 
         responseData.setCode(Consts.Result.SUCCESS.getCode());

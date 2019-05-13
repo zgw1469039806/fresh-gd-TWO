@@ -238,7 +238,7 @@ public class VipServiceImpl implements VipService {
      * 功能描述:
      * 增加会员积分  会员购买物品增加积分
      *
-     * @param vipphone
+     * @param vipId
      * @param storeid
      * @param ordermoney
      * @param: [vipphone, viplv, vipintegral]
@@ -248,18 +248,18 @@ public class VipServiceImpl implements VipService {
      */
     @Transactional
     @Override
-    public Integer upgVipIntegral(String vipphone, Integer storeid, String ordermoney) {
+    public Integer upgVipIntegral(String vipId, Integer storeid, String ordermoney) {
 
         //1、根据会员手机号获取会员信息
-        System.out.println(vipphone+"-"+storeid+"-"+ordermoney);
+        System.out.println(vipId+"-"+storeid+"-"+ordermoney);
 
-        VipPageDTO vip = gdVipMapper.selOneVipByPhone(vipphone);
+        VipPageDTO vip = gdVipMapper.selOneVipByPhone(vipId);
 
         //2、根据店铺编号获取该店铺增加积分规则
         VipInSetDTO vipInSetDTO = gdVipInSetMapper.selVipInSetById(storeid);
 
         //3、计算需要增加的积分（如果达到升级会员的标准需要进行会员升级）修改会员信息 等级不能超过5级 积分不能超过5000
-        int addVipIntegral = Integer.parseInt(ordermoney) / Integer.parseInt(vipInSetDTO.getVipinsetmoney()) * vipInSetDTO.getVipinsetgetin();
+        int addVipIntegral = (int)(Double.parseDouble(ordermoney) / Double.parseDouble(vipInSetDTO.getVipinsetmoney()) * vipInSetDTO.getVipinsetgetin());
         //若不满足积分规则 那么直接返回
         if (addVipIntegral < 1) {
             return 1;
@@ -274,15 +274,18 @@ public class VipServiceImpl implements VipService {
             newVipLv = Integer.parseInt(vip.getVipintegral() + addVipIntegral) > i2 ? newVipLv + 1 : newVipLv;
         }
         //修改会员积分
-        Integer i = gdVipMapper.updOneByVipPhone(vipphone, newVipLv, addVipIntegral + "");
+        Integer i = gdVipMapper.updOneByVipPhone(vipId, newVipLv, addVipIntegral + "");
 
         //4、会员积分明细表增加一条记录
         GdVipindetailed gdVipindetailed = new GdVipindetailed();
         gdVipindetailed.setStoreid(storeid);
-        gdVipindetailed.setVipindetailednum(addVipIntegral);
+        gdVipindetailed.setVipindetailednum( addVipIntegral);
         gdVipindetailed.setVipindetailedtype("获得");
-        gdVipindetailed.setVipPhone(vipphone);
+        gdVipindetailed.setVipPhone(vipId);
 
+
+
+        //TODO 参数类型不匹配错误
         Integer integer = gdVipindetailedMapper.addVipindetailed(gdVipindetailed);
         return i;
     }
