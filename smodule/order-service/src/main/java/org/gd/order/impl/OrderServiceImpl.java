@@ -13,9 +13,12 @@ import org.fresh.gd.commons.consts.exceptions.BizException;
 import org.fresh.gd.commons.consts.pojo.RequestData;
 import org.fresh.gd.commons.consts.pojo.ResponseData;
 import org.fresh.gd.commons.consts.pojo.dto.order.GdOrderDTO;
+import org.fresh.gd.commons.consts.pojo.dto.order.OrderCountDTO;
+import org.fresh.gd.commons.consts.pojo.dto.order.OrderPageDTO;
 import org.fresh.gd.commons.consts.pojo.dto.shoping.GdComdityparticularDTO;
 import org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO;
 import org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityListDTO;
+import org.fresh.gd.commons.consts.utils.PageBean;
 import org.fresh.gd.commons.consts.utils.VeDate;
 import org.gd.order.entity.GdOrder;
 import org.gd.order.entity.GdShoppingcart;
@@ -109,10 +112,7 @@ public class OrderServiceImpl implements GDOrderService {
 
         if(gdOrderDTORequestData.getData().getVipId() != null){
             String str = gdOrderDTORequestData.getData().getOrdermoney().trim();
-
-            System.out.println(str);
             Integer i1 = orderFeginToVip.upgVipIntegral(gdOrderDTORequestData.getData().getVipId().trim(),gdOrderDTORequestData.getData().getStoreid(),str);
-            /*Integer i1 = orderFeginToVip.upgVipIntegral("18376645457",gdOrderDTORequestData.getData().getStoreid(),"127.00");*/
         }
 
         responseData.setCode(Consts.Result.SUCCESS.getCode());
@@ -149,6 +149,69 @@ public class OrderServiceImpl implements GDOrderService {
         responseData.setData(listDTOS);
 
         // TODO: 调用商品服务根据ID查询商品  返回商品结合
+        return responseData;
+    }
+
+    /**
+     * 功能描述:
+     * 根据参数查询订单数量
+     *
+     * @param orderCountDTO
+     * @param: [orderCountDTO]
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+     * @auther: Mr.Xia
+     * @date: 2019/5/13 16:06
+     */
+    @Override
+    public Integer orderCount(OrderCountDTO orderCountDTO) {
+        Integer i = gdOrderMapper.orderCount(orderCountDTO);
+        return i;
+    }
+
+    /**
+     * 功能描述:
+     * 分页查询订单
+     * @param orderPageDTO
+     * @param: [orderPageDTO]
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List < org.fresh.gd.commons.consts.pojo.dto.order.GdOrderDTO>>
+     * @auther: Mr.Xia
+     * @date: 2019/5/13 16:36
+     */
+    @Transactional
+    @Override
+    public ResponseData<PageBean<GdOrderDTO>> selOrderPage(@RequestBody RequestData<OrderPageDTO> orderPageDTO) {
+        ResponseData<PageBean<GdOrderDTO>> responseData = new ResponseData<>();
+        OrderPageDTO orderPageDTO1 = orderPageDTO.getData();
+
+        if (orderPageDTO1.getPageNo() == 0) {
+            responseData.setCode(Consts.Result.ERROR_PARAM.getCode());
+            return responseData;
+        }
+        orderPageDTO1.setPageNo(orderPageDTO1.getPageNo() - 1);
+
+        List<GdOrderDTO> orderPage = gdOrderMapper.selOrderPage(orderPageDTO1);
+
+        //查询总数
+        OrderCountDTO orderCountDTO = new OrderCountDTO();
+        BeanUtils.copyProperties(orderPageDTO1,orderCountDTO);
+        Integer ordercount = this.orderCount(orderCountDTO);
+
+        //计算总页数
+        Integer countPage = 0;
+        if(ordercount % orderPageDTO1.getPageSize() == 0){
+            countPage = ordercount / orderPageDTO1.getPageSize();
+        }else{
+            countPage = ordercount / orderPageDTO1.getPageSize() + 1;
+        }
+
+        PageBean<GdOrderDTO> pageBean = new PageBean<>();
+        pageBean.setTotalCount(ordercount);
+        pageBean.setList(orderPage);
+        pageBean.setTotalPage(countPage);
+        pageBean.setCurrPage(orderPageDTO1.getPageNo());
+        pageBean.setPageSize(orderPageDTO1.getPageSize());
+
+        responseData.setData(pageBean);
         return responseData;
     }
 }

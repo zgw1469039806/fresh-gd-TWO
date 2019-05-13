@@ -3,6 +3,7 @@ package org.gd.vip.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.fresh.gd.commons.consts.pojo.dto.vip.GdVipindetailedDTO;
 import org.gd.vip.entity.GdVipindetailed;
 
 /**
@@ -14,6 +15,6 @@ import org.gd.vip.entity.GdVipindetailed;
 public interface GdVipindetailedMapper extends BaseMapper<GdVipindetailed> {
 
     @Insert("insert into gd_vipindetailed(vipPhone ,vipindetailedtype ,vipindetailednum,storeid) value(#{vipPhone},#{vipindetailedtype},#{vipindetailednum},#{storeid})")
-    Integer addVipindetailed(GdVipindetailed gdVipindetailed);
+    Integer addVipindetailed(GdVipindetailedDTO GdVipindetailedDTO);
 
 }

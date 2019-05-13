@@ -37,5 +37,20 @@ public class GdOrdershop implements Serializable {
      */
     private Integer num;
 
+    /**
+     * 优惠方式
+     */
+    private Integer preferentialway;
+
+    /**
+     * 应付价格
+     */
+    private String comdityprice;
+
+    /**
+     * 实付价格
+     */
+    private String comditytrueprice;
+
 
 }

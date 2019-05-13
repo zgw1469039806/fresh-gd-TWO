@@ -259,7 +259,7 @@ public class VipServiceImpl implements VipService {
         VipInSetDTO vipInSetDTO = gdVipInSetMapper.selVipInSetById(storeid);
 
         //3、计算需要增加的积分（如果达到升级会员的标准需要进行会员升级）修改会员信息 等级不能超过5级 积分不能超过5000
-        int addVipIntegral = (int)(Double.parseDouble(ordermoney) / Double.parseDouble(vipInSetDTO.getVipinsetmoney()) * vipInSetDTO.getVipinsetgetin());
+        Integer addVipIntegral = (int)(Double.parseDouble(ordermoney) / Double.parseDouble(vipInSetDTO.getVipinsetmoney()) * vipInSetDTO.getVipinsetgetin());
         //若不满足积分规则 那么直接返回
         if (addVipIntegral < 1) {
             return 1;
@@ -277,16 +277,13 @@ public class VipServiceImpl implements VipService {
         Integer i = gdVipMapper.updOneByVipPhone(vipId, newVipLv, addVipIntegral + "");
 
         //4、会员积分明细表增加一条记录
-        GdVipindetailed gdVipindetailed = new GdVipindetailed();
-        gdVipindetailed.setStoreid(storeid);
-        gdVipindetailed.setVipindetailednum( addVipIntegral);
-        gdVipindetailed.setVipindetailedtype("获得");
-        gdVipindetailed.setVipPhone(vipId);
+        GdVipindetailedDTO gdVipindetailedDTO = new GdVipindetailedDTO();
+        gdVipindetailedDTO.setStoreid(storeid);
+        gdVipindetailedDTO.setVipindetailednum(addVipIntegral);
+        gdVipindetailedDTO.setVipindetailedtype("获得");
+        gdVipindetailedDTO.setVipPhone(vipId);
 
-
-
-        //TODO 参数类型不匹配错误
-        Integer integer = gdVipindetailedMapper.addVipindetailed(gdVipindetailed);
+        Integer integer = gdVipindetailedMapper.addVipindetailed(gdVipindetailedDTO);
         return i;
     }
 }

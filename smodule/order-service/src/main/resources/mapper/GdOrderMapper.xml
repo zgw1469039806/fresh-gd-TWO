@@ -19,6 +19,65 @@
         orderid, vipId, orderscene, ordermeans, ordertype, ordermoney, orderTime, storeid
     </sql>
     <insert id="insertOrder" useGeneratedKeys="true" keyProperty="orderid" parameterType="org.gd.order.entity.GdOrder">
-        insert into gd_order(orderid,vipId, orderscene, ordermeans, ordertype, ordermoney, orderStat, orderTime, storeid, belongStoreNam)  value (#{orderid},#{vipId},#{orderscene},#{ordermeans},#{ordertype},#{ordermoney},#{orderStat},#{orderTime},#{storeid},#{belongStoreNam});
+        insert into gd_order(orderid,vipId, orderscene, ordermeans, ordertype, ordermoney, orderStat, orderTime, storeid, belongStoreNam,userId,priceml)  value (#{orderid},#{vipId},#{orderscene},#{ordermeans},#{ordertype},#{ordermoney},#{orderStat},#{orderTime},#{storeid},#{belongStoreNam},#{userId},#{priceml});
     </insert>
+
+    <select id="orderCount" parameterType="org.fresh.gd.commons.consts.pojo.dto.order.OrderCountDTO" resultType="integer">
+        select count(1) from gd_order where 1 = 1
+        <if test="orderId != null and orderId != ''">
+            and orderid like CONCAT('%',#{orderId},'%')
+        </if>
+
+        <if test="startTime != null and startTime != ''">
+            and orderTime &gt;= #{startTime}
+        </if>
+        <if test="endTime != null and endTime != ''">
+            and  orderTime &lt;= #{endTime}
+        </if>
+        <if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+            and  #{startTime} &lt;= orderTime &lt;= #{endTime}
+        </if>
+        <if test="orderStat != null and orderStat != 0 and orderStat != ''">
+            and orderStat = #{orderStat}
+        </if>
+        <if test="storeId != null and storeId != ''">
+            and storeid = #{storeId}
+        </if>
+        <if test="vipPhone != null and vipPhone != ''">
+            and vipId like CONCAT('%',#{vipPhone},'%')
+        </if>
+        <if test="orderScene != null and orderScene != ''">
+            and orderscene = #{orderScene}
+        </if>
+    </select>
+
+    <select id="selOrderPage" parameterType="org.fresh.gd.commons.consts.pojo.dto.order.OrderPageDTO" resultType="org.fresh.gd.commons.consts.pojo.dto.order.GdOrderDTO">
+        select * from gd_order where 1 = 1
+        <if test="orderId != null and orderId != ''">
+            and orderid like CONCAT('%',#{orderId},'%')
+        </if>
+
+        <if test="startTime != null and startTime != ''">
+            and orderTime &gt;= #{startTime}
+        </if>
+        <if test="endTime != null and endTime != ''">
+            and  orderTime &lt;= #{endTime}
+        </if>
+        <if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+            and  #{startTime} &lt;= orderTime &lt;= #{endTime}
+        </if>
+        <if test="orderStat != null and orderStat != 0 and orderStat != ''">
+            and orderStat = #{orderStat}
+        </if>
+        <if test="storeId != null and storeId != ''">
+            and storeid = #{storeId}
+        </if>
+        <if test="vipPhone != null and vipPhone != ''">
+            and vipId like CONCAT('%',#{vipPhone},'%')
+        </if>
+        <if test="orderScene != null and orderScene != ''">
+            and orderscene = #{orderScene}
+        </if>
+        limit #{pageNo},#{pageSize}
+    </select>
 </mapper>

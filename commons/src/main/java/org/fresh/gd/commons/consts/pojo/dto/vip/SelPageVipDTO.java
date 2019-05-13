@@ -15,15 +15,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Data
 public class SelPageVipDTO {
 
-    /**
-    *
-    * 功能描述: 
-    *
-    * @param: 121312
-    * @return: 
-    * @auther: Mr.Xia
-    * @date: 2019/4/29 8:59
-    */
     @ApiModelProperty("会员姓名")
     private String vipName;
 

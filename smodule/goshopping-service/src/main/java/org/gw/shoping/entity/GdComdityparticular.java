@@ -48,4 +48,9 @@ public class GdComdityparticular implements Serializable {
     private Integer storeid;
 
 
+
+
+
+
+
 }

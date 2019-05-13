@@ -1,7 +1,5 @@
 package org.fresh.gd.commons.consts.pojo.dto.order;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -77,6 +75,20 @@ public class GdOrderDTO {
     @ApiModelProperty("门店名称")
     private String belongStoreNam;
 
+    /**
+     *   用户ID
+     */
+    @ApiModelProperty("用户ID")
+    private Integer userId;
+
+    /**
+     *  抹零
+     */
+    @ApiModelProperty("抹零")
+    private String priceml;
+
     @ApiModelProperty("订单商品详细")
     private List<GdComdityparticularDTO> tableData;
+
+
 }
