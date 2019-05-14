@@ -103,4 +103,6 @@ public interface GdCommodityMapper extends BaseMapper<GdCommodity> {
 
 
     List<GdActivitiesAndShopDTO> selGdActivAndShopLike(@Param("comdityname") String comdityname);
+
+
 }

@@ -47,5 +47,11 @@ public class WXUserDTO {
     private String phone;
 
 
+    /**
+     * 用户id
+     */
+    @ApiModelProperty("用户id")
+    private String userid;
+
 
 }

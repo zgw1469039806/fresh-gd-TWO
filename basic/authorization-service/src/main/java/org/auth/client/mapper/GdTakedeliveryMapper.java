@@ -21,13 +21,15 @@ public interface GdTakedeliveryMapper extends BaseMapper<GdTakedelivery> {
     @Select("select * from gd_takedelivery t ,gd_user u where t.userid =u.userid and t.userid =#{userid}")
     public List<UserAddressDTO> queryAddress(@Param("userid") Integer userid);
 
-    @Insert("inster into gd_takedelivery values (null,#{userid},#{address},#{UPDATED_BY},#{UPDATED_TIME},#{phone}," +
-            "#{status},#{consignee})")
+    @Insert("insert into gd_takedelivery(`userid`,`address`,`UPDATED_BY`,`UPDATED_TIME`,`phone`,`consignee`,`status`) values (#{userid},#{address},#{updatedBy},#{updatedTime},#{phone}," +
+            "#{consignee},#{status})")
     public Integer addAddress(GdTakedelivery gdTakedelivery);
 
     @Delete("delete from gd_takedelivery where takedeliveryidid=#{takedeliveryidid} and userid =#{userid}")
     public Integer delAddress(@Param("takedeliveryidid")Integer takedeliveryidid,@Param("userid")Integer userid);
 
+    @Select("select * from gd_takedelivery where userid =#{userid} and status =#{status}")
+    public GdTakedelivery queryOne(@Param("userid")Integer userid,@Param("status")Integer status);
 
     public Integer updAddress(GdTakedelivery gdTakedelivery);
 

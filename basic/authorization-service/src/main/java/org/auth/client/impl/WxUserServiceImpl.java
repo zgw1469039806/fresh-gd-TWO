@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -170,7 +171,7 @@ public class WxUserServiceImpl implements GdWxUserService, GdWxUserManageService
      * 查询微信小程序用户自定义的收获地址
      *
      * @param: [useraccount]用户账号
-     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List                                                               <                                                               org.fresh.gd.commons.consts.pojo.dto.user.UserAddressDTO>>
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               <                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               org.fresh.gd.commons.consts.pojo.dto.user.UserAddressDTO>>
      * @auther: 贾轶飞
      * @date: 2019/5/9 15:44
      */
@@ -189,7 +190,7 @@ public class WxUserServiceImpl implements GdWxUserService, GdWxUserManageService
      * 删除的收获地址
      *
      * @param: 地址的id
-     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List                                                               <                                                               org.fresh.gd.commons.consts.pojo.dto.user.UserAddressDTO>>
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               <                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               org.fresh.gd.commons.consts.pojo.dto.user.UserAddressDTO>>
      * @auther: 贾轶飞
      * @date: 2019/5/9 15:44
      */
@@ -202,7 +203,7 @@ public class WxUserServiceImpl implements GdWxUserService, GdWxUserManageService
             return responseData;
         }
 
-        responseData.setData(gdTakedeliveryMapper.delAddress(requestData.getData().getTakedeliveryidid(),gdUser.getUserId()));
+        responseData.setData(gdTakedeliveryMapper.delAddress(requestData.getData().getTakedeliveryidid(), gdUser.getUserId()));
         return responseData;
     }
 
@@ -211,19 +212,39 @@ public class WxUserServiceImpl implements GdWxUserService, GdWxUserManageService
      * 添加收获地址
      *
      * @param:
-     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List                                                               <                                                               org.fresh.gd.commons.consts.pojo.dto.user.UserAddressDTO>>
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               <                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               org.fresh.gd.commons.consts.pojo.dto.user.UserAddressDTO>>
      * @auther: 贾轶飞
      * @date: 2019/5/9 15:44
      */
     @Override
     public ResponseData<Integer> addUserAddress(@RequestBody RequestData<UserAddressDTO> requestData) {
-
-        GdUser gdUser = gdUserMapper.selUserAcc(requestData.getData().getUseraccount());
-
         ResponseData<Integer> responseData = new ResponseData<>();
         GdTakedelivery gdTakedelivery = new GdTakedelivery();
-        BeanUtils.copyProperties(requestData, gdTakedelivery);
-        responseData.setData(gdTakedeliveryMapper.addAddress(gdTakedelivery));
+        GdUser gdUser = new GdUser();
+        if (requestData.getData().getUserid() == null) {
+            gdUser = gdUserMapper.selUserAcc(requestData.getData().getUseraccount());
+            requestData.getData().setUserid(gdUser.getUserId());
+        }
+        gdTakedelivery.setUserid(requestData.getData().getUserid());
+        gdTakedelivery.setStatus(1);
+        gdTakedelivery.setUpdatedTime(LocalDateTime.now());
+        Integer count = gdTakedeliveryMapper.queryCount(gdTakedelivery);
+        if (count > 0) {
+            count = gdTakedeliveryMapper.updAddress(gdTakedelivery);
+            if (count > 0) {
+                gdTakedelivery.setAddress(requestData.getData().getAddress());
+                gdTakedelivery.setConsignee(requestData.getData().getConsignee());
+                gdTakedelivery.setPhone(requestData.getData().getPhone());
+                gdTakedelivery.setUpdatedBy(requestData.getData().getUpdatedBy());
+                responseData.setData(gdTakedeliveryMapper.addAddress(gdTakedelivery));
+            }
+        } else {
+            gdTakedelivery.setAddress(requestData.getData().getAddress());
+            gdTakedelivery.setConsignee(requestData.getData().getConsignee());
+            gdTakedelivery.setPhone(requestData.getData().getPhone());
+            gdTakedelivery.setUpdatedBy(requestData.getData().getUpdatedBy());
+            responseData.setData(gdTakedeliveryMapper.addAddress(gdTakedelivery));
+        }
         return responseData;
     }
 
@@ -232,7 +253,7 @@ public class WxUserServiceImpl implements GdWxUserService, GdWxUserManageService
      * 编辑的收获地址
      *
      * @param: [useraccount]用户账号
-     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List   <   org.fresh.gd.commons.consts.pojo.dto.user.UserAddressDTO>>
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List                                                               <                                                               org.fresh.gd.commons.consts.pojo.dto.user.UserAddressDTO>>
      * @auther: 贾轶飞
      * @date: 2019/5/9 15:44
      */
@@ -242,13 +263,10 @@ public class WxUserServiceImpl implements GdWxUserService, GdWxUserManageService
         GdTakedelivery userAddressDTO = new GdTakedelivery();
         ResponseData<Integer> responseData = new ResponseData<>();
         GdTakedelivery gdTakedelivery = new GdTakedelivery();
-
         GdUser gdUser = gdUserMapper.selUserAcc(requestData.getData().getUseraccount());
-
         userAddressDTO.setUserid(gdUser.getUserId());
         userAddressDTO.setStatus(status);
         Integer count = gdTakedeliveryMapper.queryCount(userAddressDTO);
-
 
 
         BeanUtils.copyProperties(requestData.getData(), gdTakedelivery);
@@ -258,7 +276,7 @@ public class WxUserServiceImpl implements GdWxUserService, GdWxUserManageService
             if (num == 1) {
                 responseData.setData(gdTakedeliveryMapper.updAddress(gdTakedelivery));
             }
-        }else{
+        } else {
             responseData.setData(gdTakedeliveryMapper.updAddress(gdTakedelivery));
         }
 
