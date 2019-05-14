@@ -37,7 +37,7 @@
         <if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
             and  #{startTime} &lt;= orderTime &lt;= #{endTime}
         </if>
-        <if test="orderStat != null and orderStat != 0 and orderStat != ''">
+        <if test="orderStat != null and orderStat != -1 and orderStat != ''">
             and orderStat = #{orderStat}
         </if>
         <if test="storeId != null and storeId != ''">
@@ -66,7 +66,7 @@
         <if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
             and  #{startTime} &lt;= orderTime &lt;= #{endTime}
         </if>
-        <if test="orderStat != null and orderStat != 0 and orderStat != ''">
+        <if test="orderStat != null and orderStat != -1 and orderStat != ''">
             and orderStat = #{orderStat}
         </if>
         <if test="storeId != null and storeId != ''">

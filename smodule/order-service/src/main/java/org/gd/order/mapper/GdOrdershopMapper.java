@@ -2,9 +2,12 @@ package org.gd.order.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.fresh.gd.commons.consts.pojo.dto.order.GdOrdershopDTO;
 import org.gd.order.entity.GdOrdershop;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -26,4 +29,7 @@ public interface GdOrdershopMapper extends BaseMapper<GdOrdershop> {
      * @date: 2019/4/25 16:08
      */
     int insertOrderShop(@Param("oid") String oid, @Param("cid") Integer cid, @Param("num") Integer num);
+
+    @Select("select * from gd_ordershop where orderid = #{orderId}")
+    List<GdOrdershopDTO> selOrderShopById(String orderId);
 }
