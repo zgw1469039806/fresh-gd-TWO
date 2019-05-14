@@ -76,4 +76,10 @@ public class GdShoppingCartDTO {
      */
     @ApiModelProperty("活动id")
     private Integer activityId;
+
+    /**
+     * 用户id
+     */
+    @ApiModelProperty("用户id")
+    private Integer userid;
 }
