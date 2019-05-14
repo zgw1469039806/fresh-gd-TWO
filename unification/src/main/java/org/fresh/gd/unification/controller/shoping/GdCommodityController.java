@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.fresh.gd.commons.consts.exceptions.BizException;
 import org.fresh.gd.commons.consts.pojo.RequestData;
 import org.fresh.gd.commons.consts.pojo.ResponseData;
+import org.fresh.gd.commons.consts.pojo.dto.shoping.ComdityQueryDTO;
 import org.fresh.gd.commons.consts.pojo.dto.shoping.GdComditynameDTO;
 import org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO;
 import org.fresh.gd.commons.consts.pojo.dto.shoping.GdinventoryallDTO;
@@ -56,12 +57,26 @@ public class GdCommodityController {
      * 根据分类查询商品
      *
      * @param: [requestData]
-     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List   <   org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO>>
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List       <       org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO>>
      * @auther: 郭家恒
      * @date: 2019/4/28 15:25
      */
     @PostMapping("/QueryByType")
     public ResponseData<List<GdCommodityDTO>> QueryByType(@RequestBody RequestData<Integer> requestData) {
         return gdCommodityFeignService.QueryComByType(requestData);
+    }
+
+    /**
+     * 功能描述:
+     * 查询所有商品根据条件
+     *
+     * @param: [queryData]
+     * @auther: 郭家恒
+     * @date: 2019/5/14 18:14
+     */
+    @PostMapping("/QueryShopByWh")
+    public ResponseData<List<GdCommodityDTO>> QueryShopByWh(@RequestBody RequestData<ComdityQueryDTO> queryData) {
+        ResponseData<List<GdCommodityDTO>> listResponseData = gdCommodityFeignService.QueryShopbyWh(queryData);
+        return listResponseData;
     }
 }

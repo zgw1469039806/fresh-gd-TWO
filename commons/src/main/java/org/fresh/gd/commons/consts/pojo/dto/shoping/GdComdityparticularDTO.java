@@ -28,6 +28,15 @@ public class GdComdityparticularDTO {
     @ApiModelProperty("所属店铺ID")
     private Integer storeid;
 
+    @ApiModelProperty("折扣价")
+    private String discount;
 
+    @ApiModelProperty("进货价")
+    private String puprice;
 
+    @ApiModelProperty("商品状态 0-上架中 1-下架")
+    private Integer comstate;
+
+    @ApiModelProperty("会员是否可享折扣")
+    private Integer vipishige;
 }

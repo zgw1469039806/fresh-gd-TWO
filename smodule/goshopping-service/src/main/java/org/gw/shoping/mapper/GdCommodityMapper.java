@@ -33,6 +33,15 @@ public interface GdCommodityMapper extends BaseMapper<GdCommodity> {
     @Select("select * from gd_commodity")
     List<GdCommodityDTO> selShopAllUser();
 
+    /** 功能描述:
+    * 查询商品
+    * @param: []
+    * @return: java.util.List<org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO>
+    * @auther: 郭家恒
+    * @date: 2019/5/14 18:06
+    */
+    List<GdCommodityDTO> QueryShop(ComdityQueryDTO comdityQueryDTO);
+
     /**
      * 功能描述
      * Admin管理 商品信息 带分页

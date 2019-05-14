@@ -5,6 +5,9 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 /**
  * @DATA 2019-04-21 11:19
@@ -70,12 +73,14 @@ public class GdCommodityDTO {
     @ApiModelProperty("对应积分")
     private String corresponding;
 
+    @ApiModelProperty("商品编码")
+    private String comdityBM;
+
     /**
      * 所属店铺ID
      */
     @ApiModelProperty("所属店铺ID")
     private Integer storeid;
-
 
     @ApiModelProperty("页码")
     private Integer pageNo;
@@ -83,4 +88,35 @@ public class GdCommodityDTO {
     @ApiModelProperty("所属门店名")
     private String ssmdName;
 
+    //详细表字段
+    @ApiModelProperty("库存数量、商品数量")
+    private Integer comdnum;
+
+    @ApiModelProperty("折扣价")
+    private String discount;
+
+    @ApiModelProperty("进货价")
+    private String puprice;
+
+    @ApiModelProperty("商品状态 0-上架中 1-下架")
+    private Integer comstate;
+
+    @ApiModelProperty("会员是否可享折扣")
+    private Integer vipishige;
+
+    //类型字段
+    /**
+     * 类型名称
+     */
+    @ApiModelProperty("类型名称")
+    private String typename;
+
+    /**
+     * 父级ID
+     */
+    @ApiModelProperty("父级ID")
+    private Integer parent;
+
+    @ApiModelProperty("门店id集合")
+    private List<Integer> storeidlist;
 }
