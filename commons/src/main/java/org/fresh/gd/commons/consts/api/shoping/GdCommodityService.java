@@ -87,4 +87,6 @@ public interface GdCommodityService {
      */
     @PostMapping("/QueryComByType")
     ResponseData<List<GdCommodityDTO>> QueryComByType(RequestData<Integer> requestData);
+
+
 }

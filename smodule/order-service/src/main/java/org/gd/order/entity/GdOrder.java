@@ -76,4 +76,14 @@ public class GdOrder implements Serializable {
      */
     private String belongStoreNam;
 
+    /**
+    *   用户ID
+    */
+    private Integer userId;
+
+    /**
+     *  抹零
+     */
+    private String priceml;
+
 }

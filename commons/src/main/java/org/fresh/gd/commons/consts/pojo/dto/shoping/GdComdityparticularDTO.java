@@ -1,6 +1,5 @@
 package org.fresh.gd.commons.consts.pojo.dto.shoping;
 
-import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -28,5 +27,7 @@ public class GdComdityparticularDTO {
 
     @ApiModelProperty("所属店铺ID")
     private Integer storeid;
+
+
 
 }
