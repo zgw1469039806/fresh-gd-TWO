@@ -17,6 +17,11 @@ import lombok.Data;
 public class GdActivitiesAndShopDTO
 {
     /**
+     * 图片地址
+     */
+    @ApiModelProperty("图片地址")
+    private String imagesurl;
+    /**
      * 商品ID
      */
     @ApiModelProperty("商品ID")
