@@ -32,4 +32,6 @@ public interface GdOrdershopMapper extends BaseMapper<GdOrdershop> {
 
     @Select("select * from gd_ordershop where orderid = #{orderId}")
     List<GdOrdershopDTO> selOrderShopById(String orderId);
+
+
 }
