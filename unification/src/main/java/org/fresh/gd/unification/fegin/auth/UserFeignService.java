@@ -9,5 +9,7 @@ import org.springframework.cloud.netflix.feign.FeignClient;
  * @Description
  */
 @FeignClient("authorization-service")
-public interface UserFeignService extends UserService {
+public interface UserFeignService extends UserService
+{
+
 }

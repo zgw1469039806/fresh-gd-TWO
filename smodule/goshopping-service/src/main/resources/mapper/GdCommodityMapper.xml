@@ -17,6 +17,29 @@
         comdityId, comdityname, comditytypeId, comditydw, comditydescribe, comdityprice
     </sql>
 
+    <select id="QueryShop" parameterType="org.fresh.gd.commons.consts.pojo.dto.shoping.ComdityQueryDTO"
+            resultType="org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO">
+        select * from gd_commodity co,gd_comdityparticular pa,gd_comditytype ty
+        <where>
+            co.comditytypeId = pa.comdityId and co.comditytypeId = ty.comditytypeId
+            <if test="comdityname !=null and comdityname != '' ">
+                and co.comdityname = #{comdityname}
+            </if>
+            <if test="comditytypeId !=null and comditytypeId != 0">
+                and co.comditytypeId = #{comditytypeId}
+            </if>
+            <if test="comdityBM !=null and comdityBM!=''">
+                and pa.comdityBM = #{comdityBM}
+            </if>
+            <if test="storeid!=null and storeid!=0">
+                and pa.storeid = #{storeid}
+            </if>
+            <if test="comstate != null and comstate !=0">
+                and pa.comstate = #{comstate}
+            </if>
+        </where>
+    </select>
+
     <select id="selShopAllAdmin" resultType="org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO">
         SELECT * FROM gd_commodity g
         RIGHT OUTER JOIN gd_comdityparticular c
@@ -45,7 +68,8 @@
         select * from gd_commodity c,gd_images i where c.comdityId=i.comdityId and c.comdityId=#{comdityId}
     </select>
 
-    <select id="QueryComByType" resultType="org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO" parameterType="Integer">
+    <select id="QueryComByType" resultType="org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO"
+            parameterType="Integer">
         select * from gd_commodity where comditytypeId = #{tid}
     </select>
 
@@ -90,5 +114,23 @@
         inner join gd_comditytype e
         on g.activityId=c.activityId and e.comditytypeId=c.comditytypeId
         where c.comdityname LIKE CONCAT('%',#{comdityname},'%')
+    </select>
+
+    <select id="QuerySync" parameterType="Integer"
+            resultType="org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO">
+        select * from gd_commodity com, gd_comdityparticular par
+        where com.comdityId not in
+        (select co.comdityId from gd_commodity co, gd_comdityparticular pa where co.comdityId = pa.comdityId and pa.storeid = #{storeid})
+        and com.comdityId = par.comdityId
+    </select>
+
+    <select id="QueryShopByIds" parameterType="list" resultType="org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO">
+        select co.comdityname,co.comdityId,co.comditydw from gd_commodity co
+        <where>
+            and co.comdityId in
+            <foreach collection="list" open="(" item="item" separator="," close=")">
+                #{item}
+            </foreach>
+        </where>
     </select>
 </mapper>

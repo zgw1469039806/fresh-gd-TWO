@@ -16,10 +16,17 @@
         <module>zuul</module>
         <module>smodule</module>
         <module>txlcn-tm</module>
+        <module>config-center</module>
 
     </modules>
 
     <dependencies>
+       
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-config-client</artifactId>
+            <version>1.4.4.RELEASE</version>
+        </dependency>
 
         <dependency>
             <groupId>io.springfox</groupId>

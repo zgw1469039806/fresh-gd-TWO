@@ -34,6 +34,17 @@ public interface GdCommodityMapper extends BaseMapper<GdCommodity> {
     List<GdCommodityDTO> selShopAllUser();
 
     /**
+     * 功能描述:
+     * 查询商品
+     *
+     * @param: []
+     * @return: java.util.List<org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO>
+     * @auther: 郭家恒
+     * @date: 2019/5/14 18:06
+     */
+    List<GdCommodityDTO> QueryShop(ComdityQueryDTO comdityQueryDTO);
+
+    /**
      * 功能描述
      * Admin管理 商品信息 带分页
      *
@@ -78,13 +89,15 @@ public interface GdCommodityMapper extends BaseMapper<GdCommodity> {
     List<GdCommodityDTO> QueryComByType(@Param("tid") Integer tid);
 
 
-    /** 功能描述:
-    *客户端显示全部页面所有商品类型id查询
-    * @param: [typeid]商品的类型id
-    * @return: java.util.List<org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityListDTO>
-    * @auther: 贾轶飞
-    * @date: 2019/4/26 15:10
-    */
+    /**
+     * 功能描述:
+     * 客户端显示全部页面所有商品类型id查询
+     *
+     * @param: [typeid]商品的类型id
+     * @return: java.util.List<org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityListDTO>
+     * @auther: 贾轶飞
+     * @date: 2019/4/26 15:10
+     */
 //    List<GdCommodityListDTO> wsSelAll(@Param("typeid")String typeid);
 
     List<GdinventoryallDTO> nventoryallmap(GdComditynameDTO gdComditynameDTO);
@@ -95,5 +108,23 @@ public interface GdCommodityMapper extends BaseMapper<GdCommodity> {
 
     List<GdActivitiesAndShopDTO> selGdActivAndShopLike(@Param("comdityname") String comdityname);
 
+    /**
+     * 功能描述:
+     * 根据门店查询需要同步的商品
+     *
+     * @param: []
+     * @auther: 郭家恒
+     * @date: 2019/5/15 8:19
+     */
+    List<GdCommodityDTO> QuerySync(@Param("storeid") Integer storeid);
+
+    /** 功能描述:
+    * 根据商品id集合查询商品
+    * @param: [list]
+    * @return: java.util.List<org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO>
+    * @auther: 郭家恒
+    * @date: 2019/5/15 9:52
+    */
+    List<GdCommodityDTO> QueryShopByIds(List<Integer> list);
 
 }
