@@ -126,4 +126,5 @@ public interface GdCommodityMapper extends BaseMapper<GdCommodity> {
     * @date: 2019/5/15 9:52
     */
     List<GdCommodityDTO> QueryShopByIds(List<Integer> list);
+
 }
