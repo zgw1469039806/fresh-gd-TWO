@@ -44,7 +44,7 @@ public interface GdCommodityService {
      * 查询商品信息 商品详情带分页
      *
      * @param
-     * @return org.fresh.gd.commons.consts.pojo.ResponseData<com.baomidou.mybatisplus.extension.plugins.pagination.Page                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               <                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO>>
+     * @return org.fresh.gd.commons.consts.pojo.ResponseData<com.baomidou.mybatisplus.extension.plugins.pagination.Page < org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO>>
      * @author zgw
      */
     @PostMapping("/selPageShop")
@@ -54,7 +54,7 @@ public interface GdCommodityService {
     /**
      * @Author: JYF on 2019/4/24 8:55
      * @param:
-     * @return: ResponseData<List       <       GdCommodityListDTO>>
+     * @return: ResponseData<List < GdCommodityListDTO>>
      * @Description: 查询主页显示的商品信息
      */
     @GetMapping("/selheadlineAll")
@@ -85,7 +85,7 @@ public interface GdCommodityService {
      * 根据分类查询商品
      *
      * @param: [requestData]
-     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List                                                                                                                               <                                                                                                                               org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO>>
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List < org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO>>
      * @auther: 郭家恒
      * @date: 2019/4/28 15:20
      */
@@ -158,11 +158,23 @@ public interface GdCommodityService {
      * (商品id,商品名称，商品规格)
      *
      * @param: [requestData]
-     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List               <               org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO>>
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List < org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO>>
      * @auther: 郭家恒
      * @date: 2019/5/15 9:49
      */
     @PostMapping("/QueryShopByIds")
     ResponseData<List<GdCommodityDTO>> QueryShopByIds(List<Integer> requestData);
+
+
+    /**
+     * 功能描述
+     * 商品上下架操作
+     *
+     * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+     * @author zgw
+     */
+    @PostMapping("/StandandDown")
+    ResponseData<Integer> StandandDown(RequestData<GdcomdityHhDTO> requestData);
+
 
 }

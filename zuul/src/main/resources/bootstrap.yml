@@ -1,0 +1,9 @@
+server:
+  port: 8999
+spring:
+  application:
+    name: zuul
+  cloud:
+    config:
+      profile: local
+      uri: http://localhost:9099

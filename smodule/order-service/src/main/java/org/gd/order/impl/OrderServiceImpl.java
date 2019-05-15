@@ -15,6 +15,7 @@ import org.fresh.gd.commons.consts.pojo.ResponseData;
 import org.fresh.gd.commons.consts.pojo.dto.order.GdOrderDTO;
 import org.fresh.gd.commons.consts.pojo.dto.order.OrderCountDTO;
 import org.fresh.gd.commons.consts.pojo.dto.order.OrderPageDTO;
+import org.fresh.gd.commons.consts.pojo.dto.order.OrderStartDTO;
 import org.fresh.gd.commons.consts.pojo.dto.shoping.GdComdityparticularDTO;
 import org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO;
 import org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityListDTO;
@@ -213,5 +214,26 @@ public class OrderServiceImpl implements GDOrderService {
 
         responseData.setData(pageBean);
         return responseData;
+    }
+
+    /**
+     * 功能描述:
+     * 根据订单编号修改订单状态 -
+     *
+     * @param: [orderId, ordStart]
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+     * @auther: Mr.Xia
+     * @date: 2019/5/15 11:36
+     */
+    @Override
+    public ResponseData<Integer> updOrderStartById(@RequestBody RequestData<OrderStartDTO> orderStartDTO) {
+        ResponseData<Integer> responseData = new ResponseData<>();
+        Integer i = gdOrderMapper.updOrderStartById(orderStartDTO.getData());
+        if(i>0){
+            return responseData;
+        }else{
+            responseData.setCode(Consts.Result.BIZ_ERROR.getCode());
+            return responseData;
+        }
     }
 }

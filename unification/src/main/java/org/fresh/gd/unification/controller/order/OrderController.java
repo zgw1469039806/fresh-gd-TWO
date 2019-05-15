@@ -7,6 +7,7 @@ import org.fresh.gd.commons.consts.pojo.RequestData;
 import org.fresh.gd.commons.consts.pojo.ResponseData;
 import org.fresh.gd.commons.consts.pojo.dto.order.GdOrderDTO;
 import org.fresh.gd.commons.consts.pojo.dto.order.OrderPageDTO;
+import org.fresh.gd.commons.consts.pojo.dto.order.OrderStartDTO;
 import org.fresh.gd.commons.consts.utils.PageBean;
 import org.fresh.gd.unification.fegin.order.OrderFeginService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,12 @@ public class OrderController {
     @PostMapping("/selOrderPage")
     public ResponseData<PageBean<GdOrderDTO>> selOrderPage(@RequestBody RequestData<OrderPageDTO> orderPageDTO){
         return orderFeginService.selOrderPage(orderPageDTO);
+    }
+
+    @ApiOperation(value = "修改订单状态")
+    @PostMapping("/updOrderStartById")
+    public ResponseData<Integer> updOrderStartById(@RequestBody RequestData<OrderStartDTO> orderStartDTO){
+        return orderFeginService.updOrderStartById(orderStartDTO);
     }
 
 }

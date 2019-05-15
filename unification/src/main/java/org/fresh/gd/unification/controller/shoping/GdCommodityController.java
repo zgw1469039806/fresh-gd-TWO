@@ -112,7 +112,7 @@ public class GdCommodityController {
     * @date: 2019/5/15 9:46
     */
     @PostMapping("/delShop")
-    ResponseData<Integer> delShop(@RequestBody RequestData<GdCommodityDTO> requestData){
+    ResponseData<Integer> delShop(@RequestBody RequestData<GdCommodityDTO> requestData) {
         return gdCommodityFeignService.delShop(requestData);
     }
 
@@ -124,8 +124,8 @@ public class GdCommodityController {
     * @date: 2019/5/15 9:47
     */
     @PostMapping("/updShop")
-    ResponseData<Integer> updShop(@RequestBody RequestData<GdCommodityDTO> requestData){
-        return  gdCommodityFeignService.updShop(requestData);
+    ResponseData<Integer> updShop(@RequestBody RequestData<GdCommodityDTO> requestData) {
+        return gdCommodityFeignService.updShop(requestData);
     }
 
     /** 功能描述:
@@ -140,4 +140,16 @@ public class GdCommodityController {
     public ResponseData<Integer> addShop(@RequestBody RequestData<GdCommodityDTO> requestData) {
         return gdCommodityFeignService.addShop(requestData);
     }
+
+    /**
+     * 功能描述
+     *  商品上下架操作
+     * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+     * @author zgw
+     */
+    @PostMapping("/StartAndDwon")
+    ResponseData<Integer> StartAndDwon(@RequestBody RequestData<GdcomdityHhDTO> requestData) {
+        return gdCommodityFeignService.StandandDown(requestData);
+    }
+
 }

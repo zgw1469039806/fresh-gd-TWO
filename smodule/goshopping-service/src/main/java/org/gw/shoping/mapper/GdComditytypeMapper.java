@@ -23,6 +23,9 @@ import java.util.List;
 public interface GdComditytypeMapper extends BaseMapper<GdComditytype> {
 
     @Select("select * from gd_comditytype")
+    List<GdComditytypeDTO> selTypeById();
+
+    @Select("select * from gd_comditytype")
     List<GdComditytypeDTO> selTypeAll();
 
     @Insert("insert into gd_comditytype(typename,parent) value(#{typename},#{parent})")
@@ -31,12 +34,13 @@ public interface GdComditytypeMapper extends BaseMapper<GdComditytype> {
     @Insert("UPDATE gd_comditytype SET typename=#{typename} WHERE comditytypeId=#{comditytypeId}")
     Integer updateType(GdComditytypeDTO gdComditytypeDTO);
 
-    /** 功能描述:
-    * 删除商品
-    * @param: [tid] 商品ID
-    * @return: java.lang.Integer
-    * @auther: 郭家恒
-    * @date: 2019/4/26 15:05
-    */
-    Integer delType(@Param("tid")Integer tid);
+    /**
+     * 功能描述:
+     * 删除商品
+     * @param: [tid] 商品ID
+     * @return: java.lang.Integer
+     * @auther: 郭家恒
+     * @date: 2019/4/26 15:05
+     */
+    Integer delType(@Param("tid") Integer tid);
 }

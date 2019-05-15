@@ -1,6 +1,7 @@
 package org.fresh.gd.unification;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.cloud.client.SpringCloudApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -19,6 +20,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
+import java.util.HashMap;
 
 /**
  * @DATA 2019-04-12 09:50
@@ -32,17 +34,14 @@ import java.util.Arrays;
 @EnableOAuth2Sso
 @EnableDiscoveryClient
 @EnableFeignClients
-@SpringCloudApplication
+@SpringBootApplication
 public class UnificationApplication extends WebSecurityConfigurerAdapter  {
-
-
 
     @Bean
     public CsrfTokenRepository tokenRepository()
     {
         return new CookieCsrfTokenRepository();
     }
-
 
     @Override
     public void configure(HttpSecurity http) throws Exception
@@ -78,6 +77,6 @@ public class UnificationApplication extends WebSecurityConfigurerAdapter  {
 
     public static void main(String[] args)
     {
-        SpringApplication.run(UnificationApplication.class, args);
+         SpringApplication.run(UnificationApplication.class, args);
     }
 }
