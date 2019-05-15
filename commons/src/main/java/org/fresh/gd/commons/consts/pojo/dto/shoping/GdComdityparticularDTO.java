@@ -1,5 +1,6 @@
 package org.fresh.gd.commons.consts.pojo.dto.shoping;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -39,4 +40,7 @@ public class GdComdityparticularDTO {
 
     @ApiModelProperty("会员是否可享折扣")
     private Integer vipishige;
+
+    @ApiModelProperty("商品编码")
+    private String comdityBM;
 }

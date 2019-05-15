@@ -2,6 +2,7 @@ package org.gw.shoping.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.fresh.gd.commons.consts.pojo.dto.shoping.GdComdityparticularDTO;
 import org.gw.shoping.entity.GdComdityparticular;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.gw.shoping.entity.GdCommodity;
@@ -41,4 +42,15 @@ public interface GdComdityparticularMapper extends BaseMapper<GdComdityparticula
      * @date: 2019/5/6 8:16
      */
     Integer reduceStock(@Param("cid") Integer cid, @Param("stock") Integer stock, @Param("type") Integer type);
+
+    /**
+     * 功能描述:
+     * 根据门店Id批量插入商品详细
+     * 门店同步用
+     * @param: [list]
+     * @return: java.lang.Integer
+     * @auther: 郭家恒
+     * @date: 2019/5/15 9:16
+     */
+    Integer addPar(List<GdComdityparticularDTO> list);
 }

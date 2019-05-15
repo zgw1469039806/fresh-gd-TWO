@@ -6,10 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.fresh.gd.commons.consts.exceptions.BizException;
 import org.fresh.gd.commons.consts.pojo.RequestData;
 import org.fresh.gd.commons.consts.pojo.ResponseData;
-import org.fresh.gd.commons.consts.pojo.dto.shoping.ComdityQueryDTO;
-import org.fresh.gd.commons.consts.pojo.dto.shoping.GdComditynameDTO;
-import org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO;
-import org.fresh.gd.commons.consts.pojo.dto.shoping.GdinventoryallDTO;
+import org.fresh.gd.commons.consts.pojo.dto.shoping.*;
 import org.fresh.gd.unification.fegin.shoping.GdCommodityFeignService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -57,7 +54,7 @@ public class GdCommodityController {
      * 根据分类查询商品
      *
      * @param: [requestData]
-     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List       <       org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO>>
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List               <               org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO>>
      * @auther: 郭家恒
      * @date: 2019/4/28 15:25
      */
@@ -78,5 +75,57 @@ public class GdCommodityController {
     public ResponseData<List<GdCommodityDTO>> QueryShopByWh(@RequestBody RequestData<ComdityQueryDTO> queryData) {
         ResponseData<List<GdCommodityDTO>> listResponseData = gdCommodityFeignService.QueryShopbyWh(queryData);
         return listResponseData;
+    }
+
+    /**
+     * 功能描述:
+     * 查询可同步至目标门店的商品
+     *
+     * @param: [requestData]
+     * @auther: 郭家恒
+     * @date: 2019/5/15 9:42
+     */
+    @PostMapping("/QuerySync")
+    ResponseData<List<GdCommodityDTO>> QuerySync(@RequestBody RequestData<Integer> requestData) {
+        return gdCommodityFeignService.QuerySync(requestData);
+    }
+
+    /**
+     * 功能描述:
+     * 同步商品数据至目标门店
+     *
+     * @param: [requestData]
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+     * @auther: 郭家恒
+     * @date: 2019/5/15 9:43
+     */
+    @PostMapping("/synchronizationShop")
+    ResponseData<Integer> synchronizationShop(@RequestBody RequestData<synchronizationDTO> requestData) {
+        return gdCommodityFeignService.synchronizationShop(requestData);
+    }
+
+    /** 功能描述:
+    * 删除商品
+    * @param: [requestData]
+    * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+    * @auther: 郭家恒
+    * @date: 2019/5/15 9:46
+    */
+    @PostMapping("/delShop")
+    ResponseData<Integer> delShop(@RequestBody RequestData<GdCommodityDTO> requestData){
+        return gdCommodityFeignService.delShop(requestData);
+    }
+
+    /** 功能描述:
+    * 修改商品数据
+    * @param: [requestData]
+    * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+    * @auther: 郭家恒
+    * @date: 2019/5/15 9:47
+    */
+
+    @PostMapping("/updShop")
+    ResponseData<Integer> updShop(@RequestBody RequestData<GdCommodityDTO> requestData){
+        return  gdCommodityFeignService.updShop(requestData);
     }
 }

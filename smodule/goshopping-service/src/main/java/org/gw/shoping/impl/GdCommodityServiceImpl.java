@@ -159,7 +159,7 @@ public class GdCommodityServiceImpl implements GdCommodityService {
      * @date: 2019/5/14 18:13
      */
     @Override
-    public ResponseData<List<GdCommodityDTO>> QueryShopbyWh(RequestData<ComdityQueryDTO> queryData) {
+    public ResponseData<List<GdCommodityDTO>> QueryShopbyWh(@RequestBody RequestData<ComdityQueryDTO> queryData) {
         List<GdCommodityDTO> list = gdCommodityMapper.QueryShop(queryData.getData());
         List<Integer> storeids = new ArrayList<>();
         for (GdCommodityDTO dto : list) {
@@ -193,7 +193,7 @@ public class GdCommodityServiceImpl implements GdCommodityService {
      */
     @Transactional
     @Override
-    public ResponseData<Integer> delShop(RequestData<GdCommodityDTO> requestData) {
+    public ResponseData<Integer> delShop(@RequestBody RequestData<GdCommodityDTO> requestData) {
         ResponseData<Integer> responseData = new ResponseData<>();
         GdCommodity gdCommodity = new GdCommodity();
         BeanUtils.copyProperties(requestData.getData(), gdCommodity);
@@ -257,7 +257,7 @@ public class GdCommodityServiceImpl implements GdCommodityService {
      */
     @Transactional
     @Override
-    public ResponseData<Integer> updShop(RequestData<GdCommodityDTO> requestData) {
+    public ResponseData<Integer> updShop(@RequestBody RequestData<GdCommodityDTO> requestData) {
         GdCommodity gdCommodity = new GdCommodity();
         BeanUtils.copyProperties(requestData.getData(), gdCommodity);
         GdComdityparticular gdComdityparticular = new GdComdityparticular();
@@ -288,8 +288,16 @@ public class GdCommodityServiceImpl implements GdCommodityService {
      * @date: 2019/5/14 23:18
      */
     @Override
-    public ResponseData<Integer> synchronizationShop(RequestData<GdCommodityDTO> requestData) {
-        return null;
+    public ResponseData<Integer> synchronizationShop(@RequestBody RequestData<synchronizationDTO> requestData) {
+        List<GdComdityparticularDTO> list = requestData.getData().getList();
+        int storeid = requestData.getData().getStoreid();
+        for (GdComdityparticularDTO dto : list){
+            dto.setStoreid(storeid);
+        }
+        int save = gdComdityparticularMapper.addPar(list);
+        ResponseData<Integer> responseData = new ResponseData<>();
+        responseData.setData(save);
+        return responseData;
     }
 
     /**
@@ -303,7 +311,29 @@ public class GdCommodityServiceImpl implements GdCommodityService {
      * @date: 2019/5/14 23:23
      */
     @Override
-    public ResponseData<GdCommodityDTO> QuerySync(RequestData<GdCommodityDTO> requestData) {
-        return null;
+    public ResponseData<List<GdCommodityDTO>> QuerySync(@RequestBody RequestData<Integer> requestData) {
+        List<GdCommodityDTO> list = gdCommodityMapper.QuerySync(requestData.getData());
+        ResponseData<List<GdCommodityDTO>> responseData = new ResponseData<>();
+        responseData.setData(list);
+        return responseData;
+    }
+
+    /**
+     * 功能描述:
+     * 根据商品id集合查询商品与商品详情
+     * (商品id,商品名称，商品规格)
+     *
+     * @param requestData
+     * @param: [requestData]
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List                               <                               o r g . f r e s h . g d . c o m mons.consts.pojo.dto.shoping.GdCommodityDTO>>
+     * @auther: 郭家恒
+     * @date: 2019/5/15 9:49
+     */
+    @Override
+    public ResponseData<List<GdCommodityDTO>> QueryShopByIds(@RequestBody List<Integer> requestData) {
+        ResponseData<List<GdCommodityDTO>> responseData = new ResponseData<>();
+        List<GdCommodityDTO> list = gdCommodityMapper.QueryShopByIds(requestData);
+        responseData.setData(list);
+        return responseData;
     }
 }

@@ -115,4 +115,22 @@
         on g.activityId=c.activityId and e.comditytypeId=c.comditytypeId
         where c.comdityname LIKE CONCAT('%',#{comdityname},'%')
     </select>
+
+    <select id="QuerySync" parameterType="Integer"
+            resultType="org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO">
+        select * from gd_commodity com, gd_comdityparticular par
+        where com.comdityId not in
+        (select co.comdityId from gd_commodity co, gd_comdityparticular pa where co.comdityId = pa.comdityId and pa.storeid = #{storeid})
+        and com.comdityId = par.comdityId
+    </select>
+
+    <select id="QueryShopByIds" parameterType="list" resultType="org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO">
+        select co.comdityname,co.comdityId,co.comditydw from gd_commodity co
+        <where>
+            and co.comdityId in
+            <foreach collection="list" open="(" item="item" separator="," close=")">
+                #{item}
+            </foreach>
+        </where>
+    </select>
 </mapper>
