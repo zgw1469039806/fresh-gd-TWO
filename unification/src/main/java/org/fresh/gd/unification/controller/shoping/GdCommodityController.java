@@ -54,7 +54,7 @@ public class GdCommodityController {
      * 根据分类查询商品
      *
      * @param: [requestData]
-     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List               <               org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO>>
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List < org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO>>
      * @auther: 郭家恒
      * @date: 2019/4/28 15:25
      */
@@ -104,28 +104,42 @@ public class GdCommodityController {
         return gdCommodityFeignService.synchronizationShop(requestData);
     }
 
-    /** 功能描述:
-    * 删除商品
-    * @param: [requestData]
-    * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
-    * @auther: 郭家恒
-    * @date: 2019/5/15 9:46
-    */
+    /**
+     * 功能描述:
+     * 删除商品
+     *
+     * @param: [requestData]
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+     * @auther: 郭家恒
+     * @date: 2019/5/15 9:46
+     */
     @PostMapping("/delShop")
-    ResponseData<Integer> delShop(@RequestBody RequestData<GdCommodityDTO> requestData){
+    ResponseData<Integer> delShop(@RequestBody RequestData<GdCommodityDTO> requestData) {
         return gdCommodityFeignService.delShop(requestData);
     }
 
-    /** 功能描述:
-    * 修改商品数据
-    * @param: [requestData]
-    * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
-    * @auther: 郭家恒
-    * @date: 2019/5/15 9:47
-    */
-
+    /**
+     * 功能描述:
+     * 修改商品数据
+     * @param: [requestData]
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+     * @auther: 郭家恒
+     * @date: 2019/5/15 9:47
+     */
     @PostMapping("/updShop")
-    ResponseData<Integer> updShop(@RequestBody RequestData<GdCommodityDTO> requestData){
-        return  gdCommodityFeignService.updShop(requestData);
+    ResponseData<Integer> updShop(@RequestBody RequestData<GdCommodityDTO> requestData) {
+        return gdCommodityFeignService.updShop(requestData);
     }
+
+    /**
+     * 功能描述
+     *  商品上下架操作
+     * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+     * @author zgw
+     */
+    @PostMapping("/StartAndDwon")
+    ResponseData<Integer> StartAndDwon(@RequestBody RequestData<GdcomdityHhDTO> requestData) {
+        return gdCommodityFeignService.StandandDown(requestData);
+    }
+
 }

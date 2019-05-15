@@ -336,4 +336,32 @@ public class GdCommodityServiceImpl implements GdCommodityService {
         responseData.setData(list);
         return responseData;
     }
+
+
+    /**
+     * 功能描述
+     * 商品上下架操作
+     *
+     * @param requestData
+     * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+     * @author zgw
+     */
+    @Override
+    public ResponseData<Integer> StandandDown(@RequestBody RequestData<GdcomdityHhDTO> requestData)
+    {
+        ResponseData<Integer> responseData=new ResponseData<>();
+
+        GdcomdityHhDTO gdcomdityHhDTO=requestData.getData();
+
+        Integer standandDown = gdComdityparticularMapper.StandandDown(gdcomdityHhDTO);
+        if (standandDown>0)
+        {
+            responseData.setMsg("修改状态成功");
+            return responseData;
+        }
+        responseData.setMsg("修改状态失败");
+
+        return responseData;
+    }
+
 }

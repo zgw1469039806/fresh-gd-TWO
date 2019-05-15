@@ -27,6 +27,7 @@ import javax.sql.DataSource;
  * @Author 张国伟  WeChat:17630376104
  * @Description 启动类
  */
+
 @EnableDistributedTransaction
 @EnableFeignClients
 @MapperScan("org.gw.shoping.mapper")

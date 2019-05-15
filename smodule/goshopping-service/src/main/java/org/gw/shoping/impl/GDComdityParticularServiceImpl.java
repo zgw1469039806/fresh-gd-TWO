@@ -9,6 +9,7 @@ import org.fresh.gd.commons.consts.exceptions.BizException;
 import org.fresh.gd.commons.consts.pojo.RequestData;
 import org.fresh.gd.commons.consts.pojo.ResponseData;
 import org.fresh.gd.commons.consts.pojo.dto.shoping.GdComdityparticularDTO;
+import org.fresh.gd.commons.consts.pojo.dto.shoping.GdcomdityHhDTO;
 import org.gw.shoping.entity.GdComdityparticular;
 import org.gw.shoping.mapper.GdComdityparticularMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,4 +88,7 @@ public class GDComdityParticularServiceImpl implements GDComdityParticularServic
         responseData.setCode(1000);
         return responseData;
     }
+
+
+
 }

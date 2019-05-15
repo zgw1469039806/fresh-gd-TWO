@@ -39,18 +39,15 @@ public interface GdComditytypeService {
      */
     @PostMapping("/sevaType")
     ResponseData<Integer> sevaType(RequestData<GdComditytypeDTO> dtoRequestData);
-
     /**
      * 功能描述
      * 根据ID修改类型
-     *
      * @param dtoRequestData
      * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
      * @author zgw
      */
     @PostMapping("/updateType")
     ResponseData<Integer> updateType(RequestData<GdComditytypeDTO> dtoRequestData);
-
 
     /**
      * 功能描述:
@@ -63,8 +60,6 @@ public interface GdComditytypeService {
      */
     @PostMapping("/delType")
     ResponseData<Integer> delType(RequestData<Integer> requestData);
-
-
     /**
      * 功能描述
      * 根据活动ID 查询商品
@@ -74,8 +69,7 @@ public interface GdComditytypeService {
      */
     @GetMapping("/selActAndShop")
     ResponseData<List<GdActivitiesAndShopDTO>> selActAndShop(Integer requestData);
-
-    /* *
+    /**
      * 功能描述
      * 根据商品名称查询商品信息 以及打折信息
      * @author zgw
@@ -83,7 +77,5 @@ public interface GdComditytypeService {
      */
     @GetMapping("/selGdActivAndShopLike")
     ResponseData<List<GdActivitiesAndShopDTO>> selGdActivAndShopLike(String requestData);
-
-
 
 }

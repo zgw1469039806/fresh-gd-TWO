@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -42,6 +43,7 @@ public class GdComditytypeServiceImpl implements GdComditytypeService {
      */
     @Override
     public ResponseData<List<GdComditytypeDTO>> selTypeAll() {
+
 
         ResponseData<List<GdComditytypeDTO>> responseData = new ResponseData<>();
         responseData.setData(gdComditytypeMapper.selTypeAll());
@@ -85,17 +87,18 @@ public class GdComditytypeServiceImpl implements GdComditytypeService {
     public ResponseData<Integer> updateType(@RequestBody RequestData<GdComditytypeDTO> dtoRequestData) {
         ResponseData<Integer> responseData = new ResponseData<>();
         GdComditytypeDTO gdComditytypeDTO = dtoRequestData.getData();
-        if (StringUtils.isEmpty(dtoRequestData.getData().getTypename())) {
+        if (StringUtils.isEmpty(dtoRequestData.getData().getTypename()))
+        {
             throw new BizException("类型名称不能为空");
         }
         Integer updateType = gdComditytypeMapper.updateType(gdComditytypeDTO);
-        if (updateType > 0) {
+        if (updateType > 0)
+        {
             return responseData;
         }
         responseData.setCode(Consts.Result.ERROR_PARAM.getCode());
         return responseData;
     }
-
     /**
      * 功能描述:
      *
@@ -137,7 +140,6 @@ public class GdComditytypeServiceImpl implements GdComditytypeService {
             throw new BizException("活动ID不能为空");
         }
 
-
         List<GdActivitiesAndShopDTO> gdActivitiesAndShopDTOS = gdCommodityMapper.selGdActivAndShop(requestData);
         responseData.setData(gdActivitiesAndShopDTOS);
         return responseData;
@@ -157,4 +159,5 @@ public class GdComditytypeServiceImpl implements GdComditytypeService {
 
         return responseData;
     }
+
 }
