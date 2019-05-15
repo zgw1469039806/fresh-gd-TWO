@@ -6,6 +6,7 @@ import org.fresh.gd.commons.consts.api.order.GDOrderShopService;
 import org.fresh.gd.commons.consts.pojo.RequestData;
 import org.fresh.gd.commons.consts.pojo.ResponseData;
 import org.fresh.gd.commons.consts.pojo.dto.order.GdOrdershopDTO;
+import org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO;
 import org.gd.order.fegin.OrderFeginToGoods;
 import org.gd.order.mapper.GdOrdershopMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,25 +44,23 @@ public class OrderShopServiceImpl implements GDOrderShopService {
      * @date: 2019/5/14 15:24
      */
     @Override
-    public ResponseData<List<GdOrdershopDTO>> selOrderShopById(@RequestBody RequestData<String> orderId) {
-        ResponseData<List<GdOrdershopDTO>> responseData = new ResponseData<>();
+    public ResponseData<Map<String,Object>> selOrderShopById(@RequestBody RequestData<String> orderId) {
+        ResponseData<Map<String,Object>> responseData = new ResponseData<>();
 
         Map<String,Object> map = new ConcurrentHashMap<>();
 
-        List<GdOrdershopDTO> list = gdOrdershopMapper.selOrderShopById(orderId.getData());
+        List<GdOrdershopDTO> ordList = gdOrdershopMapper.selOrderShopById(orderId.getData());
         List<Integer> integerList = new ArrayList<>();
-        for (GdOrdershopDTO gd : list) {
+        for (GdOrdershopDTO gd : ordList) {
             integerList.add(gd.getComdityId());
         }
-
         //TODO:调用商品
-
-
-
-
-
-
-        responseData.setData(list);
+        ResponseData<List<GdCommodityDTO>> comList = orderFeginToGoods.QueryShopByIds(integerList);
+        map.put("ordList",ordList);
+        map.put("comList",comList.getData());
+        responseData.setData(map);
         return responseData;
     }
+
+
 }

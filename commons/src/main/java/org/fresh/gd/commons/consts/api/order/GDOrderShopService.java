@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Auther: 夏乾航 email:xqh151@163.com
@@ -27,5 +28,5 @@ public interface GDOrderShopService {
     * @date: 2019/5/14 15:24
     */
     @PostMapping("/selOrderShopById")
-    ResponseData<List<GdOrdershopDTO>> selOrderShopById(RequestData<String> orderId);
+    ResponseData<Map<String,Object>> selOrderShopById(RequestData<String> orderId);
 }

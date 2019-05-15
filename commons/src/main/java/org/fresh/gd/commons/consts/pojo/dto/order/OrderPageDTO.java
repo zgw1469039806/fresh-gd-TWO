@@ -3,6 +3,9 @@ package org.fresh.gd.commons.consts.pojo.dto.order;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
 
 /**
  * @Auther: 夏乾航 email:xqh151@163.com
@@ -16,9 +19,11 @@ public class OrderPageDTO {
     @ApiModelProperty("订单编号")
     private String orderId;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @ApiModelProperty("开始时间")
     private String startTime;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @ApiModelProperty("结束时间")
     private String endTime;
 
