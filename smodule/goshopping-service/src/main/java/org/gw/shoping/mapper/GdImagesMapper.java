@@ -2,6 +2,7 @@ package org.gw.shoping.mapper;
 
 import org.gw.shoping.entity.GdImages;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.mapstruct.Mapper;
 
 /**
  * <p>
@@ -11,6 +12,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author guowei.zhang
  * @since 2019-04-12
  */
+
 public interface GdImagesMapper extends BaseMapper<GdImages> {
 
 }

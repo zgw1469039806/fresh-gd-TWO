@@ -2,7 +2,9 @@ package org.gw.shoping.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
 import org.fresh.gd.commons.consts.pojo.dto.shoping.GdComdityparticularDTO;
+import org.fresh.gd.commons.consts.pojo.dto.shoping.GdcomdityHhDTO;
 import org.gw.shoping.entity.GdComdityparticular;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.gw.shoping.entity.GdCommodity;
@@ -53,4 +55,10 @@ public interface GdComdityparticularMapper extends BaseMapper<GdComdityparticula
      * @date: 2019/5/15 9:16
      */
     Integer addPar(List<GdComdityparticularDTO> list);
+
+    @Update("update gd_comdityparticular set comstate=#{comstateId} where comdityId=#{comdityId} and storeid=#{storeId}")
+    Integer StandandDown(GdcomdityHhDTO gdcomdityHhDTO);
+
+
+
 }
