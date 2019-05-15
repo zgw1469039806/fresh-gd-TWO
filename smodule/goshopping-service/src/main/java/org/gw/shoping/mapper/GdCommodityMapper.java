@@ -1,6 +1,7 @@
 package org.gw.shoping.mapper;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -127,4 +128,5 @@ public interface GdCommodityMapper extends BaseMapper<GdCommodity> {
     */
     List<GdCommodityDTO> QueryShopByIds(List<Integer> list);
 
+    Integer saveShop(GdCommodity gdCommodity);
 }

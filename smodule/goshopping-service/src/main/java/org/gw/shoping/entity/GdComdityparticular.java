@@ -47,10 +47,28 @@ public class GdComdityparticular implements Serializable {
      */
     private Integer storeid;
 
+    /**
+     * 折扣价
+     */
+    private String discount;
 
+    /**
+     * 进货价
+     */
+    private String puprice;
 
+    /**
+     * 商品状态
+     */
+    private Integer comstate;
 
+    /**
+     * 会员是否可享折扣
+     */
+    private Integer vipishige;
 
-
-
+    /**
+     * 商品编码
+     */
+    private String comdityBM;
 }

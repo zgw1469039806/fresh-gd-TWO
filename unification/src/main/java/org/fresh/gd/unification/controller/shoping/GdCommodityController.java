@@ -123,9 +123,21 @@ public class GdCommodityController {
     * @auther: 郭家恒
     * @date: 2019/5/15 9:47
     */
-
     @PostMapping("/updShop")
     ResponseData<Integer> updShop(@RequestBody RequestData<GdCommodityDTO> requestData){
         return  gdCommodityFeignService.updShop(requestData);
+    }
+
+    /** 功能描述:
+    * 添加商品
+    * @param: [requestData]
+    * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+    * @auther: 郭家恒
+    * @date: 2019/5/15 17:05
+    */
+
+    @PostMapping("/addShop")
+    public ResponseData<Integer> addShop(@RequestBody RequestData<GdCommodityDTO> requestData) {
+        return gdCommodityFeignService.addShop(requestData);
     }
 }

@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @DATA 2019-04-21 11:26
@@ -234,10 +235,13 @@ public class GdCommodityServiceImpl implements GdCommodityService {
         BeanUtils.copyProperties(requestData.getData(), gdCommodity);
         GdComdityparticular gdComdityparticular = new GdComdityparticular();
         BeanUtils.copyProperties(requestData.getData(), gdComdityparticular);
-        int save = gdCommodityMapper.insert(gdCommodity);
+
+        int save = gdCommodityMapper.saveShop(gdCommodity);
         if (save > 0) {
             for (int storeid : requestData.getData().getStoreidlist()) {
+                gdComdityparticular.setComdityId(gdCommodity.getComdityId());
                 gdComdityparticular.setStoreid(storeid);
+                gdComdityparticular.setComdityBM(UUID.randomUUID().toString().substring(6));
                 gdComdityparticularMapper.insert(gdComdityparticular);
             }
         }
@@ -325,7 +329,6 @@ public class GdCommodityServiceImpl implements GdCommodityService {
      *
      * @param requestData
      * @param: [requestData]
-     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List                               <                               o r g . f r e s h . g d . c o m mons.consts.pojo.dto.shoping.GdCommodityDTO>>
      * @auther: 郭家恒
      * @date: 2019/5/15 9:49
      */
