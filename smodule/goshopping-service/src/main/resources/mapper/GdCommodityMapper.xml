@@ -21,7 +21,7 @@
             resultType="org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO">
         select * from gd_commodity co,gd_comdityparticular pa,gd_comditytype ty
         <where>
-            co.comditytypeId = pa.comdityId and co.comditytypeId = ty.comditytypeId
+            co.comdityId = pa.comdityId and co.comditytypeId = ty.comditytypeId
             <if test="comdityname !=null and comdityname != '' ">
                 and (co.comdityname = #{comdityname} or pa.comdityBM = #{comdityname})
             </if>
@@ -31,7 +31,7 @@
             <if test="storeid!=null and storeid!=0">
                 and pa.storeid = #{storeid}
             </if>
-            <if test="comstate != null and comstate !=0">
+            <if test="comstate != null">
                 and pa.comstate = #{comstate}
             </if>
         </where>
@@ -121,7 +121,8 @@
         and com.comdityId = par.comdityId
     </select>
 
-    <select id="QueryShopByIds" parameterType="list" resultType="org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO">
+    <select id="QueryShopByIds" parameterType="list"
+            resultType="org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO">
         select co.comdityname,co.comdityId,co.comditydw from gd_commodity co
         <where>
             and co.comdityId in
@@ -131,7 +132,8 @@
         </where>
     </select>
 
-    <insert id="saveShop" useGeneratedKeys="true" keyColumn="comdityId" parameterType="org.gw.shoping.entity.GdCommodity">
+    <insert id="saveShop" useGeneratedKeys="true" keyColumn="comdityId"
+            parameterType="org.gw.shoping.entity.GdCommodity">
         insert into gd_commodity (comdityname, comditytypeId, comditydw, comditydescribe, comdityprice) values (#{comdityname}, #{comditytypeId}, #{comditydw}, #{comditydescribe}, #{comdityprice});
     </insert>
 </mapper>

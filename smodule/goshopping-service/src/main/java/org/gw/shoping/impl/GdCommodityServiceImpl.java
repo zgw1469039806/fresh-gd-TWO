@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import org.fresh.gd.commons.consts.api.shoping.GdCommodityService;
+import org.fresh.gd.commons.consts.consts.Consts;
 import org.fresh.gd.commons.consts.pojo.RequestData;
 import org.fresh.gd.commons.consts.pojo.ResponseData;
 import org.fresh.gd.commons.consts.pojo.dto.management.GdStoreDTO;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 /**
@@ -235,18 +237,21 @@ public class GdCommodityServiceImpl implements GdCommodityService {
         BeanUtils.copyProperties(requestData.getData(), gdCommodity);
         GdComdityparticular gdComdityparticular = new GdComdityparticular();
         BeanUtils.copyProperties(requestData.getData(), gdComdityparticular);
-
-        int save = gdCommodityMapper.saveShop(gdCommodity);
-        if (save > 0) {
-            for (int storeid : requestData.getData().getStoreidlist()) {
-                gdComdityparticular.setComdityId(gdCommodity.getComdityId());
-                gdComdityparticular.setStoreid(storeid);
-                gdComdityparticular.setComdityBM(UUID.randomUUID().toString().substring(6));
-                gdComdityparticularMapper.insert(gdComdityparticular);
-            }
+        gdCommodityMapper.insert(gdCommodity);
+//        if (save > 0) {
+        for (int storeid : requestData.getData().getStoreidlist()) {
+            gdComdityparticular.setComdityId((int) gdCommodity.getComdityId());
+            gdComdityparticular.setStoreid(storeid);
+            String uuid =  UUID.randomUUID().toString();
+            uuid = uuid.substring(4);
+            String tiaoxing = "69" +uuid;
+            System.out.println(tiaoxing);
+            gdComdityparticular.setComdityBM(tiaoxing);
+            gdComdityparticularMapper.insert(gdComdityparticular);
         }
+//        }
         ResponseData<Integer> responseData = new ResponseData<>();
-        responseData.setData(save);
+//        responseData.setData(save);
         return responseData;
     }
 
@@ -295,7 +300,7 @@ public class GdCommodityServiceImpl implements GdCommodityService {
     public ResponseData<Integer> synchronizationShop(@RequestBody RequestData<synchronizationDTO> requestData) {
         List<GdComdityparticularDTO> list = requestData.getData().getList();
         int storeid = requestData.getData().getStoreid();
-        for (GdComdityparticularDTO dto : list){
+        for (GdComdityparticularDTO dto : list) {
             dto.setStoreid(storeid);
         }
         int save = gdComdityparticularMapper.addPar(list);
@@ -350,15 +355,13 @@ public class GdCommodityServiceImpl implements GdCommodityService {
      * @author zgw
      */
     @Override
-    public ResponseData<Integer> StandandDown(@RequestBody RequestData<GdcomdityHhDTO> requestData)
-    {
-        ResponseData<Integer> responseData=new ResponseData<>();
+    public ResponseData<Integer> StandandDown(@RequestBody RequestData<GdcomdityHhDTO> requestData) {
+        ResponseData<Integer> responseData = new ResponseData<>();
 
-        GdcomdityHhDTO gdcomdityHhDTO=requestData.getData();
+        GdcomdityHhDTO gdcomdityHhDTO = requestData.getData();
 
         Integer standandDown = gdComdityparticularMapper.StandandDown(gdcomdityHhDTO);
-        if (standandDown>0)
-        {
+        if (standandDown > 0) {
             responseData.setMsg("修改状态成功");
             return responseData;
         }

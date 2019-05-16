@@ -102,18 +102,22 @@ public class OrderServiceImpl implements GDOrderService {
         gdOrder.setOrderid((new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date())) + i);
         gdOrder.setOrderStat(4);
         gdOrder.setOrderTime(VeDate.getStringDate());
-
-        int save = gdOrderMapper.insertOrder(gdOrder);//插入订单
+        //插入订单
+        int save = gdOrderMapper.insertOrder(gdOrder);
         ResponseData responseData1 = orderFeginToShopping.reduceStock(requestData);//减少库存
-        if (responseData1.getCode() == 1000) {
+        if (responseData1.getCode() == 1000) {//如果减少成功
             for (GdComdityparticularDTO dto : gdOrderDTORequestData.getData().getTableData()) {
-                gdOrdershopMapper.insertOrderShop(gdOrder.getOrderid(), dto.getComdityId(), dto.getComdnum());//插入订单详细
+                //插入订单详细
+                gdOrdershopMapper.insertOrderShop(gdOrder.getOrderid(), dto.getComdityId(), dto.getComdnum());
             }
+        }else{
+            throw new BizException("库存减扣失败");
         }
 
-        if(gdOrderDTORequestData.getData().getVipId() != null){
+        //增加积分
+        if (gdOrderDTORequestData.getData().getVipId() != null) {
             String str = gdOrderDTORequestData.getData().getOrdermoney().trim();
-            Integer i1 = orderFeginToVip.upgVipIntegral(gdOrderDTORequestData.getData().getVipId().trim(),gdOrderDTORequestData.getData().getStoreid(),str);
+            Integer i1 = orderFeginToVip.upgVipIntegral(gdOrderDTORequestData.getData().getVipId().trim(), gdOrderDTORequestData.getData().getStoreid(), str);
         }
 
         responseData.setCode(Consts.Result.SUCCESS.getCode());
@@ -125,7 +129,7 @@ public class OrderServiceImpl implements GDOrderService {
      * 根据用户id信息 查询购物车商品
      *
      * @param requestData
-     * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List                               <                               org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO>>
+     * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List                                                                                                                               <                                                                                                                               org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO>>
      * @author zgw
      */
     @Override
@@ -172,9 +176,10 @@ public class OrderServiceImpl implements GDOrderService {
     /**
      * 功能描述:
      * 分页查询订单
+     *
      * @param orderPageDTO
      * @param: [orderPageDTO]
-     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List < org.fresh.gd.commons.consts.pojo.dto.order.GdOrderDTO>>
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List               <               org.fresh.gd.commons.consts.pojo.dto.order.GdOrderDTO>>
      * @auther: Mr.Xia
      * @date: 2019/5/13 16:36
      */
@@ -194,14 +199,14 @@ public class OrderServiceImpl implements GDOrderService {
 
         //查询总数
         OrderCountDTO orderCountDTO = new OrderCountDTO();
-        BeanUtils.copyProperties(orderPageDTO1,orderCountDTO);
+        BeanUtils.copyProperties(orderPageDTO1, orderCountDTO);
         Integer ordercount = this.orderCount(orderCountDTO);
 
         //计算总页数
         Integer countPage = 0;
-        if(ordercount % orderPageDTO1.getPageSize() == 0){
+        if (ordercount % orderPageDTO1.getPageSize() == 0) {
             countPage = ordercount / orderPageDTO1.getPageSize();
-        }else{
+        } else {
             countPage = ordercount / orderPageDTO1.getPageSize() + 1;
         }
 
@@ -229,9 +234,9 @@ public class OrderServiceImpl implements GDOrderService {
     public ResponseData<Integer> updOrderStartById(@RequestBody RequestData<OrderStartDTO> orderStartDTO) {
         ResponseData<Integer> responseData = new ResponseData<>();
         Integer i = gdOrderMapper.updOrderStartById(orderStartDTO.getData());
-        if(i>0){
+        if (i > 0) {
             return responseData;
-        }else{
+        } else {
             responseData.setCode(Consts.Result.BIZ_ERROR.getCode());
             return responseData;
         }

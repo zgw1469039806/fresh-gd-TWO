@@ -1,5 +1,6 @@
 package org.gw.shoping.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import lombok.Data;
@@ -70,5 +71,6 @@ public class GdComdityparticular implements Serializable {
     /**
      * 商品编码
      */
+    @TableField("comdityBM")
     private String comdityBM;
 }

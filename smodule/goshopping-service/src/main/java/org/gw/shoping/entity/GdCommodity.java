@@ -26,11 +26,12 @@ public class GdCommodity implements Serializable {
      * 商品ID
      */
     @TableId("comdityId")
-    private Integer comdityId;
+    private long comdityId;
 
     /**
      * 商品名称
      */
+    @TableField("comdityname")
     private String comdityname;
 
     /**
@@ -42,16 +43,19 @@ public class GdCommodity implements Serializable {
     /**
      * 商品单位
      */
+    @TableField("comditydw")
     private String comditydw;
 
     /**
      * 商品描述
      */
+    @TableField("comditydescribe")
     private String comditydescribe;
 
     /**
      * 商品单价
      */
+    @TableField("comdityprice")
     private String comdityprice;
 
 }
