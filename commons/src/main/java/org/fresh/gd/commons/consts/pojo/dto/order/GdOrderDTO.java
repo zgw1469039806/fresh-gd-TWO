@@ -28,9 +28,9 @@ public class GdOrderDTO {
     private String vipId;
 
     /**
-     * 交易场景(0-线上 1-线下)
+     * 交易场景(2-线上 1-线下)
      */
-    @ApiModelProperty("交易场景(0-线上 1-线下)")
+    @ApiModelProperty("交易场景(2-线上 1-线下)")
     private Integer orderscene;
 
     /**
@@ -86,6 +86,14 @@ public class GdOrderDTO {
      */
     @ApiModelProperty("抹零")
     private String priceml;
+
+    /**
+     *  地址编号
+     */
+    @ApiModelProperty("地址编号")
+    private String addressId;
+
+
 
     @ApiModelProperty("订单商品详细")
     private List<GdComdityparticularDTO> tableData;

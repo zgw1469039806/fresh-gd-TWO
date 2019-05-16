@@ -4,6 +4,7 @@ import com.codingapi.tx.annotation.TxTransaction;
 import org.apache.commons.lang.StringUtils;
 import org.auth.client.entity.GdUser;
 import org.auth.client.fegin.ManageFeignService;
+import org.auth.client.mapper.GdTakedeliveryMapper;
 import org.auth.client.mapper.GdUserMapper;
 import org.fresh.gd.commons.consts.api.auth.UserService;
 import org.fresh.gd.commons.consts.consts.Consts;
@@ -14,6 +15,7 @@ import org.fresh.gd.commons.consts.pojo.dto.management.GdLogHdDTO;
 import org.fresh.gd.commons.consts.pojo.dto.management.GdStoreDTO;
 import org.fresh.gd.commons.consts.pojo.dto.oauth.GdPositionDTO;
 import org.fresh.gd.commons.consts.pojo.dto.oauth.UserDTO;
+import org.fresh.gd.commons.consts.pojo.dto.user.GdTakedeliveryDTO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -42,6 +44,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     ManageFeignService manageFeignService;
+
+    @Autowired
+    GdTakedeliveryMapper gdTakedeliveryMapper;
 
     @Transactional
     @Override
@@ -121,6 +126,24 @@ public class UserServiceImpl implements UserService {
         List<GdLogHdDTO> logHdDTOS = requestData.getData();
         List<UserDTO> userDTOS = gdUserMapper.selLogByUserName(logHdDTOS);
         responseData.setData(userDTOS);
+        return responseData;
+    }
+
+    /**
+     * 功能描述:
+     * 根据地址编号查询地址信息
+     *
+     * @param addressId
+     * @param: [addressId]
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<org.fresh.gd.commons.consts.pojo.dto.user.GdTakedeliveryDTO>
+     * @auther: Mr.Xia
+     * @date: 2019/5/16 16:31
+     */
+    @Override
+    public ResponseData<GdTakedeliveryDTO> selAddressById(@RequestBody RequestData<Integer> addressId) {
+        ResponseData<GdTakedeliveryDTO> responseData = new ResponseData<>();
+        GdTakedeliveryDTO gdTakedeliveryDTO = gdTakedeliveryMapper.selAddressById(addressId.getData());
+        responseData.setData(gdTakedeliveryDTO);
         return responseData;
     }
 }

@@ -19,7 +19,7 @@
         orderid, vipId, orderscene, ordermeans, ordertype, ordermoney, orderTime, storeid
     </sql>
     <insert id="insertOrder" useGeneratedKeys="true" keyProperty="orderid" parameterType="org.gd.order.entity.GdOrder">
-        insert into gd_order(orderid,vipId, orderscene, ordermeans, ordertype, ordermoney, orderStat, orderTime, storeid, belongStoreNam,userId,priceml)  value (#{orderid},#{vipId},#{orderscene},#{ordermeans},#{ordertype},#{ordermoney},#{orderStat},#{orderTime},#{storeid},#{belongStoreNam},#{userId},#{priceml});
+        insert into gd_order(orderid,vipId, orderscene, ordermeans, ordertype, ordermoney, orderStat, orderTime, storeid, belongStoreNam,userId,priceml,addressId)  value (#{orderid},#{vipId},#{orderscene},#{ordermeans},#{ordertype},#{ordermoney},#{orderStat},#{orderTime},#{storeid},#{belongStoreNam},#{userId},#{priceml},#{addressId});
     </insert>
 
     <select id="orderCount" parameterType="org.fresh.gd.commons.consts.pojo.dto.order.OrderCountDTO" resultType="integer">
@@ -34,9 +34,9 @@
         <if test="endTime != null and endTime != ''">
             and  orderTime &lt;= #{endTime}
         </if>
-        <if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+        <!--<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
             and  #{startTime} &lt;= orderTime &lt;= #{endTime}
-        </if>
+        </if>-->
         <if test="orderStat != null and orderStat != -1 and orderStat != ''">
             and orderStat = #{orderStat}
         </if>
@@ -63,9 +63,9 @@
         <if test="endTime != null and endTime != ''">
             and  orderTime &lt;= #{endTime}
         </if>
-        <if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
-            and  #{startTime} &lt;= orderTime &lt;= #{endTime}
-        </if>
+        <!--<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+            and orderTime between #{startTime} and #{endTime}
+        </if>-->
         <if test="orderStat != null and orderStat != -1 and orderStat != ''">
             and orderStat = #{orderStat}
         </if>

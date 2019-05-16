@@ -4,6 +4,7 @@ import org.fresh.gd.commons.consts.pojo.RequestData;
 import org.fresh.gd.commons.consts.pojo.ResponseData;
 import org.fresh.gd.commons.consts.pojo.dto.management.GdLogHdDTO;
 import org.fresh.gd.commons.consts.pojo.dto.oauth.UserDTO;
+import org.fresh.gd.commons.consts.pojo.dto.user.GdTakedeliveryDTO;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,6 +48,18 @@ public interface UserService {
      */
     @PostMapping("/selLogByUserId")
     ResponseData<List<UserDTO>> selLogByUserId(RequestData<List<GdLogHdDTO>> requestData);
+
+    /**
+    *
+    * 功能描述:
+    *   根据地址编号查询地址信息
+    * @param: [addressId]
+    * @return: org.fresh.gd.commons.consts.pojo.ResponseData<org.fresh.gd.commons.consts.pojo.dto.user.GdTakedeliveryDTO>
+    * @auther: Mr.Xia
+    * @date: 2019/5/16 16:31
+    */
+    @PostMapping("/selAddressById")
+    ResponseData<GdTakedeliveryDTO> selAddressById(RequestData<Integer> addressId);
 
 
 }
