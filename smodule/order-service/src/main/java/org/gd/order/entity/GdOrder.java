@@ -36,7 +36,7 @@ public class GdOrder implements Serializable {
     private String vipId;
 
     /**
-     * 交易场景(0-线上 1-线下)
+     * 交易场景(2-线上 1-线下)
      */
     private Integer orderscene;
 
@@ -85,5 +85,10 @@ public class GdOrder implements Serializable {
      *  抹零
      */
     private String priceml;
+
+    /**
+    *   地址编号
+    */
+    private Integer addressId;
 
 }

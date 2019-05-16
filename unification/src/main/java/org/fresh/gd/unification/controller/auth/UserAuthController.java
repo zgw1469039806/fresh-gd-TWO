@@ -1,10 +1,12 @@
 package org.fresh.gd.unification.controller.auth;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.fresh.gd.commons.consts.pojo.RequestData;
 import org.fresh.gd.commons.consts.pojo.ResponseData;
 import org.fresh.gd.commons.consts.pojo.dto.oauth.UserDTO;
+import org.fresh.gd.commons.consts.pojo.dto.user.GdTakedeliveryDTO;
 import org.fresh.gd.unification.aspectj.GdLogClass;
 import org.fresh.gd.unification.fegin.auth.UserFeignService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,5 +63,10 @@ public class UserAuthController {
         return userFeignService.selAllAndByUsername(requestData);
     }
 
+    @ApiOperation(value = "根据地址编号查询地址信息")
+    @PostMapping("/selAddressById")
+    public ResponseData<GdTakedeliveryDTO> selAddressById(@RequestBody RequestData<Integer> addressId){
+       return userFeignService.selAddressById(addressId);
+    }
 
 }

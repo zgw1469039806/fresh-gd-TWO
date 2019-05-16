@@ -19,11 +19,9 @@ public class OrderPageDTO {
     @ApiModelProperty("订单编号")
     private String orderId;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @ApiModelProperty("开始时间")
     private String startTime;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @ApiModelProperty("结束时间")
     private String endTime;
 
