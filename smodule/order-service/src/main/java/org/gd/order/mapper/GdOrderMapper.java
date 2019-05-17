@@ -1,9 +1,6 @@
 package org.gd.order.mapper;
 
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.fresh.gd.commons.consts.pojo.dto.order.*;
 import org.gd.order.entity.GdOrder;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -22,6 +19,12 @@ import java.util.List;
 public interface GdOrderMapper extends BaseMapper<GdOrder> {
     int insertOrder(GdOrder gdOrder);
 
+    /** 功能描述:
+    * 客户端订单生成
+    */
+    @Insert("insert into gd_order values(#{orderid},#{vipid},#{ordermeans},#{ordertype},#{ordertype},#{ordermoney}," +
+            "#{orderStat},#{orderTime},#{storeid},#{belongStoreNam},#{userid},#{priceml},#{address},#{phone})")
+    Integer addOrder(GdWxOrderAndShopDTO gdWxOrderAndShopDTO);
 
     Integer orderCount(OrderCountDTO orderCountDTO);
 

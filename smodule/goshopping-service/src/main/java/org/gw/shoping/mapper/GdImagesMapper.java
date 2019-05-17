@@ -7,6 +7,7 @@ import org.fresh.gd.commons.consts.pojo.dto.shoping.GdActivitiesAndShopDTO;
 import org.gw.shoping.entity.GdImages;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
+
 /**
  * <p>
  *  Mapper 接口

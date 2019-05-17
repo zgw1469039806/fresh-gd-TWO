@@ -2,10 +2,7 @@ package org.fresh.gd.commons.consts.api.order;
 
 import org.fresh.gd.commons.consts.pojo.RequestData;
 import org.fresh.gd.commons.consts.pojo.ResponseData;
-import org.fresh.gd.commons.consts.pojo.dto.order.GdOrderDTO;
-import org.fresh.gd.commons.consts.pojo.dto.order.OrderCountDTO;
-import org.fresh.gd.commons.consts.pojo.dto.order.OrderPageDTO;
-import org.fresh.gd.commons.consts.pojo.dto.order.OrderStartDTO;
+import org.fresh.gd.commons.consts.pojo.dto.order.*;
 import org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO;
 import org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityListDTO;
 import org.fresh.gd.commons.consts.utils.PageBean;
@@ -38,52 +35,66 @@ public interface GDOrderService {
     ResponseData<List> insertOrder(RequestData<GdOrderDTO> gdOrderDTORequestData);
 
 
-    /** 功能描述:
-    *根据用户id信息 查询购物车商品
-    * @param: [requestData]
-    * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List<org.fresh.gd.commons.consts.pojo.ResponseData<org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityListDTO>>>
-    * @auther: 贾轶飞
-    * @date: 2019/5/7 13:55
-    */
+    /**
+     * 功能描述:
+     * 根据用户id信息 查询购物车商品
+     *
+     * @param: [requestData]
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List   <   org.fresh.gd.commons.consts.pojo.ResponseData   <   org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityListDTO>>>
+     * @auther: 贾轶飞
+     * @date: 2019/5/7 13:55
+     */
     @PostMapping("/selGwcByShopId")
     ResponseData<List<ResponseData<GdCommodityListDTO>>> selGwcByShopId(RequestData<String> requestData);
 
     /**
-    *
-    * 功能描述:
-    *   根据参数查询订单数量
-    * @param: [orderCountDTO]
-    * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
-    * @auther: Mr.Xia
-    * @date: 2019/5/13 16:06
-    */
+     * 功能描述:
+     * 根据参数查询订单数量
+     *
+     * @param: [orderCountDTO]
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+     * @auther: Mr.Xia
+     * @date: 2019/5/13 16:06
+     */
     @PostMapping("/orderCount")
     Integer orderCount(OrderCountDTO orderCountDTO);
 
 
-
     /**
-    * 功能描述:
-    *   分页查询订单
-    * @param: [orderPageDTO]
-    * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List<org.fresh.gd.commons.consts.pojo.dto.order.GdOrderDTO>>
-    * @auther: Mr.Xia
-    * @date: 2019/5/13 16:36
-    */
+     * 功能描述:
+     * 分页查询订单
+     *
+     * @param: [orderPageDTO]
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List   <   org.fresh.gd.commons.consts.pojo.dto.order.GdOrderDTO>>
+     * @auther: Mr.Xia
+     * @date: 2019/5/13 16:36
+     */
     @PostMapping("/selOrderPage")
     ResponseData<PageBean<GdOrderDTO>> selOrderPage(RequestData<OrderPageDTO> orderPageDTO);
 
     /**
-    *
-    * 功能描述:
-    *   根据订单编号修改订单状态
-    * @param: [orderId, ordStart]
-    * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
-    * @auther: Mr.Xia
-    * @date: 2019/5/15 11:36
-    */
+     * 功能描述:
+     * 根据订单编号修改订单状态
+     *
+     * @param: [orderId, ordStart]
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+     * @auther: Mr.Xia
+     * @date: 2019/5/15 11:36
+     */
     @PostMapping("/updOrderStartById")
     ResponseData<Integer> updOrderStartById(RequestData<OrderStartDTO> orderStartDTO);
 
+
+    /**
+     * 功能描述:
+     * 客户端添加订单
+     *
+     * @param: [requestData]
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+     * @auther: 贾轶飞
+     * @date: 2019/5/17 16:37
+     */
+    @PostMapping("/addWxOrder")
+    ResponseData<Integer> addWxOrder(RequestData<GdWxOrderAndShopDTO> requestData);
 
 }

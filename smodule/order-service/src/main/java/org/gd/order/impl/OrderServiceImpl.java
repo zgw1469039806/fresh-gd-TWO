@@ -12,10 +12,7 @@ import org.fresh.gd.commons.consts.consts.Consts;
 import org.fresh.gd.commons.consts.exceptions.BizException;
 import org.fresh.gd.commons.consts.pojo.RequestData;
 import org.fresh.gd.commons.consts.pojo.ResponseData;
-import org.fresh.gd.commons.consts.pojo.dto.order.GdOrderDTO;
-import org.fresh.gd.commons.consts.pojo.dto.order.OrderCountDTO;
-import org.fresh.gd.commons.consts.pojo.dto.order.OrderPageDTO;
-import org.fresh.gd.commons.consts.pojo.dto.order.OrderStartDTO;
+import org.fresh.gd.commons.consts.pojo.dto.order.*;
 import org.fresh.gd.commons.consts.pojo.dto.shoping.GdComdityparticularDTO;
 import org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO;
 import org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityListDTO;
@@ -110,7 +107,7 @@ public class OrderServiceImpl implements GDOrderService {
                 //插入订单详细
                 gdOrdershopMapper.insertOrderShop(gdOrder.getOrderid(), dto.getComdityId(), dto.getComdnum());
             }
-        }else{
+        } else {
             throw new BizException("库存减扣失败");
         }
 
@@ -129,7 +126,7 @@ public class OrderServiceImpl implements GDOrderService {
      * 根据用户id信息 查询购物车商品
      *
      * @param requestData
-     * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List                                                                                                                               <                                                                                                                               org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO>>
+     * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List                                                                                                                                                                                                                                                               <                                                                                                                                                                                                                                                               org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO>>
      * @author zgw
      */
     @Override
@@ -179,7 +176,7 @@ public class OrderServiceImpl implements GDOrderService {
      *
      * @param orderPageDTO
      * @param: [orderPageDTO]
-     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List               <               org.fresh.gd.commons.consts.pojo.dto.order.GdOrderDTO>>
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List                               <                               org.fresh.gd.commons.consts.pojo.dto.order.GdOrderDTO>>
      * @auther: Mr.Xia
      * @date: 2019/5/13 16:36
      */
@@ -240,5 +237,33 @@ public class OrderServiceImpl implements GDOrderService {
             responseData.setCode(Consts.Result.BIZ_ERROR.getCode());
             return responseData;
         }
+    }
+
+
+    /**
+     * 功能描述:
+     * 客户端添加订单
+     *
+     * @param: [requestData]
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+     * @auther: 贾轶飞
+     * @date: 2019/5/17 16:37
+     */
+    @Override
+    public ResponseData<Integer> addWxOrder(RequestData<GdWxOrderAndShopDTO> requestData) {
+        ResponseData<Integer> responseData = new ResponseData<>();
+
+        Integer i = gdOrderMapper.addOrder(requestData.getData());
+        if (i > 0) {
+            responseData.setMsg("订单创建成功");
+            Integer s= gdOrdershopMapper.addWxOrderShop(requestData.getData().getList());
+            if (s==0){
+                responseData.setMsg("订单中商品没有添加成功");
+            }
+            responseData.setData(i);
+        }
+
+
+        return responseData;
     }
 }
