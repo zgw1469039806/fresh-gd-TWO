@@ -38,7 +38,4 @@ public class UserDetilsService implements UserDetailsService {
         }
         return new User(usernmae,roleAndUserDTO.getPassword(), AuthorityUtils.commaSeparatedStringToAuthorityList(roleAndUserDTO.getRolename()));
     }
-
-
-
 }
