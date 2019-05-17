@@ -1,5 +1,6 @@
 package org.gd.order.mapper;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -33,5 +34,8 @@ public interface GdOrdershopMapper extends BaseMapper<GdOrdershop> {
     @Select("select * from gd_ordershop where orderid = #{orderId}")
     List<GdOrdershopDTO> selOrderShopById(String orderId);
 
+    @Insert("insert into gd_ordershop values(#{orderid},#{comdityid},#{num},#{preferentialway},#{comdityprice}," +
+            "#{comditytrueprice})")
+    Integer addWxOrderShop (@Param("list")List<GdOrdershopDTO> list);
 
 }

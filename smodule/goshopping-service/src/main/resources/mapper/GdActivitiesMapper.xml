@@ -15,6 +15,12 @@
         activityId, activityname, adescription, aimages
     </sql>
 
-
+    <!--活动商品查询-->
+    <select id="queryActivitiesGoods" resultType="org.fresh.gd.commons.consts.pojo.dto.shoping.GdActivitiesAndShopDTO">
+        SELECT a.*,c.* FROM `gd_activities` AS a,gd_activitesdetail AS ad,gd_commodity AS c
+        <where>
+             c.`comdityId`=ad.`commodityId` AND ad.`activites`=a.`activityId`
+        </where>
+    </select>
 
 </mapper>

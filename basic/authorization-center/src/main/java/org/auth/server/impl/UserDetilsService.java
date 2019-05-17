@@ -36,9 +36,6 @@ public class UserDetilsService implements UserDetailsService {
         if (roleAndUserDTO == null){
             throw new BizException("用户不存在");
         }
-        return new User(usernmae,roleAndUserDTO.getPassword(), AuthorityUtils.commaSeparatedStringToAuthorityList(roleAndUserDTO.getRolename()));
+        return new User(usernmae,roleAndUserDTO.getPassword(), AuthorityUtils.commaSeparatedStringToAuthorityList(roleAndUserDTO.getRolename()+","+roleAndUserDTO.getPname()));
     }
-
-
-
 }

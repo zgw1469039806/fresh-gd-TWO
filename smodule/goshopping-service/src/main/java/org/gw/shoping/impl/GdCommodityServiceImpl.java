@@ -240,7 +240,8 @@ public class GdCommodityServiceImpl implements GdCommodityService {
         gdCommodityMapper.insert(gdCommodity);
 //        if (save > 0) {
         for (int storeid : requestData.getData().getStoreidlist()) {
-            gdComdityparticular.setComdityId((int) gdCommodity.getComdityId());
+            gdComdityparticular.setStock(0);
+            gdComdityparticular.setComdityId(gdCommodity.getComdityId());
             gdComdityparticular.setStoreid(storeid);
             String uuid =  UUID.randomUUID().toString();
             uuid = uuid.substring(4);
