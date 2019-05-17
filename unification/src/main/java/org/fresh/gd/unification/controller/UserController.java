@@ -54,14 +54,10 @@ public class UserController {
     @RequestMapping("/getPrinciple")
     public Object getPrinciple(OAuth2Authentication oAuth2Authentication,
                                Principal principal, Authentication authentication) {
-        log.info(oAuth2Authentication.getUserAuthentication().getAuthorities().toString());
-        log.info(oAuth2Authentication.toString());
-        log.info("--------------------" + authentication.getDetails().toString());
-        log.info("principal.toString()" + principal.toString());
-        log.info("principal.getName()" + principal.getName());
-        log.info("authentication" + authentication.toString());
-
-        return principal.getName();
+        List<Object> list=new ArrayList<>();
+        list.add(principal.getName());
+        list.add(oAuth2Authentication.getUserAuthentication().getAuthorities().toString());
+        return list;
     }
 
 
