@@ -1,6 +1,7 @@
 package org.gw.shoping.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.fresh.gd.commons.consts.pojo.dto.shoping.GdActivitiesAndShopDTO;
 import org.fresh.gd.commons.consts.pojo.dto.shoping.GdActivitiesDTO;
@@ -32,4 +33,10 @@ public interface GdActivitiesMapper extends BaseMapper<GdActivities> {
    */
    @Select("select * from gd_activities")
    public List<GdActivitiesDTO> queryActivities();
+
+   @Select("select * from gd_activities as a,gd_activitesdetail as ad,gd_commodity as c where a.activites=ad" +
+           ".activites and ad.commodityIdand=c.comditytypeId " +
+           "activityname " +
+           "like'#{activityname}%'")
+   public List<GdActivitiesDTO> actshopQuery(@Param("activityname")String activityname);
 }
