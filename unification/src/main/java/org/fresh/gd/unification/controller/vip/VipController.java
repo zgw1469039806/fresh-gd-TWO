@@ -7,10 +7,7 @@ import org.apache.commons.lang.StringUtils;
 import org.fresh.gd.commons.consts.exceptions.BizException;
 import org.fresh.gd.commons.consts.pojo.RequestData;
 import org.fresh.gd.commons.consts.pojo.ResponseData;
-import org.fresh.gd.commons.consts.pojo.dto.vip.GdAddVipDTO;
-import org.fresh.gd.commons.consts.pojo.dto.vip.SelPageVipDTO;
-import org.fresh.gd.commons.consts.pojo.dto.vip.VipPageDTO;
-import org.fresh.gd.commons.consts.pojo.dto.vip.VipUpdDTO;
+import org.fresh.gd.commons.consts.pojo.dto.vip.*;
 import org.fresh.gd.commons.consts.utils.PageBean;
 import org.fresh.gd.unification.fegin.vip.VipFeginService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,6 +76,14 @@ public class VipController {
         log.info("进入进入VipController-查询会员信息");
         return vipFeginService.selOneVipByPhone(vipphone);
     }
+
+    @ApiOperation(value = "对会员绑定用户")
+    @PostMapping("/updVipUserId")
+    public ResponseData<Integer> updVipUserId(@RequestBody RequestData<VipBindUserId> vipBindUserId){
+        log.info("进入进入VipController-对会员绑定用户");
+        return vipFeginService.updVipUserId(vipBindUserId);
+    }
+
 
 
 }

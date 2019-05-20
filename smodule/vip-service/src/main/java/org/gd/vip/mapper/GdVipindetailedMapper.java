@@ -14,7 +14,9 @@ import org.gd.vip.entity.GdVipindetailed;
 @Mapper
 public interface GdVipindetailedMapper extends BaseMapper<GdVipindetailed> {
 
-    @Insert("insert into gd_vipindetailed(vipPhone ,vipindetailedtype ,vipindetailednum,storeid) value(#{vipPhone},#{vipindetailedtype},#{vipindetailednum},#{storeid})")
+    @Insert("insert into gd_vipindetailed(vipPhone ,vipindetailedtype ,vipindetailednum,storeid,vipmoney) value(#{vipPhone},#{vipindetailedtype},#{vipindetailednum},#{storeid},#{vipmoney})")
     Integer addVipindetailed(GdVipindetailedDTO GdVipindetailedDTO);
+
+
 
 }

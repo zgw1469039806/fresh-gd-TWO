@@ -1,5 +1,6 @@
 package org.fresh.gd.commons.consts.api.vip;
 
+import org.apache.ibatis.annotations.Param;
 import org.fresh.gd.commons.consts.pojo.RequestData;
 import org.fresh.gd.commons.consts.pojo.ResponseData;
 import org.fresh.gd.commons.consts.pojo.dto.user.UserAndVipDTO;
@@ -121,4 +122,31 @@ public interface VipService {
     */
     @PostMapping("/upgVipIntegral")
     Integer upgVipIntegral(@RequestParam("vipId") String vipId , @RequestParam("storeid") Integer storeid , @RequestParam("ordermoney") String ordermoney);
+
+    /**
+    *
+    * 功能描述:
+    *   根据手机号查询此会员是否存在
+    * @param: [phone]
+    * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+    * @auther: Mr.Xia
+    * @date: 2019/5/20 10:32
+    */
+    @PostMapping("/selOneByVipPhone")
+    Integer selOneByVipPhone(String phone);
+
+    @PostMapping("/updVipUserId")
+    ResponseData<Integer> updVipUserId(RequestData<VipBindUserId> vipBindUserId);
+
+    /**
+    * 功能描述:
+    *   根据会员手机号修改会员余额
+    * @param: [vipphone, vipbalance]
+    * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+    * @auther: Mr.Xia
+    * @date: 2019/5/20 14:39
+    */
+    @PostMapping("/updVipBalanceByVipPhone")
+    Integer updVipBalanceByVipPhone(@RequestParam("vipphone") String vipphone , @RequestParam("vipbalance") String vipbalance , @RequestParam("storeId") Integer storeId);
+
 }

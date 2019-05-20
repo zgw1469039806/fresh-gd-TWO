@@ -28,4 +28,9 @@ public class GdVipindetailedDTO {
      *   会员所属店铺
      */
     private Integer storeid;
+
+    /**
+     *   会员余额变更数量
+     */
+    private String vipmoney;
 }

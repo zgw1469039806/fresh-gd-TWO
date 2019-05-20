@@ -126,7 +126,7 @@ public class OrderServiceImpl implements GDOrderService {
      * 根据用户id信息 查询购物车商品
      *
      * @param requestData
-     * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List                                                                                                                                                                                                                                                               <                                                                                                                                                                                                                                                               org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO>>
+     * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List<org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO>>
      * @author zgw
      */
     @Override
@@ -266,4 +266,6 @@ public class OrderServiceImpl implements GDOrderService {
 
         return responseData;
     }
+
+
 }
