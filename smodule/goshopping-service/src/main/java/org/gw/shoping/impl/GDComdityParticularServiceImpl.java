@@ -35,7 +35,6 @@ public class GDComdityParticularServiceImpl implements GDComdityParticularServic
     /**
      * 功能描述:
      * 查询库存
-     *
      * @param requestData
      * @param: [requestData]
      * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>

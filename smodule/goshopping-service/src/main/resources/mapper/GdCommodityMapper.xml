@@ -22,8 +22,8 @@
         select * from gd_commodity co,gd_comdityparticular pa,gd_comditytype ty
         <where>
             co.comdityId = pa.comdityId and co.comditytypeId = ty.comditytypeId
-            <if test="comdityname !=null and comdityname != '' ">
-                and (co.comdityname = #{comdityname} or pa.comdityBM = #{comdityname})
+            <if test="comdityname !=null and comdityname != '' and comdityname != '%%'">
+                and (co.comdityname like #{comdityname} or pa.comdityBM like #{comdityname})
             </if>
             <if test="comditytypeId !=null and comditytypeId != 0">
                 and co.comditytypeId = #{comditytypeId}

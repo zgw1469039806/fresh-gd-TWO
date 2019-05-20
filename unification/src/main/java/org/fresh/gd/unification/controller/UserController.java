@@ -15,9 +15,7 @@ import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @DATA 2019-04-12 10:01
@@ -54,12 +52,15 @@ public class UserController {
     @RequestMapping("/getPrinciple")
     public Object getPrinciple(OAuth2Authentication oAuth2Authentication,
                                Principal principal, Authentication authentication) {
-        List<Object> list=new ArrayList<>();
-        list.add(principal.getName());
-        list.add(oAuth2Authentication.getUserAuthentication().getAuthorities().toString());
-        return list;
+        Map<String, Object> map = new HashMap<>();
+        map.put("name", principal.getName());
+        int i = 0;
+        for (Object o : oAuth2Authentication.getUserAuthentication().getAuthorities()) {
+            i++;
+            if (i == 1) {
+                map.put("OAuth2", o);
+            }
+        }
+        return map;
     }
-
-
-
 }

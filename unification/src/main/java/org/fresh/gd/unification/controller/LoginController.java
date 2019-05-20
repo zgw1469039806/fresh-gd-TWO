@@ -1,4 +1,5 @@
 package org.fresh.gd.unification.controller;
+
 import org.fresh.gd.commons.consts.consts.Consts;
 import org.fresh.gd.commons.consts.pojo.dto.oauth.AuthSysRoleDTO;
 import org.fresh.gd.commons.consts.utils.AuthPrincipalUtils;
@@ -20,8 +21,6 @@ public class LoginController {
 
     @RequestMapping("/")
     public String allReq(Authentication authentication, HttpServletResponse response) {
-
         return "redirect:http://localhost:8081/#/base";
-
     }
 }
