@@ -243,9 +243,9 @@ public class GdCommodityServiceImpl implements GdCommodityService {
             gdComdityparticular.setStock(0);
             gdComdityparticular.setComdityId(gdCommodity.getComdityId());
             gdComdityparticular.setStoreid(storeid);
-            String uuid =  UUID.randomUUID().toString();
+            String uuid = UUID.randomUUID().toString();
             uuid = uuid.substring(4);
-            String tiaoxing = "69" +uuid;
+            String tiaoxing = "69" + uuid;
             System.out.println(tiaoxing);
             gdComdityparticular.setComdityBM(tiaoxing);
             gdComdityparticularMapper.insert(gdComdityparticular);
