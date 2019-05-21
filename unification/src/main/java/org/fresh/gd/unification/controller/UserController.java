@@ -56,10 +56,11 @@ public class UserController {
         map.put("name", principal.getName());
         int i = 0;
         for (Object o : oAuth2Authentication.getUserAuthentication().getAuthorities()) {
-            i++;
+            System.out.println("o ============== " + o);
             if (i == 1) {
                 map.put("OAuth2", o);
             }
+            i++;
         }
         return map;
     }

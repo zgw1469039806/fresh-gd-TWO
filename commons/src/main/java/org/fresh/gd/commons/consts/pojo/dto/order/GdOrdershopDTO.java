@@ -35,16 +35,4 @@ public class GdOrdershopDTO {
      */
     @ApiModelProperty("优惠方式")
     private Integer preferentialway;
-
-    /**
-     * 应付价格
-     */
-    @ApiModelProperty("应付价格")
-    private String comdityprice;
-
-    /**
-     * 实付价格
-     */
-    @ApiModelProperty("实付价格")
-    private String comditytrueprice;
 }
