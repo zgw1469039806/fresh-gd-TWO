@@ -22,7 +22,14 @@ import java.util.List;
 public interface GdActivitiesMapper extends BaseMapper<GdActivities> {
 
 
-   public List<GdActivitiesAndShopDTO> queryActivitiesGoods();
+   /** 功能描述:
+   * 查询活动商品
+   * @param: []
+   * @return: java.util.List<org.fresh.gd.commons.consts.pojo.dto.shoping.GdActivitiesAndShopDTO>
+   * @auther: 贾轶飞
+   * @date: 2019/5/20 9:09
+   */
+   public List<GdActivitiesAndShopDTO> queryActivitiesGoods(GdActivitiesDTO gdActivitiesDTO);
 
    /** 功能描述:
    * 查询所有上线活动
@@ -34,9 +41,4 @@ public interface GdActivitiesMapper extends BaseMapper<GdActivities> {
    @Select("select * from gd_activities")
    public List<GdActivitiesDTO> queryActivities();
 
-   @Select("select * from gd_activities as a,gd_activitesdetail as ad,gd_commodity as c where a.activites=ad" +
-           ".activites and ad.commodityIdand=c.comditytypeId " +
-           "activityname " +
-           "like'#{activityname}%'")
-   public List<GdActivitiesDTO> actshopQuery(@Param("activityname")String activityname);
 }

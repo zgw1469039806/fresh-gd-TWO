@@ -85,16 +85,5 @@ public interface GDOrderService {
     ResponseData<Integer> updOrderStartById(RequestData<OrderStartDTO> orderStartDTO);
 
 
-    /**
-     * 功能描述:
-     * 客户端添加订单
-     *
-     * @param: [requestData]
-     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
-     * @auther: 贾轶飞
-     * @date: 2019/5/17 16:37
-     */
-    @PostMapping("/addWxOrder")
-    ResponseData<Integer> addWxOrder(RequestData<GdWxOrderAndShopDTO> requestData);
 
 }

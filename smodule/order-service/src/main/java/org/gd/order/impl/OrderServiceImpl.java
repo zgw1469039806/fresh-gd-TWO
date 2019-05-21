@@ -272,8 +272,8 @@ public class OrderServiceImpl implements GDOrderService {
         Integer i = gdOrderMapper.addOrder(requestData.getData());
         if (i > 0) {
             responseData.setMsg("订单创建成功");
-            Integer s = gdOrdershopMapper.addWxOrderShop(requestData.getData().getList());
-            if (s == 0) {
+            Integer s= gdOrdershopMapper.addWxOrderShop(requestData.getData().getList());
+            if (s==0){
                 responseData.setMsg("订单中商品没有添加成功");
             }
             responseData.setData(i);
