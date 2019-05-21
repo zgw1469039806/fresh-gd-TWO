@@ -23,6 +23,9 @@ public class GdComdityparticularDTO {
     @ApiModelProperty("库存数量、商品数量")
     private Integer comdnum;
 
+    @ApiModelProperty("商品数量")
+    private Integer num;
+
     @ApiModelProperty("对应积分")
     private String corresponding;
 

@@ -2,6 +2,7 @@ package org.fresh.gd.commons.consts.pojo.dto.order;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.models.auth.In;
 import lombok.Data;
 import org.fresh.gd.commons.consts.pojo.dto.shoping.GdComdityparticularDTO;
 
@@ -91,7 +92,16 @@ public class GdOrderDTO {
      *  地址编号
      */
     @ApiModelProperty("地址编号")
-    private String addressId;
+    private Integer addressId;
+
+    @ApiModelProperty("地址编号")
+    private String phone;
+
+    @ApiModelProperty("地址")
+    private String address;
+
+    @ApiModelProperty("地址状态")
+    private Integer status;
 
 
 

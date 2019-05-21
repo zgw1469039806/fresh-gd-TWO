@@ -10,7 +10,11 @@ eureka:
 security:
   basic:
     enabled: false
+
 zuul:
+  host:
+    socket-timeout-millis: 60000
+    connect-timeout-millis: 60000
   routes:
     goshopping:  #路由 名字
       path: /gs/**
@@ -24,10 +28,21 @@ zuul:
     vip:
       path: /vs/**
       serviceId: vip-service
-  ratelimit:
-    enabled: true
-    default-policy:
-        limit: 10
-        refresh-interval: 60
-        type: origin
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds:  60000
+ribbon:
+  ReadTimeout:  10000
+  SocketTimeout:  10000
 
+
+#  ratelimit:
+#    enabled: true
+#    default-policy:
+#        limit: 10
+#        refresh-interval: 60
+#        type: origin

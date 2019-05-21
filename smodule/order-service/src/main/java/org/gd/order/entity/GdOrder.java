@@ -87,6 +87,11 @@ public class GdOrder implements Serializable {
     private String priceml;
 
     /**
+     * 收获地址ID
+     */
+    private Integer addressId;
+
+    /**
     *   送货地址
     */
     private String address;

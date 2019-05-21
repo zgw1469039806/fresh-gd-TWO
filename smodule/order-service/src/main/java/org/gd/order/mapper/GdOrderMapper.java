@@ -17,6 +17,7 @@ import java.util.List;
  */
 @Mapper
 public interface GdOrderMapper extends BaseMapper<GdOrder> {
+
     int insertOrder(GdOrder gdOrder);
 
     /** 功能描述:

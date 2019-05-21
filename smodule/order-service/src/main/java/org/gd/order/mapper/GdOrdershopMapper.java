@@ -34,8 +34,6 @@ public interface GdOrdershopMapper extends BaseMapper<GdOrdershop> {
     @Select("select * from gd_ordershop where orderid = #{orderId}")
     List<GdOrdershopDTO> selOrderShopById(String orderId);
 
-    @Insert("insert into gd_ordershop values(#{orderid},#{comdityid},#{num},#{preferentialway},#{comdityprice}," +
-            "#{comditytrueprice})")
-    Integer addWxOrderShop (@Param("list")List<GdOrdershopDTO> list);
+
 
 }
