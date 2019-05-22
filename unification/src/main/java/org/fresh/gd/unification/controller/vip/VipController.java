@@ -85,5 +85,16 @@ public class VipController {
     }
 
 
+    @ApiOperation(value ="根据手机号或用户id查询会员信息" )
+    @PostMapping("/selVipByVipPhoneAndUserId")
+    public ResponseData<VipPageDTO> selVipByVipPhoneAndUserId(@RequestBody RequestData<VipSelVipDTO> vipSelVipDTO){
+        return vipFeginService.selVipByVipPhoneAndUserId(vipSelVipDTO);
+    }
+
+    @ApiOperation(value ="会员解除绑定-根据会员手机号" )
+    @PostMapping("/updRemoveUserId")
+    public ResponseData<Integer> updRemoveUserId(@RequestBody RequestData<String> vipPhone){
+        return vipFeginService.updRemoveUserId(vipPhone);
+    }
 
 }
