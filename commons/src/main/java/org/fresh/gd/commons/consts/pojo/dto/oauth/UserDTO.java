@@ -1,12 +1,9 @@
 package org.fresh.gd.commons.consts.pojo.dto.oauth;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import org.fresh.gd.commons.consts.pojo.dto.management.GdStoreDTO;
 
 /**
  * @DATA 2019-04-19 14:06
@@ -70,4 +67,9 @@ public class UserDTO {
     @ApiModelProperty("员工所在门店名称")
     private String gdStoreName;
 
+    @ApiModelProperty("员工权限")
+    private String rolename;
+
+    @ApiModelProperty("员工职位")
+    private String pname;
 }

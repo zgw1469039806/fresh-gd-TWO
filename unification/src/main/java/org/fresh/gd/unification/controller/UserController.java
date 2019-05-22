@@ -54,14 +54,7 @@ public class UserController {
                                Principal principal, Authentication authentication) {
         Map<String, Object> map = new HashMap<>();
         map.put("name", principal.getName());
-        int i = 0;
-        for (Object o : oAuth2Authentication.getUserAuthentication().getAuthorities()) {
-            System.out.println("o ============== " + o);
-            if (i == 1) {
-                map.put("OAuth2", o);
-            }
-            i++;
-        }
+        map.put("OAuth2", oAuth2Authentication.getUserAuthentication().getAuthorities().toString());
         return map;
     }
 }
