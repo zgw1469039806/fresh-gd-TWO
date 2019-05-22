@@ -46,7 +46,7 @@ public class LoginController {
 
     @RequestMapping("/reUrl")
     public String reUrl() {
-        return "redirect:http://127.0.0.1:8777";
+        return "redirect:http://localhost:8777";
     }
 
 }
