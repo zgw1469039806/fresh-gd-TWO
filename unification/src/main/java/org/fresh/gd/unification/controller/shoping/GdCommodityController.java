@@ -135,7 +135,6 @@ public class GdCommodityController {
     * @auther: 郭家恒
     * @date: 2019/5/15 17:05
     */
-
     @PostMapping("/addShop")
     public ResponseData<Integer> addShop(@RequestBody RequestData<GdCommodityDTO> requestData) {
         return gdCommodityFeignService.addShop(requestData);

@@ -117,6 +117,12 @@ public class GdCommodityDTO {
     @ApiModelProperty("父级ID")
     private Integer parent;
 
+    /**
+     * 门店id集合
+     */
     @ApiModelProperty("门店id集合")
     private List<Integer> storeidlist;
+
+    @ApiModelProperty("商品图片")
+    private GdImagesDTO gdImagesDTO;
 }

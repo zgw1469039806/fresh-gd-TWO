@@ -239,8 +239,8 @@ public class GdCommodityServiceImpl implements GdCommodityService {
         BeanUtils.copyProperties(requestData.getData(), gdCommodity);
         GdComdityparticular gdComdityparticular = new GdComdityparticular();
         BeanUtils.copyProperties(requestData.getData(), gdComdityparticular);
+        //添加商品
         gdCommodityMapper.insert(gdCommodity);
-//        if (save > 0) {
         for (int storeid : requestData.getData().getStoreidlist()) {
             gdComdityparticular.setStock(0);
             gdComdityparticular.setComdityId(gdCommodity.getComdityId());
@@ -250,11 +250,12 @@ public class GdCommodityServiceImpl implements GdCommodityService {
             String tiaoxing = "69" + uuid;
             System.out.println(tiaoxing);
             gdComdityparticular.setComdityBM(tiaoxing);
+            //todo: 吧商品详细的添加合并为一条sql语句.商品图片的添加
+            //添加商品详细
             gdComdityparticularMapper.insert(gdComdityparticular);
         }
-//        }
+        GdImagesDTO gdImagesDTO = requestData.getData().getGdImagesDTO();
         ResponseData<Integer> responseData = new ResponseData<>();
-//        responseData.setData(save);
         return responseData;
     }
 
