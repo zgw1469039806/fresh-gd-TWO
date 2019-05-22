@@ -256,32 +256,5 @@ public class OrderServiceImpl implements GDOrderService {
     }
 
 
-    /**
-     * 功能描述:
-     * 客户端添加订单
-     *
-     * @param: [requestData]
-     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
-     * @auther: 贾轶飞
-     * @date: 2019/5/17 16:37
-     */
-    @Override
-    public ResponseData<Integer> addWxOrder(RequestData<GdWxOrderAndShopDTO> requestData) {
-        ResponseData<Integer> responseData = new ResponseData<>();
-
-        Integer i = gdOrderMapper.addOrder(requestData.getData());
-        if (i > 0) {
-            responseData.setMsg("订单创建成功");
-            Integer s= gdOrdershopMapper.addWxOrderShop(requestData.getData().getList());
-            if (s==0){
-                responseData.setMsg("订单中商品没有添加成功");
-            }
-            responseData.setData(i);
-        }
-
-
-        return responseData;
-    }
-
 
 }

@@ -345,4 +345,38 @@ public class VipServiceImpl implements VipService {
         gdVipindetailedMapper.addVipindetailed(gdVipindetailedDTO);
         return i;
     }
+
+    /**
+    *
+    * 功能描述:
+    *   根据手机号或用户id查询会员信息
+    * @param: [vipSelVipDTO]
+    * @return: org.fresh.gd.commons.consts.pojo.ResponseData<org.fresh.gd.commons.consts.pojo.dto.vip.VipPageDTO>
+    * @auther: Mr.Xia
+    * @date: 2019/5/22 10:47
+    */
+    @Override
+    public ResponseData<VipPageDTO> selVipByVipPhoneAndUserId(@RequestBody RequestData<VipSelVipDTO> vipSelVipDTO) {
+        ResponseData<VipPageDTO> responseData = new ResponseData<>();
+        VipPageDTO VipPageDTO = gdVipMapper.selVipByVipPhoneAndUserId(vipSelVipDTO.getData());
+        responseData.setData(VipPageDTO);
+        return responseData;
+    }
+
+    /**
+     * 功能描述:
+     * 会员解除绑定-根据会员手机号
+     *
+     * @param vipPhone
+     * @param: [vipPhone]
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+     * @auther: Mr.Xia
+     * @date: 2019/5/22 11:14
+     */
+    @Override
+    public ResponseData<Integer> updRemoveUserId(@RequestBody RequestData<String> vipPhone) {
+        ResponseData<Integer> responseData = new ResponseData<>();
+        gdVipMapper.updRemoveUserId(vipPhone.getData());
+        return responseData;
+    }
 }
