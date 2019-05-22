@@ -19,7 +19,7 @@
     <select id="queryActivitiesGoods" resultType="org.fresh.gd.commons.consts.pojo.dto.shoping.GdActivitiesAndShopDTO">
         SELECT * FROM gd_activities AS a,gd_activitesdetail AS ad,gd_commodity AS c
         <where>
-            a.`activityId`=ad.activites AND ad.commodityId=c.comditytypeId
+              a.`activityId`=ad.activites AND ad.commodityId=c.comdityId
             <if test="activityname != null and activityname !='' ">
                 AND activityname LIKE'#{activityname}%'
             </if>

@@ -1,6 +1,7 @@
 package org.gd.order.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+
 import java.io.Serializable;
 
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -79,19 +80,19 @@ public class GdOrder implements Serializable {
     private Integer orderStat;
 
     /**
-     *  门店名称
+     * 门店名称
      */
     @TableField("belongStoreNam")
     private String belongStoreNam;
 
     /**
-    *   用户ID
-    */
+     * 用户ID
+     */
     @TableField("userId")
     private Integer userId;
 
     /**
-     *  抹零
+     * 抹零
      */
     @TableField("priceml")
     private String priceml;
@@ -102,13 +103,13 @@ public class GdOrder implements Serializable {
     private Integer addressId;
 
     /**
-    *   送货地址
-    */
+     * 送货地址
+     */
     @TableField("address")
     private String address;
 
     /**
-     *   收货人手机号
+     * 收货人手机号
      */
     @TableField("phone")
     private String phone;
@@ -121,4 +122,10 @@ public class GdOrder implements Serializable {
      */
     @ApiModelProperty("实付价格")
     private String comditytrueprice;
+
+    /**
+     * 找零
+     */
+    @ApiModelProperty("找零")
+    private String gchange;
 }

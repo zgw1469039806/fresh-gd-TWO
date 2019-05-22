@@ -13,15 +13,10 @@
     <sql id="Base_Column_List">
         orderid, comdityId, num
     </sql>
-    <insert id="insertOrderShop">
-        insert into gd_ordershop(orderid, comdityId, num) value(#{oid},#{cid},#{num})
-    </insert>
-
-
-    <insert id="addWxOrderShop" >
-        <foreach collection="list" item="os" separator=";">
-            insert into gd_ordershop
-            values(#{os.orderid},#{os.comdityid},#{os.num},#{os.preferentialway},#{comdityprice},#{comditytruepeice})
+    <insert id="insertOrderShop" parameterType="list">
+        insert into gd_ordershop(orderid, comdityId, num,preferentialway) values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.orderid},#{item.comdityId},#{item.num},#{item.preferentialway})
         </foreach>
     </insert>
 </mapper>

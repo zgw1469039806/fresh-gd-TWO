@@ -19,6 +19,9 @@ public class OrderPageDTO {
     @ApiModelProperty("订单编号")
     private String orderId;
 
+    @ApiModelProperty("用户编号")
+    private String userId;
+
     @ApiModelProperty("开始时间")
     private String startTime;
 

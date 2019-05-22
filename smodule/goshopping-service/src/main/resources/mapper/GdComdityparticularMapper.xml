@@ -42,7 +42,7 @@
     <insert id="addPar" parameterType="org.fresh.gd.commons.consts.pojo.dto.shoping.GdComdityparticularDTO">
         insert into gd_comdityparticular (comdityId, isnodiscount, stock, corresponding, storeid, discount, puprice, comstate, vipishige, comdityBM) values
         <foreach collection="list" item="item" separator=",">
-            (#{comdityId},#{isnodiscount},#{comdnum},#{corresponding},#{storeid},#{discount},#{puprice},#{comstate},#{vipishige},#{comdityBM});
+            (#{comdityId},#{isnodiscount},#{comdnum},#{corresponding},#{storeid},#{discount},#{puprice},#{comstate},#{vipishige},#{comdityBM})
         </foreach>
     </insert>
 </mapper>
