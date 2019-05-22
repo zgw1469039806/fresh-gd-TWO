@@ -13,11 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-/**
- * @ClassName CodeGenerator
- * @Author alan.wang   QQ:3103484396
- * @Description TODO
- */
+
 public class MybatisPlusCodeGenerator
 {
     /**

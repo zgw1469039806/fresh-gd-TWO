@@ -77,19 +77,19 @@ public class GdOrderDTO {
     private String belongStoreNam;
 
     /**
-     *   用户ID
+     * 用户ID
      */
     @ApiModelProperty("用户ID")
     private Integer userId;
 
     /**
-     *  抹零
+     * 抹零
      */
     @ApiModelProperty("抹零")
     private String priceml;
 
     /**
-     *  地址编号
+     * 地址编号
      */
     @ApiModelProperty("地址编号")
     private Integer addressId;
@@ -104,9 +104,18 @@ public class GdOrderDTO {
     private Integer status;
 
 
-
     @ApiModelProperty("订单商品详细")
-    private List<GdComdityparticularDTO> tableData;
+    private List<GdOrdershopDTO> tableData;
 
+    /**
+     * 应付价格
+     */
+    @ApiModelProperty("应付价格")
+    private String comdityprice;
 
+    /**
+     * 实付价格
+     */
+    @ApiModelProperty("实付价格")
+    private String comditytrueprice;
 }

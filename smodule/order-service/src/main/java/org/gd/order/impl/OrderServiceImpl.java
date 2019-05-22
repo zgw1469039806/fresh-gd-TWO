@@ -79,15 +79,34 @@ public class OrderServiceImpl implements GDOrderService {
     @Transactional
     @Override
     public ResponseData<List> insertOrder(@RequestBody RequestData<GdOrderDTO> gdOrderDTORequestData) {
-        //TODO: 判断是否使用会员余额支付 扣减会员余额 调用会员服务
-        //TODO: 调用会员服务 增加积分 参数（店铺id、会员手机号、订单金额）
+        GdOrderDTO gdOrderDTO = new GdOrderDTO();
+        BeanUtils.copyProperties(gdOrderDTORequestData.getData(), gdOrderDTO);
         RequestData<List<GdComdityparticularDTO>> requestData = new RequestData<>();
+        List<GdComdityparticularDTO> list = new ArrayList<>();
         ResponseData<List> responseData = new ResponseData<>();
-        requestData.setData(gdOrderDTORequestData.getData().getTableData());
-        if (gdOrderDTORequestData.getData().getOrderscene() == 0) {//如果交易场景为线上
+        //如果交易场景为线上
+        for (GdOrdershopDTO dto : gdOrderDTORequestData.getData().getTableData()) {
+            GdComdityparticularDTO gdComdityparticularDTO = new GdComdityparticularDTO();
+            gdComdityparticularDTO.setComdityId(dto.getComdityId());
+            gdComdityparticularDTO.setComdnum(dto.getNum());
+            list.add(gdComdityparticularDTO);
+        }
+        requestData.setData(list);
+        if (gdOrderDTORequestData.getData().getOrderscene() == 0) {
+            //判断库存
             responseData = orderFeginToShopping.editStock(requestData);
             if (responseData.getMsg().equals("库存不足")) {
                 return responseData;
+            }
+        } else {
+            //如果是会员余额支付
+            if (gdOrderDTORequestData.getData().getOrdermeans() == 1) {
+                Integer upd = orderFeginToVip.updVipBalanceByVipPhone(gdOrderDTO.getVipId(), gdOrderDTO.getOrdermoney(), gdOrderDTO.getStoreid());
+                //如果余额不足
+                if (upd == 1000) {
+                    responseData.setMsg("余额不足");
+                    return responseData;
+                }
             }
         }
         GdOrder gdOrder = new GdOrder();
@@ -99,26 +118,22 @@ public class OrderServiceImpl implements GDOrderService {
         gdOrder.setOrderid((new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date())) + i);
         gdOrder.setOrderStat(4);
         gdOrder.setOrderTime(VeDate.getStringDate());
-        gdOrderDTORequestData.getData().getAddressId();
-
         //插入订单
-        int save = gdOrderMapper.insertOrder(gdOrder);
+        int save = gdOrderMapper.insert(gdOrder);
         ResponseData responseData1 = orderFeginToShopping.reduceStock(requestData);//减少库存
         if (responseData1.getCode() == 1000) {//如果减少成功
-            for (GdComdityparticularDTO dto : gdOrderDTORequestData.getData().getTableData()) {
+            for (GdOrdershopDTO dto : gdOrderDTORequestData.getData().getTableData()) {
                 //插入订单详细
-                gdOrdershopMapper.insertOrderShop(gdOrder.getOrderid(), dto.getComdityId(), dto.getComdnum());
+                gdOrdershopMapper.insertOrderShop(gdOrder.getOrderid(), dto.getComdityId(), dto.getNum());
             }
         } else {
             throw new BizException("库存减扣失败");
         }
-
         //增加积分
-        if (gdOrderDTORequestData.getData().getVipId() != null) {
+        if (gdOrderDTO.getVipId() != null && gdOrderDTO.getVipId() != "") {
             String str = gdOrderDTORequestData.getData().getOrdermoney().trim();
             Integer i1 = orderFeginToVip.upgVipIntegral(gdOrderDTORequestData.getData().getVipId().trim(), gdOrderDTORequestData.getData().getStoreid(), str);
         }
-
         responseData.setCode(Consts.Result.SUCCESS.getCode());
         return responseData;
     }
@@ -128,7 +143,7 @@ public class OrderServiceImpl implements GDOrderService {
      * 根据用户id信息 查询购物车商品
      *
      * @param requestData
-     * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List<org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO>>
+     * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List               <               org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO>>
      * @author zgw
      */
     @Override
@@ -151,7 +166,6 @@ public class OrderServiceImpl implements GDOrderService {
             listDTOS.add(commodityDTO);
         }
         responseData.setData(listDTOS);
-
         // TODO: 调用商品服务根据ID查询商品  返回商品结合
         return responseData;
     }
@@ -178,7 +192,7 @@ public class OrderServiceImpl implements GDOrderService {
      *
      * @param orderPageDTO
      * @param: [orderPageDTO]
-     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List                               <                               org.fresh.gd.commons.consts.pojo.dto.order.GdOrderDTO>>
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               <                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               org.fresh.gd.commons.consts.pojo.dto.order.GdOrderDTO>>
      * @auther: Mr.Xia
      * @date: 2019/5/13 16:36
      */

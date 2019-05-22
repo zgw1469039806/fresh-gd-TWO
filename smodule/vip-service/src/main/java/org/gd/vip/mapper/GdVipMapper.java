@@ -117,6 +117,13 @@ public interface GdVipMapper extends BaseMapper<GdVip> {
     @Update("update gd_vip set vipbalance = vipbalance - #{vipbalance} where vipphone = #{vipphone}")
     Integer updVipBalanceByVipPhone(@Param("vipphone") String vipphone ,@Param("vipbalance") String vipbalance);
 
+    //根据手机号或用户id查询会员信息
+    VipPageDTO selVipByVipPhoneAndUserId(VipSelVipDTO vipSelVipDTO);
+
+    //根据会员手机号解除绑定
+    @Update("update gd_vip set userId = null where vipphone = #{vipPhone}")
+    Integer updRemoveUserId(String vipPhone);
+
 
 
 

@@ -6,7 +6,7 @@ import org.springframework.cloud.netflix.feign.FeignClient;
 /**
  * @DATA 2019-04-19 15:27
  * @Author 张国伟  WeChat:17630376104
- * @Description TODO
+ * @Description
  */
 @FeignClient("management-service")
 public interface ManageFeignService extends ManageService {

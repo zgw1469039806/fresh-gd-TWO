@@ -16,7 +16,7 @@ import java.util.Scanner;
 /**
  * @ClassName CodeGenerator
  * @Author alan.wang   QQ:3103484396
- * @Description TODO
+ * @Description
  */
 public class MybatisPlusCodeGenerator
 {

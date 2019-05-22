@@ -7,6 +7,7 @@ import org.fresh.gd.commons.consts.pojo.ResponseData;
 import org.fresh.gd.commons.consts.pojo.dto.user.RoleAndUserDTO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,10 +42,11 @@ public class LoginController {
         response.addCookie(new Cookie("XSRF-TOKEN", ""));
 
     }
+
+
     @RequestMapping("/reUrl")
-    public String reUrl()
-    {
-        return "redirect:http://localhost:8777";
+    public String reUrl() {
+        return "redirect:http://127.0.0.1:8777";
     }
 
 }

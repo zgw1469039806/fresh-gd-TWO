@@ -1,9 +1,12 @@
 package org.auth.client.impl;
 
 import com.codingapi.tx.annotation.TxTransaction;
+import io.swagger.annotations.Api;
 import org.apache.commons.lang.StringUtils;
+import org.auth.client.entity.GdRole;
 import org.auth.client.entity.GdUser;
 import org.auth.client.fegin.ManageFeignService;
+import org.auth.client.mapper.GdRoleMapper;
 import org.auth.client.mapper.GdTakedeliveryMapper;
 import org.auth.client.mapper.GdUserMapper;
 import org.fresh.gd.commons.consts.api.auth.UserService;
@@ -40,6 +43,9 @@ public class UserServiceImpl implements UserService {
     GdUserMapper gdUserMapper;
 
     @Autowired
+    GdRoleMapper gdRoleMapper;
+
+    @Autowired
     public PasswordEncoder passwordEncoder;
 
     @Autowired
@@ -55,7 +61,6 @@ public class UserServiceImpl implements UserService {
         UserDTO userDTO = requestData.getData();
         System.err.println("----" + userDTO);
         GdUser gdUserTwo = gdUserMapper.selUserAcc(userDTO.getUseraccount());
-
         if (gdUserTwo != null) {
             throw new BizException("账号不能重复");
         }
@@ -65,12 +70,19 @@ public class UserServiceImpl implements UserService {
         userDTO.setPassword(passwordEncoder.encode("123456"));
         GdUser gdUser = new GdUser();
         BeanUtils.copyProperties(userDTO, gdUser);
+        //向用户表插入
         Integer usersave = gdUserMapper.saveUserYg(gdUser);
         if (usersave > 0) {
             GdPositionDTO gdPositionDTO = new GdPositionDTO();
             gdPositionDTO.setUserId(gdUser.getUserId());
             gdPositionDTO.setPname(requestData.getData().getUsername());
+            //向权限表插入
             gdPositionService.savaPosn(gdPositionDTO);
+            GdRole gdRole = new GdRole();
+            gdRole.setRoleid(requestData.getData().getUserId());
+            gdRole.setRolename(requestData.getData().getRolename());
+            gdRoleMapper.insert(gdRole);
+
             responseData.setMsg(Consts.Result.SUCCESS.getMsg());
             return responseData;
         }

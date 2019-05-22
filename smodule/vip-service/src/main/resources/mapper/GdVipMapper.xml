@@ -43,5 +43,15 @@
         </if>
     </select>
 
+    <select id="selVipByVipPhoneAndUserId" resultType="org.fresh.gd.commons.consts.pojo.dto.vip.VipPageDTO" parameterType="org.fresh.gd.commons.consts.pojo.dto.vip.VipSelVipDTO">
+        select * from gd_vip where 1 = 1
+        <if test="vipPhone != null and vipPhone != ''">
+            and vipphone = #{vipPhone}
+        </if>
+        <if test="userId != null and userId != ''">
+            and userId = #{userId}
+        </if>
+    </select>
+
 
 </mapper>

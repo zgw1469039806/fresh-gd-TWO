@@ -149,4 +149,28 @@ public interface VipService {
     @PostMapping("/updVipBalanceByVipPhone")
     Integer updVipBalanceByVipPhone(@RequestParam("vipphone") String vipphone , @RequestParam("vipbalance") String vipbalance , @RequestParam("storeId") Integer storeId);
 
+    /**
+    *
+    * 功能描述:
+    *   根据手机号或用户id查询会员信息
+    * @param: [vipSelVipDTO]
+    * @return: org.fresh.gd.commons.consts.pojo.ResponseData<org.fresh.gd.commons.consts.pojo.dto.vip.VipPageDTO>
+    * @auther: Mr.Xia
+    * @date: 2019/5/22 10:47
+    */
+    @PostMapping("/selVipByVipPhoneAndUserId")
+    ResponseData<VipPageDTO> selVipByVipPhoneAndUserId(RequestData<VipSelVipDTO> vipSelVipDTO);
+
+    /**
+    *
+    * 功能描述:
+    *   会员解除绑定-根据会员手机号
+    * @param: [vipPhone]
+    * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+    * @auther: Mr.Xia
+    * @date: 2019/5/22 11:14
+    */
+    @PostMapping("/updRemoveUserId")
+    ResponseData<Integer> updRemoveUserId(RequestData<String> vipPhone);
+
 }

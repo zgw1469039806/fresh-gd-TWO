@@ -165,17 +165,19 @@ public class GdCommodityServiceImpl implements GdCommodityService {
     public ResponseData<List<GdCommodityDTO>> QueryShopbyWh(@RequestBody RequestData<ComdityQueryDTO> queryData) {
         List<GdCommodityDTO> list = gdCommodityMapper.QueryShop(queryData.getData());
         List<Integer> storeids = new ArrayList<>();
-        for (GdCommodityDTO dto : list) {
-            storeids.add(dto.getStoreid());
-        }
-        RequestData<List<Integer>> requestData = new RequestData<>();
-        requestData.setData(storeids);
-        ResponseData<List<GdStoreDTO>> responseData = manageFeginService.QueryByid(requestData);
-        for (GdCommodityDTO cdto : list) {
-            for (GdStoreDTO sdto : responseData.getData()) {
-                if (cdto.getStoreid() == sdto.getStoreid()) {
-                    cdto.setSsmdName(sdto.getStorename());
-                    break;
+        if (list.size() > 0) {
+            for (GdCommodityDTO dto : list) {
+                storeids.add(dto.getStoreid());
+            }
+            RequestData<List<Integer>> requestData = new RequestData<>();
+            requestData.setData(storeids);
+            ResponseData<List<GdStoreDTO>> responseData = manageFeginService.QueryByid(requestData);
+            for (GdCommodityDTO cdto : list) {
+                for (GdStoreDTO sdto : responseData.getData()) {
+                    if (cdto.getStoreid() == sdto.getStoreid()) {
+                        cdto.setSsmdName(sdto.getStorename());
+                        break;
+                    }
                 }
             }
         }
