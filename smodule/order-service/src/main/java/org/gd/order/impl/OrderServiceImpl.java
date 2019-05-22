@@ -123,9 +123,9 @@ public class OrderServiceImpl implements GDOrderService {
         ResponseData responseData1 = orderFeginToShopping.reduceStock(requestData);//减少库存
         if (responseData1.getCode() == 1000) {//如果减少成功
             for (GdOrdershopDTO dto : gdOrderDTORequestData.getData().getTableData()) {
-                //插入订单详细
-                gdOrdershopMapper.insertOrderShop(gdOrder.getOrderid(), dto.getComdityId(), dto.getNum());
+                dto.setOrderid(gdOrder.getOrderid());
             }
+            gdOrdershopMapper.insertOrderShop(gdOrderDTORequestData.getData().getTableData());
         } else {
             throw new BizException("库存减扣失败");
         }
@@ -143,7 +143,7 @@ public class OrderServiceImpl implements GDOrderService {
      * 根据用户id信息 查询购物车商品
      *
      * @param requestData
-     * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List               <               org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO>>
+     * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List<org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO>>
      * @author zgw
      */
     @Override
@@ -192,7 +192,6 @@ public class OrderServiceImpl implements GDOrderService {
      *
      * @param orderPageDTO
      * @param: [orderPageDTO]
-     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               <                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               org.fresh.gd.commons.consts.pojo.dto.order.GdOrderDTO>>
      * @auther: Mr.Xia
      * @date: 2019/5/13 16:36
      */
@@ -254,7 +253,6 @@ public class OrderServiceImpl implements GDOrderService {
             return responseData;
         }
     }
-
 
 
 }

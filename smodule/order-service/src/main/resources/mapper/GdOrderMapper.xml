@@ -51,10 +51,17 @@
         </if>
     </select>
 
+
     <select id="selOrderPage" parameterType="org.fresh.gd.commons.consts.pojo.dto.order.OrderPageDTO" resultType="org.fresh.gd.commons.consts.pojo.dto.order.GdOrderDTO">
         select * from gd_order where 1 = 1
         <if test="orderId != null and orderId != ''">
             and orderid like CONCAT('%',#{orderId},'%')
+        </if>
+        <if test="userId != null and userId != '' and orderscene == 1">
+            and userId like CONCAT('%',#{userId},'%')
+        </if>
+        <if test="userId != null and userId != '' and orderscene == 2">
+            and userId = #{userId}
         </if>
 
         <if test="startTime != null and startTime != ''">
@@ -63,9 +70,7 @@
         <if test="endTime != null and endTime != ''">
             and  orderTime &lt;= #{endTime}
         </if>
-        <!--<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
-            and orderTime between #{startTime} and #{endTime}
-        </if>-->
+
         <if test="orderStat != null and orderStat != -1 and orderStat != ''">
             and orderStat = #{orderStat}
         </if>

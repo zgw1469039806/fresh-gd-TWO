@@ -118,4 +118,9 @@ public class GdOrderDTO {
      */
     @ApiModelProperty("实付价格")
     private String comditytrueprice;
+    /**
+     * 找零
+     */
+    @ApiModelProperty("找零")
+    private String gchange;
 }
