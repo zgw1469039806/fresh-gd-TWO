@@ -2,10 +2,7 @@ package org.gd.vip.mapper;
 
 import org.apache.ibatis.annotations.*;
 import org.fresh.gd.commons.consts.pojo.dto.user.UserAndVipDTO;
-import org.fresh.gd.commons.consts.pojo.dto.vip.SelPageVipDTO;
-import org.fresh.gd.commons.consts.pojo.dto.vip.VipPageCountDTO;
-import org.fresh.gd.commons.consts.pojo.dto.vip.VipPageDTO;
-import org.fresh.gd.commons.consts.pojo.dto.vip.VipUpdDTO;
+import org.fresh.gd.commons.consts.pojo.dto.vip.*;
 import org.gd.vip.entity.GdVip;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.gd.vip.entity.GdViplv;
@@ -106,5 +103,21 @@ public interface GdVipMapper extends BaseMapper<GdVip> {
     //修改会员积分
     @Update("update gd_vip set viplv = #{newVipLv} , vipintegral = #{addVipIntegral} + vipintegral  where vipphone = #{vipId}")
     Integer updOneByVipPhone(@Param("vipId") String vipId , @Param("newVipLv") Integer newVipLv , @Param("addVipIntegral") String addVipIntegral);
+
+
+    //根据手机号查询此会员是否存在
+    @Select("select count(1) from gd_vip where vipphone = #{phone}")
+    Integer selOneByVipPhone(String phone);
+
+    //修改、添加会员用户id
+    @Update("update gd_vip set userId = #{userId} where vipphone = #{phone}")
+    Integer updVipUserId(VipBindUserId vipBindUserId);
+
+    //根据会员手机号修改会员余额
+    @Update("update gd_vip set vipbalance = vipbalance - #{vipbalance} where vipphone = #{vipphone}")
+    Integer updVipBalanceByVipPhone(@Param("vipphone") String vipphone ,@Param("vipbalance") String vipbalance);
+
+
+
 
 }

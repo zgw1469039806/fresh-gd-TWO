@@ -1,5 +1,6 @@
 package org.fresh.gd.commons.consts.api.wx.comdity;
 
+import org.fresh.gd.commons.consts.pojo.RequestData;
 import org.fresh.gd.commons.consts.pojo.ResponseData;
 import org.fresh.gd.commons.consts.pojo.dto.shoping.GdActivitiesAndShopDTO;
 import org.fresh.gd.commons.consts.pojo.dto.shoping.GdActivitiesDTO;
@@ -23,7 +24,7 @@ public interface GDActicitesdetailService {
      * @date: 2019/5/15 15:26
      */
     @PostMapping("/queryGoods")
-    public ResponseData<List<GdActivitiesAndShopDTO>> queryActivitiesGoods();
+    public ResponseData<List<GdActivitiesAndShopDTO>> queryActivitiesGoods(RequestData<GdActivitiesDTO> requestData);
 
     /** 功能描述:
     * 查询线上，以上线的活动
@@ -34,4 +35,5 @@ public interface GDActicitesdetailService {
     */
     @PostMapping("/queryActivities")
     public ResponseData<List<GdActivitiesDTO>> queryActivities();
+
 }

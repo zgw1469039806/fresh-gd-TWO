@@ -1,5 +1,6 @@
 package org.gd.vip.impl;
 
+import io.swagger.models.auth.In;
 import lombok.extern.slf4j.Slf4j;
 import org.fresh.gd.commons.consts.api.vip.VipService;
 import org.fresh.gd.commons.consts.consts.Consts;
@@ -93,7 +94,7 @@ public class VipServiceImpl implements VipService {
      *
      * @param pageVipdto
      * @param: [pageVipdto]
-     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<org.fresh.gd.commons.consts.utils.PageBean       <       org.fresh.gd.commons.consts.pojo.dto.vip.VipPageDTO>>
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<org.fresh.gd.commons.consts.utils.PageBean                               <                               org.fresh.gd.commons.consts.pojo.dto.vip.VipPageDTO>>
      * @auther: Mr.Xia
      * @date: 2019/4/29 15:43
      */
@@ -225,10 +226,12 @@ public class VipServiceImpl implements VipService {
     public ResponseData<VipPageDTO> selOneVipByPhone(@RequestBody RequestData<String> vipphone) {
         ResponseData<VipPageDTO> responseData = new ResponseData<>();
         VipPageDTO vipPageDTO = gdVipMapper.selOneVipByPhone(vipphone.getData());
-        if (vipPageDTO.getVipreport() == 1) {
-            responseData.setMsg("此会员已挂失！");
-            responseData.setCode(Consts.Result.BIZ_ERROR.getCode());
-            return responseData;
+        if (vipPageDTO != null) {
+            if (vipPageDTO.getVipreport() == 1) {
+                responseData.setMsg("此会员已挂失！");
+                responseData.setCode(Consts.Result.BIZ_ERROR.getCode());
+                return responseData;
+            }
         }
         responseData.setData(vipPageDTO);
         return responseData;
@@ -251,7 +254,7 @@ public class VipServiceImpl implements VipService {
     public Integer upgVipIntegral(String vipId, Integer storeid, String ordermoney) {
 
         //1、根据会员手机号获取会员信息
-        System.out.println(vipId+"-"+storeid+"-"+ordermoney);
+        System.out.println(vipId + "-" + storeid + "-" + ordermoney);
 
         VipPageDTO vip = gdVipMapper.selOneVipByPhone(vipId);
 
@@ -259,7 +262,7 @@ public class VipServiceImpl implements VipService {
         VipInSetDTO vipInSetDTO = gdVipInSetMapper.selVipInSetById(storeid);
 
         //3、计算需要增加的积分（如果达到升级会员的标准需要进行会员升级）修改会员信息 等级不能超过5级 积分不能超过5000
-        Integer addVipIntegral = (int)(Double.parseDouble(ordermoney) / Double.parseDouble(vipInSetDTO.getVipinsetmoney()) * vipInSetDTO.getVipinsetgetin());
+        Integer addVipIntegral = (int) (Double.parseDouble(ordermoney) / Double.parseDouble(vipInSetDTO.getVipinsetmoney()) * vipInSetDTO.getVipinsetgetin());
         //若不满足积分规则 那么直接返回
         if (addVipIntegral < 1) {
             return 1;
@@ -280,10 +283,66 @@ public class VipServiceImpl implements VipService {
         GdVipindetailedDTO gdVipindetailedDTO = new GdVipindetailedDTO();
         gdVipindetailedDTO.setStoreid(storeid);
         gdVipindetailedDTO.setVipindetailednum(addVipIntegral);
-        gdVipindetailedDTO.setVipindetailedtype("获得");
+        gdVipindetailedDTO.setVipindetailedtype("获得积分");
         gdVipindetailedDTO.setVipPhone(vipId);
 
         Integer integer = gdVipindetailedMapper.addVipindetailed(gdVipindetailedDTO);
+        return i;
+    }
+
+    /**
+     * 功能描述:
+     * 根据手机号查询此会员是否存在
+     *
+     * @param phone
+     * @param: [phone]
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+     * @auther: Mr.Xia
+     * @date: 2019/5/20 10:32
+     */
+    @Override
+    public Integer selOneByVipPhone(String phone) {
+        return gdVipMapper.selOneByVipPhone(phone);
+    }
+
+    @Transactional
+    @Override
+    public ResponseData<Integer> updVipUserId(@RequestBody RequestData<VipBindUserId> vipBindUserId) {
+        ResponseData<Integer> responseData = new ResponseData<>();
+        Integer i = selOneByVipPhone(vipBindUserId.getData().getPhone());
+        if (i < 1) {
+            responseData.setCode(Consts.Result.BIZ_ERROR.getCode());
+            responseData.setMsg("该手机号不存在！");
+            return responseData;
+        }
+        gdVipMapper.updVipUserId(vipBindUserId.getData());
+        return responseData;
+    }
+
+    /**
+     * 功能描述:
+     * 根据会员手机号修改会员余额
+     *
+     * @param vipphone
+     * @param vipbalance
+     * @param: [vipphone, vipbalance]
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+     * @auther: Mr.Xia
+     * @date: 2019/5/20 14:39
+     */
+    @Transactional
+    @Override
+    public Integer updVipBalanceByVipPhone(String vipphone, String vipbalance, Integer storeId) {
+        //todo:做会员余额是否充足判断 如果不充足，返回1000
+        Integer i = gdVipMapper.updVipBalanceByVipPhone(vipphone, vipbalance);
+
+        GdVipindetailedDTO gdVipindetailedDTO = new GdVipindetailedDTO();
+        gdVipindetailedDTO.setStoreid(storeId);
+        gdVipindetailedDTO.setVipmoney(vipbalance);
+        gdVipindetailedDTO.setVipindetailednum(0);
+        gdVipindetailedDTO.setVipindetailedtype("余额消费");
+        gdVipindetailedDTO.setVipPhone(vipphone);
+        gdVipindetailedMapper.addVipindetailed(gdVipindetailedDTO);
         return i;
     }
 }

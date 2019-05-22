@@ -37,7 +37,7 @@ public class GdVipindetailed implements Serializable {
     private String vipindetailedtype;
 
     /**
-     *   会员积分交易数量
+     *   会员积分变更数量
      */
     private Integer vipindetailednum;
 
@@ -45,5 +45,12 @@ public class GdVipindetailed implements Serializable {
      *   会员所属店铺
      */
     private Integer storeid;
+
+    /**
+     *   会员余额变更数量
+     */
+    private String vipmoney;
+
+
 
 }

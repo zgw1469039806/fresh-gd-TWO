@@ -2,6 +2,7 @@ package org.fresh.gd.commons.consts.pojo.dto.order;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.models.auth.In;
 import lombok.Data;
 import org.fresh.gd.commons.consts.pojo.dto.shoping.GdComdityparticularDTO;
 
@@ -76,27 +77,45 @@ public class GdOrderDTO {
     private String belongStoreNam;
 
     /**
-     *   用户ID
+     * 用户ID
      */
     @ApiModelProperty("用户ID")
     private Integer userId;
 
     /**
-     *  抹零
+     * 抹零
      */
     @ApiModelProperty("抹零")
     private String priceml;
 
     /**
-     *  地址编号
+     * 地址编号
      */
     @ApiModelProperty("地址编号")
-    private String addressId;
+    private Integer addressId;
 
+    @ApiModelProperty("地址编号")
+    private String phone;
+
+    @ApiModelProperty("地址")
+    private String address;
+
+    @ApiModelProperty("地址状态")
+    private Integer status;
 
 
     @ApiModelProperty("订单商品详细")
-    private List<GdComdityparticularDTO> tableData;
+    private List<GdOrdershopDTO> tableData;
 
+    /**
+     * 应付价格
+     */
+    @ApiModelProperty("应付价格")
+    private String comdityprice;
 
+    /**
+     * 实付价格
+     */
+    @ApiModelProperty("实付价格")
+    private String comditytrueprice;
 }

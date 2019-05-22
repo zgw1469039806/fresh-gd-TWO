@@ -1,12 +1,14 @@
 package org.gw.shoping.impl;
 
 import org.fresh.gd.commons.consts.api.wx.comdity.GDActicitesdetailService;
+import org.fresh.gd.commons.consts.pojo.RequestData;
 import org.fresh.gd.commons.consts.pojo.ResponseData;
 import org.fresh.gd.commons.consts.pojo.dto.shoping.GdActivitiesAndShopDTO;
 import org.fresh.gd.commons.consts.pojo.dto.shoping.GdActivitiesDTO;
 import org.gw.shoping.mapper.GdActivitiesMapper;
 import org.gw.shoping.mapper.GdImagesMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -36,10 +38,11 @@ public class GDActicitesdetailServiceImpl implements GDActicitesdetailService {
      * @date: 2019/5/15 15:26
      */
     @Override
-    public ResponseData<List<GdActivitiesAndShopDTO>> queryActivitiesGoods() {
+    public ResponseData<List<GdActivitiesAndShopDTO>> queryActivitiesGoods(@RequestBody RequestData<GdActivitiesDTO>
+            requestData) {
         List<GdActivitiesAndShopDTO> list2=new ArrayList<>();
         ResponseData<List<GdActivitiesAndShopDTO>> responseData = new ResponseData<>();
-        List<GdActivitiesAndShopDTO> list = gdActivitiesMapper.queryActivitiesGoods();
+        List<GdActivitiesAndShopDTO> list = gdActivitiesMapper.queryActivitiesGoods(requestData.getData());
         for (GdActivitiesAndShopDTO dto : list
                 ) {
             GdActivitiesAndShopDTO dto2 = gdImagesMapper.queryImage(dto.getComdityId());
