@@ -94,6 +94,13 @@ public class GdCommodityServiceImpl implements GdCommodityService {
         return responseData;
     }
 
+    /** 功能描述:
+    *
+    * @param: []
+    * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List<org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityListDTO>>
+    * @auther: 贾轶飞
+    * @date: 2019/5/23 10:29
+    */
     @Override
     public ResponseData<List<GdCommodityListDTO>> selheadlineAll() {
         ResponseData<List<GdCommodityListDTO>> responseData = new ResponseData<>();
@@ -102,6 +109,13 @@ public class GdCommodityServiceImpl implements GdCommodityService {
         return responseData;
     }
 
+    /** 功能描述:
+    *商品id查询
+    * @param: [comdityId]
+    * @return: org.fresh.gd.commons.consts.pojo.ResponseData<org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityListDTO>
+    * @auther: 贾轶飞
+    * @date: 2019/5/23 10:29
+    */
     @Override
     public ResponseData<GdCommodityListDTO> selOne(@RequestBody Integer comdityId) {
         ResponseData<GdCommodityListDTO> responseData = new ResponseData<>();

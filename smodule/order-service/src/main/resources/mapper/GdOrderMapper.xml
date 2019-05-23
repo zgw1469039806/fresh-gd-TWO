@@ -55,6 +55,7 @@
         <if test="orderId != null and orderId != ''">
             and orderid like CONCAT('%',#{orderId},'%')
         </if>
+
         <if test="userId != null and userId != ''">
             and userId like CONCAT('%',#{userId},'%')
         </if>
@@ -66,7 +67,7 @@
             and  orderTime &lt;= #{endTime}
         </if>
 
-        <if test="orderStat != -1">
+        <if test="orderStat != null and orderStat != -1 and orderStat != ''">
             and orderStat = #{orderStat}
         </if>
         <if test="storeId != null and storeId != ''">
@@ -79,5 +80,19 @@
             and orderscene = #{orderScene}
         </if>
         order by orderTime DESC limit #{pageNo},#{pageSize}
+        limit #{pageNo},#{pageSize}
+    </select>
+
+
+    <select id="userOrderQuery" resultType="org.fresh.gd.commons.consts.pojo.dto.order.GdUserOrderDTO">
+
+        select * from gd_order
+        <where>
+
+            <if test="userId !=null and userId != ''">
+             and   userId =#{userId}
+            </if>
+        </where>
+
     </select>
 </mapper>
