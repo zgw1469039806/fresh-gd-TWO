@@ -80,7 +80,6 @@
             and orderscene = #{orderScene}
         </if>
         order by orderTime DESC limit #{pageNo},#{pageSize}
-        limit #{pageNo},#{pageSize}
     </select>
 
 
