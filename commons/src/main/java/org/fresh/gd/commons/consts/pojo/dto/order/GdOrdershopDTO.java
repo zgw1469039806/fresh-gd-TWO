@@ -25,6 +25,12 @@ public class GdOrdershopDTO {
     private Integer comdityId;
 
     /**
+     * 商品名
+     */
+    @ApiModelProperty("商品名")
+    private String comdityName;
+
+    /**
      * 商品数量
      */
     @ApiModelProperty("商品数量")

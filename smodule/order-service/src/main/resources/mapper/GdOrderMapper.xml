@@ -57,10 +57,10 @@
         <if test="orderId != null and orderId != ''">
             and orderid like CONCAT('%',#{orderId},'%')
         </if>
-        <if test="userId != null and userId != '' and orderscene == 1">
+        <if test="userId != null and userId != '' and orderScene == 1">
             and userId like CONCAT('%',#{userId},'%')
         </if>
-        <if test="userId != null and userId != '' and orderscene == 2">
+        <if test="userId != null and userId != '' and orderScene == 2">
             and userId = #{userId}
         </if>
 
@@ -84,5 +84,18 @@
             and orderscene = #{orderScene}
         </if>
         limit #{pageNo},#{pageSize}
+    </select>
+
+
+    <select id="userOrderQuery" resultType="org.fresh.gd.commons.consts.pojo.dto.order.GdUserOrderDTO">
+
+        select * from gd_order
+        <where>
+
+            <if test="userId !=null and userId != ''">
+             and   userId =#{userId}
+            </if>
+        </where>
+
     </select>
 </mapper>

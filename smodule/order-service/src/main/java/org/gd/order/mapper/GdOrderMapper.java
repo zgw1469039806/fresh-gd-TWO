@@ -35,4 +35,7 @@ public interface GdOrderMapper extends BaseMapper<GdOrder> {
     @Update("update gd_order set orderStat = #{ordStart} where orderid = #{orderId}")
     Integer updOrderStartById(OrderStartDTO orderStartDTO);
 
+
+    List<GdUserOrderDTO> userOrderQuery(GdUserOrderDTO gdUserOrderDTO);
+
 }
