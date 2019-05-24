@@ -85,5 +85,13 @@ public interface GDOrderService {
     ResponseData<Integer> updOrderStartById(RequestData<OrderStartDTO> orderStartDTO);
 
 
-
+    /** 功能描述:
+    *用户订单
+    * @param: [requestData]
+    * @return: org.fresh.gd.commons.consts.pojo.ResponseData<org.fresh.gd.commons.consts.pojo.dto.order.GdUserOrderDTO>
+    * @auther: 贾轶飞
+    * @date: 2019/5/23 10:16
+    */
+    @PostMapping("/userOrderQuery")
+    ResponseData<List<GdUserOrderDTO>> userOrderQuery(RequestData<GdUserOrderDTO> requestData);
 }
