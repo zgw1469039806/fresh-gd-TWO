@@ -4,6 +4,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * @DATA 2019/5/14 17:40
  * @Author 郭家恒
@@ -24,6 +26,9 @@ public class ComdityQueryDTO {
     @ApiModelProperty("商品类别")
     private Integer comditytypeId;
 
+    /**
+     * 商品编码
+     */
     @ApiModelProperty("商品编码")
     private String comdityBM;
 
@@ -33,7 +38,9 @@ public class ComdityQueryDTO {
     @ApiModelProperty("所属店铺ID")
     private Integer storeid;
 
+    /**
+     * 商品状态
+     */
     @ApiModelProperty("商品状态 0-上架中 1-下架")
     private Integer comstate;
-
 }

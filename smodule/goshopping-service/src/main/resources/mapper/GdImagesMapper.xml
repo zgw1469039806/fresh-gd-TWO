@@ -4,10 +4,10 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="org.gw.shoping.entity.GdImages">
-        <id column="imagesId" property="imagesId" />
-        <result column="imagesurl" property="imagesurl" />
-        <result column="comdityId" property="comdityId" />
-        <result column="imageslv" property="imageslv" />
+        <id column="imagesId" property="imagesId"/>
+        <result column="imagesurl" property="imagesurl"/>
+        <result column="comdityId" property="comdityId"/>
+        <result column="imageslv" property="imageslv"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -15,4 +15,10 @@
         imagesId, imagesurl, comdityId, imageslv
     </sql>
 
+    <insert id="saveImages" parameterType="list">
+        insert into GoShopping.gd_images (imagesurl, comdityId, imageslv) values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.imagesurl},#{item.comdityId},#{item.imageslv})
+        </foreach>
+    </insert>
 </mapper>
