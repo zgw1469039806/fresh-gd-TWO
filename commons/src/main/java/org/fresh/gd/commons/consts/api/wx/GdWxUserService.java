@@ -6,7 +6,9 @@ import org.fresh.gd.commons.consts.pojo.dto.oauth.UserDTO;
 
 
 import org.fresh.gd.commons.consts.pojo.dto.oauth.WXUserDTO;
+import org.fresh.gd.commons.consts.pojo.dto.user.GdTakedeliveryDTO;
 import org.fresh.gd.commons.consts.pojo.dto.user.RoleAndUserDTO;
+import org.fresh.gd.commons.consts.pojo.dto.user.UserAddressDTO;
 import org.fresh.gd.commons.consts.pojo.dto.user.UserAndVipDTO;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -67,5 +69,14 @@ public interface GdWxUserService {
     @PostMapping("/wxbindMember")
     ResponseData<Integer> bindMember(RequestData<UserAndVipDTO> requestData);
 
+    /** 功能描述:
+     *  用户获取默认地址
+     * @param: [requestData]
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<org.fresh.gd.commons.consts.pojo.dto.user.GdTakedeliveryDTO>
+     * @auther: 贾轶飞
+     * @date: 2019/5/24 15:29
+     */
+    @PostMapping("/defAddress")
+    public  ResponseData<GdTakedeliveryDTO> defAddress(RequestData<UserAddressDTO> requestData);
 
 }

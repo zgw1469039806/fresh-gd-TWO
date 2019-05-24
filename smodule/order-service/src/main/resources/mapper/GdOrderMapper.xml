@@ -91,6 +91,9 @@
             <if test="userId !=null and userId != ''">
              and   userId =#{userId}
             </if>
+            <if test="orderid !=null and orderid !='' ">
+                and   orderid =#{orderid}
+            </if>
         </where>
 
     </select>

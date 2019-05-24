@@ -364,6 +364,15 @@ public class GdCommodityServiceImpl implements GdCommodityService {
     }
 
 
+    @Override
+    public ResponseData<List<GdCommodityDTO>> QueryShopByIdsTwo(@RequestBody List<Integer> requestData) {
+        ResponseData<List<GdCommodityDTO>> responseData = new ResponseData<>();
+        List<GdCommodityDTO> list = gdCommodityMapper.QueryShopByIdsTwo(requestData);
+        responseData.setData(list);
+        return responseData;
+    }
+
+
     /**
      * 功能描述
      * 商品上下架操作

@@ -94,6 +94,12 @@ public class GdOrderDTO {
     @ApiModelProperty("地址编号")
     private Integer addressId;
 
+    /**
+     * 收货人
+     */
+    @ApiModelProperty("收货人")
+    private String recipients;
+
     @ApiModelProperty("地址编号")
     private String phone;
 

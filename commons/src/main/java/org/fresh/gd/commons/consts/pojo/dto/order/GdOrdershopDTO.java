@@ -37,6 +37,12 @@ public class GdOrdershopDTO {
     private Integer num;
 
     /**
+     * 商品数量
+     */
+    @ApiModelProperty("商品图片URL")
+    private String imageUrl;
+
+    /**
      * 优惠方式
      */
     @ApiModelProperty("优惠方式")

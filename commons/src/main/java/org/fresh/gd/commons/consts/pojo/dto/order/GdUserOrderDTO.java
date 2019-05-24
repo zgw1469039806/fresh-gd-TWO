@@ -106,6 +106,12 @@ public class GdUserOrderDTO {
     private String phone;
 
     /**
+     * 收货人
+     */
+    @ApiModelProperty("收货人")
+    private String recipients;
+
+    /**
      * 应付金额
      */
     @ApiModelProperty("应付金额")
@@ -143,5 +149,6 @@ public class GdUserOrderDTO {
      */
     @ApiModelProperty("订单详细")
     private List<GdOrdershopDTO> table;
+
 
 }

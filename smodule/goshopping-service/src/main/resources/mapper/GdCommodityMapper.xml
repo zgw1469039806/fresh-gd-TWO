@@ -132,6 +132,17 @@
         </where>
     </select>
 
+    <select id="QueryShopByIdsTwo" parameterType="list"
+            resultType="org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO">
+        select co.*  from gd_commodity co
+        <where>
+          and co.comdityId in
+            <foreach collection="list" open="(" item="item" separator="," close=")">
+                #{item}
+            </foreach>
+        </where>
+    </select>
+
     <insert id="saveShop" useGeneratedKeys="true" keyColumn="comdityId"
             parameterType="org.gw.shoping.entity.GdCommodity">
         insert into gd_commodity (comdityname, comditytypeId, comditydw, comditydescribe, comdityprice) values (#{comdityname}, #{comditytypeId}, #{comditydw}, #{comditydescribe}, #{comdityprice});

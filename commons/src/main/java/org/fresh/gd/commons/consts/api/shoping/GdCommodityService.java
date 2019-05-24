@@ -176,5 +176,8 @@ public interface GdCommodityService {
     @PostMapping("/StandandDown")
     ResponseData<Integer> StandandDown(RequestData<GdcomdityHhDTO> requestData);
 
+    @PostMapping("/QueryShopByIdsTwo")
+    ResponseData<List<GdCommodityDTO>> QueryShopByIdsTwo(List<Integer> requestData);
+
 
 }

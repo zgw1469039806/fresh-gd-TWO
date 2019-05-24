@@ -93,6 +93,12 @@ public class GdWxOrderAndShopDTO {
     private String address;
 
     /**
+     * 收货人
+     */
+    @ApiModelProperty("收货人")
+    private String recipients;
+
+    /**
      *   收货人手机号
      */
     @ApiModelProperty("收货人手机号")
