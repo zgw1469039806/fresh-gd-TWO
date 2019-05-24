@@ -75,6 +75,7 @@ public class OrderServiceImpl implements GDOrderService {
      * @auther: 郭家恒
      * @date: 2019/4/24 13:53
      */
+    @LcnTransaction
     @Transactional
     @Override
     public ResponseData<List> insertOrder(@RequestBody RequestData<GdOrderDTO> gdOrderDTORequestData) {
@@ -293,5 +294,83 @@ public class OrderServiceImpl implements GDOrderService {
         return responseData;
     }
 
+    /**
+     * 功能描述:
+     * 根据订单编号修改订单状态为已支付（用于小程序订单支付）
+     *
+     * @param orderId
+     * @param: [orderStartDTO]
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+     * @auther: Mr.Xia
+     * @date: 2019/5/24 10:03
+     */
+    @Override
+    public ResponseData<Integer> updOrderStartPay(String orderId) {
+        ResponseData<Integer> responseData = new ResponseData<>();
+        OrderStartDTO orderStartDTO = new OrderStartDTO();
+        orderStartDTO.setOrderId(orderId);
+        orderStartDTO.setOrdStart(1);
+        gdOrderMapper.updOrderStartById(orderStartDTO);
+        return responseData;
+    }
 
+    /**
+     * 功能描述:
+     * 线上-根据订单编号修改订单状态为已完成（用于小程序订单点击确认收货）
+     *
+     * @param orderId
+     * @param: [orderId]
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+     * @auther: Mr.Xia
+     * @date: 2019/5/24 10:18
+     */
+    @Override
+    public ResponseData<Integer> updOrderStartOK(String orderId) {
+        ResponseData<Integer> responseData = new ResponseData<>();
+        OrderStartDTO orderStartDTO = new OrderStartDTO();
+        orderStartDTO.setOrderId(orderId);
+        orderStartDTO.setOrdStart(4);
+        gdOrderMapper.updOrderStartById(orderStartDTO);
+        return responseData;
+    }
+
+    /**
+     * 功能描述:
+     * 线上-根据订单编号修改订单状态为申请退款（用于小程序点击申请退款）
+     *
+     * @param orderId
+     * @param: [orderId]
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+     * @auther: Mr.Xia
+     * @date: 2019/5/24 11:17
+     */
+    @Override
+    public ResponseData<Integer> updOrderStartTuiPay(String orderId) {
+        ResponseData<Integer> responseData = new ResponseData<>();
+        OrderStartDTO orderStartDTO = new OrderStartDTO();
+        orderStartDTO.setOrderId(orderId);
+        orderStartDTO.setOrdStart(5);
+        gdOrderMapper.updOrderStartById(orderStartDTO);
+        return responseData;
+    }
+
+    /**
+     * 功能描述:
+     * 线上-根据订单编号修改订单状态为到店支付（用于小程序点击到店支付）
+     *
+     * @param orderId
+     * @param: [orderId]
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+     * @auther: Mr.Xia
+     * @date: 2019/5/24 11:20
+     */
+    @Override
+    public ResponseData<Integer> updOrderStartToGoodsPay(String orderId) {
+        ResponseData<Integer> responseData = new ResponseData<>();
+        OrderStartDTO orderStartDTO = new OrderStartDTO();
+        orderStartDTO.setOrderId(orderId);
+        orderStartDTO.setOrdStart(8);
+        gdOrderMapper.updOrderStartById(orderStartDTO);
+        return responseData;
+    }
 }

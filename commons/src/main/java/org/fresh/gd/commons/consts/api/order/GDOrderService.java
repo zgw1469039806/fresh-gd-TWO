@@ -94,4 +94,55 @@ public interface GDOrderService {
     */
     @PostMapping("/userOrderQuery")
     ResponseData<List<GdUserOrderDTO>> userOrderQuery(RequestData<GdUserOrderDTO> requestData);
+
+    /**
+    *
+    * 功能描述:
+    *   线上-根据订单编号修改订单状态为已支付（用于小程序订单支付）
+    * @param: [orderStartDTO]
+    * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+    * @auther: Mr.Xia
+    * @date: 2019/5/24 10:03
+    */
+    @PostMapping("/updOrderStartPay")
+    ResponseData<Integer> updOrderStartPay(@RequestParam("orderId") String orderId);
+
+
+    /**
+    *
+    * 功能描述:
+    *   线上-根据订单编号修改订单状态为确认收货（用于小程序订单确认收货）
+    * @param: [orderId]
+    * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+    * @auther: Mr.Xia
+    * @date: 2019/5/24 10:18
+    */
+    @PostMapping("/updOrderStartOK")
+    ResponseData<Integer> updOrderStartOK(@RequestParam("orderId") String orderId);
+
+    /**
+    *
+    * 功能描述:
+    *   线上-根据订单编号修改订单状态为申请退款（用于小程序点击申请退款）
+    * @param: [orderId]
+    * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+    * @auther: Mr.Xia
+    * @date: 2019/5/24 11:17
+    */
+    @PostMapping("/updOrderStartTuiPay")
+    ResponseData<Integer> updOrderStartTuiPay(@RequestParam("orderId") String orderId);
+
+
+    /**
+    *
+    * 功能描述:
+    *   线上-根据订单编号修改订单状态为到店支付（用于小程序点击到店支付）
+    * @param: [orderId]
+    * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+    * @auther: Mr.Xia
+    * @date: 2019/5/24 11:20
+    */
+    @PostMapping("/updOrderStartToGoodsPay")
+    ResponseData<Integer> updOrderStartToGoodsPay(@RequestParam("orderId") String orderId);
+
 }
