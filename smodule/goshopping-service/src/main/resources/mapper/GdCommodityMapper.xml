@@ -51,9 +51,7 @@
             <if test="comditytypeId != 0 and comditytypeId !=null">
                 AND c.comditytypeId=#{comditytypeId}
             </if>
-
         </where>
-
     </select>
 
     <select id="selheadlineAll" resultType="org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityListDTO">

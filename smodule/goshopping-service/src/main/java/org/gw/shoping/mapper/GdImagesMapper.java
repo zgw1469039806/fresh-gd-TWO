@@ -7,6 +7,8 @@ import org.fresh.gd.commons.consts.pojo.dto.shoping.GdActivitiesAndShopDTO;
 import org.gw.shoping.entity.GdImages;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
+import java.util.List;
+
 
 /**
  * <p>
@@ -20,5 +22,12 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 public interface GdImagesMapper extends BaseMapper<GdImages> {
 
     @Select("select * from gd_images where comdityid=#{comdityid} limit 1")
-    public GdActivitiesAndShopDTO queryImage(@Param("comdityid")Integer comdityid);
+    GdActivitiesAndShopDTO queryImage(@Param("comdityid")Integer comdityid);
+
+    /**
+     * 添加商品图片链接
+     * @Date: 14:04 2019/5/23
+     * @Author: 郭家恒
+     */
+    Integer saveImages(List<org.fresh.gd.commons.consts.pojo.dto.shoping.GdImages> list);
 }

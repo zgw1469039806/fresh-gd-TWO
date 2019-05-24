@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import org.fresh.gd.commons.consts.api.shoping.GdCommodityService;
-import org.fresh.gd.commons.consts.consts.Consts;
 import org.fresh.gd.commons.consts.pojo.RequestData;
 import org.fresh.gd.commons.consts.pojo.ResponseData;
 import org.fresh.gd.commons.consts.pojo.dto.management.GdStoreDTO;
@@ -15,16 +14,15 @@ import org.gw.shoping.entity.GdCommodity;
 import org.gw.shoping.fegin.ManageFeginService;
 import org.gw.shoping.mapper.GdComdityparticularMapper;
 import org.gw.shoping.mapper.GdCommodityMapper;
+import org.gw.shoping.mapper.GdImagesMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
 
 /**
@@ -41,6 +39,8 @@ public class GdCommodityServiceImpl implements GdCommodityService {
     @Autowired
     GdComdityparticularMapper gdComdityparticularMapper;
 
+    @Autowired
+    GdImagesMapper gdImagesMapper;
     @Autowired
     ManageFeginService manageFeginService;
 
@@ -269,6 +269,21 @@ public class GdCommodityServiceImpl implements GdCommodityService {
             gdComdityparticularMapper.insert(gdComdityparticular);
         }
         GdImagesDTO gdImagesDTO = requestData.getData().getGdImagesDTO();
+        gdImagesDTO.setComdityId(gdCommodity.getComdityId());
+        gdImagesDTO.setImageslv("0");
+        //商品图片添加开始
+        GdImages gdImages = new GdImages();
+        BeanUtils.copyProperties(gdImagesDTO, gdImages);
+        gdImages.setComdityId(gdCommodity.getComdityId());
+        gdImages.setImageslv("1");
+        List<GdImages> list = new ArrayList<>();
+        list.add(gdImages);
+        for (GdImages image : gdImagesDTO.getImagesDTOS()) {
+            image.setComdityId(gdCommodity.getComdityId());
+            image.setImageslv("2");
+            list.add(image);
+        }
+        gdImagesMapper.saveImages(list);
         ResponseData<Integer> responseData = new ResponseData<>();
         return responseData;
     }
@@ -387,5 +402,4 @@ public class GdCommodityServiceImpl implements GdCommodityService {
 
         return responseData;
     }
-
 }
