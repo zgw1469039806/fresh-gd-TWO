@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.xml.ws.Response;
 import java.util.List;
 
 /**
@@ -175,6 +176,4 @@ public interface GdCommodityService {
      */
     @PostMapping("/StandandDown")
     ResponseData<Integer> StandandDown(RequestData<GdcomdityHhDTO> requestData);
-
-
 }
