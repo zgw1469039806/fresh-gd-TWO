@@ -75,7 +75,7 @@ public class OrderServiceImpl implements GDOrderService {
      * @auther: 郭家恒
      * @date: 2019/4/24 13:53
      */
-    @LcnTransaction
+//    @LcnTransaction
     @Transactional
     @Override
     public ResponseData<List> insertOrder(@RequestBody RequestData<GdOrderDTO> gdOrderDTORequestData) {
