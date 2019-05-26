@@ -1,6 +1,8 @@
 package org.gd.order.impl;
 
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.codingapi.txlcn.tc.annotation.LcnTransaction;
 import com.codingapi.txlcn.tc.annotation.TccTransaction;
 import com.codingapi.txlcn.tc.annotation.TxTransaction;
