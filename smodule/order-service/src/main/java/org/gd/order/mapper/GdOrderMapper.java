@@ -29,14 +29,14 @@ public interface GdOrderMapper extends BaseMapper<GdOrder> {
 
     Integer orderCount(OrderCountDTO orderCountDTO);
 
-    //TODO: 若订单状态为 0 SQL不执行---待修复
     List<GdOrderDTO> selOrderPage(OrderPageDTO orderPageDTO);
 
     @Update("update gd_order set orderStat = #{ordStart} where orderid = #{orderId}")
     Integer updOrderStartById(OrderStartDTO orderStartDTO);
 
-
     List<GdUserOrderDTO> userOrderQuery(GdUserOrderDTO gdUserOrderDTO);
+
+
 
     /**
      * 根据年根和月份订单

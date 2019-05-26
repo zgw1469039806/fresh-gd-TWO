@@ -2,6 +2,7 @@ package org.fresh.gd.commons.consts.api.wx.user;
 
 import org.fresh.gd.commons.consts.pojo.RequestData;
 import org.fresh.gd.commons.consts.pojo.ResponseData;
+import org.fresh.gd.commons.consts.pojo.dto.user.GdTakedeliveryDTO;
 import org.fresh.gd.commons.consts.pojo.dto.user.UserAddressDTO;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,4 +56,6 @@ public interface GdWxUserManageService {
     */
     @PostMapping("/updAddress")
     public ResponseData<Integer> updUserAddress(RequestData<UserAddressDTO> requestData);
+
+
 }

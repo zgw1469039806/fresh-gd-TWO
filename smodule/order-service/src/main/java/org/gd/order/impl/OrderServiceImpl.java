@@ -67,9 +67,6 @@ public class OrderServiceImpl implements GDOrderService {
     @Autowired
     private OrderFeginToVip orderFeginToVip;
 
-    @Autowired
-    private GdReportformMapper gdReportformMapper;
-
     /**
      * 功能描述:
      * 下订单。订单插入后减库存。
@@ -80,7 +77,7 @@ public class OrderServiceImpl implements GDOrderService {
      * @auther: 郭家恒
      * @date: 2019/4/24 13:53
      */
-    @LcnTransaction
+//    @LcnTransaction
     @Transactional
     @Override
     public ResponseData<List> insertOrder(@RequestBody RequestData<GdOrderDTO> gdOrderDTORequestData) {
@@ -139,6 +136,7 @@ public class OrderServiceImpl implements GDOrderService {
             String str = gdOrderDTORequestData.getData().getOrdermoney().trim();
             Integer i1 = orderFeginToVip.upgVipIntegral(gdOrderDTORequestData.getData().getVipId().trim(), gdOrderDTORequestData.getData().getStoreid(), str);
         }
+        responseData.setMsg(gdOrder.getOrderid());
         responseData.setCode(Consts.Result.SUCCESS.getCode());
         return responseData;
     }
@@ -148,6 +146,7 @@ public class OrderServiceImpl implements GDOrderService {
      * 根据用户id信息 查询购物车商品
      *
      * @param requestData
+     * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List   < org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO>>
      * @author zgw
      */
     @Override
@@ -283,6 +282,8 @@ public class OrderServiceImpl implements GDOrderService {
             for (GdOrdershopDTO shop : dto.getTable()) {
                 for (GdCommodityDTO commodityDTO : rq.getData()) {
                     if (shop.getComdityId() == commodityDTO.getComdityId()) {
+                        ResponseData<GdCommodityListDTO> gl = gdCommodityService.selOne(shop.getComdityId());
+                        shop.setImageUrl(gl.getData().getImagesurl());
                         shop.setComdityName(commodityDTO.getComdityname());
                         break;
                     }
@@ -293,6 +294,85 @@ public class OrderServiceImpl implements GDOrderService {
         return responseData;
     }
 
+    /**
+     * 功能描述:
+     * 根据订单编号修改订单状态为已支付（用于小程序订单支付）
+     *
+     * @param orderId
+     * @param: [orderStartDTO]
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+     * @auther: Mr.Xia
+     * @date: 2019/5/24 10:03
+     */
+    @Override
+    public ResponseData<Integer> updOrderStartPay(String orderId) {
+        ResponseData<Integer> responseData = new ResponseData<>();
+        OrderStartDTO orderStartDTO = new OrderStartDTO();
+        orderStartDTO.setOrderId(orderId);
+        orderStartDTO.setOrdStart(1);
+        gdOrderMapper.updOrderStartById(orderStartDTO);
+        return responseData;
+    }
+
+    /**
+     * 功能描述:
+     * 线上-根据订单编号修改订单状态为已完成（用于小程序订单点击确认收货）
+     *
+     * @param orderId
+     * @param: [orderId]
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+     * @auther: Mr.Xia
+     * @date: 2019/5/24 10:18
+     */
+    @Override
+    public ResponseData<Integer> updOrderStartOK(String orderId) {
+        ResponseData<Integer> responseData = new ResponseData<>();
+        OrderStartDTO orderStartDTO = new OrderStartDTO();
+        orderStartDTO.setOrderId(orderId);
+        orderStartDTO.setOrdStart(4);
+        gdOrderMapper.updOrderStartById(orderStartDTO);
+        return responseData;
+    }
+
+    /**
+     * 功能描述:
+     * 线上-根据订单编号修改订单状态为申请退款（用于小程序点击申请退款）
+     *
+     * @param orderId
+     * @param: [orderId]
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+     * @auther: Mr.Xia
+     * @date: 2019/5/24 11:17
+     */
+    @Override
+    public ResponseData<Integer> updOrderStartTuiPay(String orderId) {
+        ResponseData<Integer> responseData = new ResponseData<>();
+        OrderStartDTO orderStartDTO = new OrderStartDTO();
+        orderStartDTO.setOrderId(orderId);
+        orderStartDTO.setOrdStart(5);
+        gdOrderMapper.updOrderStartById(orderStartDTO);
+        return responseData;
+    }
+
+    /**
+     * 功能描述:
+     * 线上-根据订单编号修改订单状态为到店支付（用于小程序点击到店支付）
+     *
+     * @param orderId
+     * @param: [orderId]
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+     * @auther: Mr.Xia
+     * @date: 2019/5/24 11:20
+     */
+    @Override
+    public ResponseData<Integer> updOrderStartToGoodsPay(String orderId) {
+        ResponseData<Integer> responseData = new ResponseData<>();
+        OrderStartDTO orderStartDTO = new OrderStartDTO();
+        orderStartDTO.setOrderId(orderId);
+        orderStartDTO.setOrdStart(8);
+        gdOrderMapper.updOrderStartById(orderStartDTO);
+        return responseData;
+    }
     /**
      * @Description 统计报表
      * @Date: 11:48 2019/5/24

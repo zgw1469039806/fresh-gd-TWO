@@ -29,4 +29,16 @@ public interface GDOrderShopService {
     */
     @PostMapping("/selOrderShopById")
     ResponseData<Map<String,Object>> selOrderShopById(RequestData<String> orderId);
+
+    /**
+     *
+     * 功能描述:
+     *   根据订单编号查询订单详细
+     * @param: [orderId]
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List<org.fresh.gd.commons.consts.pojo.dto.order.GdOrdershopDTO>>
+     * @auther: Mr.Xia
+     * @date: 2019/5/14 15:24
+     */
+    @PostMapping("/selOrderShopByIdTWO")
+    ResponseData<Map<String,Object>> selOrderShopByIdTWO(RequestData<String> orderId);
 }

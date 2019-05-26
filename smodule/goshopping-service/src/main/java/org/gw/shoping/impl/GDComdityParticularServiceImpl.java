@@ -74,7 +74,7 @@ public class GDComdityParticularServiceImpl implements GDComdityParticularServic
      * @auther: 郭家恒
      * @date: 2019/4/24 17:24
      */
-    @LcnTransaction
+//    @LcnTransaction
     @Transactional
     @Override
     public ResponseData<Integer> reduceStock(@RequestBody RequestData<List<GdComdityparticularDTO>> requestData) {

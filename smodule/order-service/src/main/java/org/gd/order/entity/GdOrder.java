@@ -102,6 +102,7 @@ public class GdOrder implements Serializable {
      */
     private Integer addressId;
 
+
     /**
      * 送货地址
      */
@@ -113,6 +114,12 @@ public class GdOrder implements Serializable {
      */
     @TableField("phone")
     private String phone;
+    /**
+     * 收货人
+     */
+    @ApiModelProperty("收货人")
+    private String recipients;
+
 
     @ApiModelProperty("应付价格")
     private String comdityprice;

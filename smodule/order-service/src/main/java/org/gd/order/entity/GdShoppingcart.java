@@ -35,7 +35,7 @@ public class GdShoppingcart implements Serializable {
     /**
      * 所属用户
      */
-    private String userid;
+    private Integer userid;
 
     /**
      * 数量

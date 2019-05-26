@@ -70,6 +70,7 @@ public class ShoppingCartServiceImpl implements GDShoppingCartService {
         ResponseData<Integer> responseData = new ResponseData<>();
         GdShoppingcart dto = new GdShoppingcart();
         BeanUtils.copyProperties(requestData.getData(), dto);
+        dto.setUserid(requestData.getData().getUserid());
         if (requestData.getData().getComdityId() == null) {
             responseData.setCode(500);
             responseData.setMsg("接受的数据为空");
