@@ -116,5 +116,19 @@ public class ShoppingCartServiceImpl implements GDShoppingCartService {
         return responseData;
     }
 
+    /** 功能描述:
+    * 购物车中条数
+    * @param: [requestData]
+    * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+    * @auther: 贾轶飞
+    * @date: 2019/5/26 8:37
+    */
+    @Override
+    public ResponseData<Integer> cartGoodsCount(@RequestBody RequestData<Integer> requestData) {
+        ResponseData<Integer> responseData = new ResponseData<>();
+        responseData.setData(gdShoppingcartMapper.cartGoodsCount(requestData.getData()));
+        return responseData;
+    }
+
 
 }

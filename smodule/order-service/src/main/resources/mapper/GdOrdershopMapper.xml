@@ -19,4 +19,9 @@
             (#{item.orderid},#{item.comdityId},#{item.num},#{item.preferentialway})
         </foreach>
     </insert>
+
+
+    <delete id="batchDelCart" parameterType="list">
+
+    </delete>
 </mapper>

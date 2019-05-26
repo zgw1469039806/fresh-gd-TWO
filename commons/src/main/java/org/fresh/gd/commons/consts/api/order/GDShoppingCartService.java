@@ -57,4 +57,13 @@ public interface GDShoppingCartService {
     @PostMapping("/updCartGoods")
     public ResponseData<Integer> updCartGoods(RequestData<GdShoppingCartDTO> requestData);
 
+    /** 功能描述:
+    * 购物车商品条数
+    * @param: [requestData]
+    * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+    * @auther: 贾轶飞
+    * @date: 2019/5/26 8:35
+    */
+    @PostMapping("/cartCount")
+    public ResponseData<Integer> cartGoodsCount(RequestData<Integer> requestData);
 }
