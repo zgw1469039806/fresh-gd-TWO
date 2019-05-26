@@ -19,12 +19,15 @@ import org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityListDTO;
 import org.fresh.gd.commons.consts.utils.PageBean;
 import org.fresh.gd.commons.consts.utils.VeDate;
 import org.gd.order.entity.GdOrder;
+import org.gd.order.entity.GdOrdershop;
+import org.gd.order.entity.GdReportform;
 import org.gd.order.entity.GdShoppingcart;
 import org.gd.order.fegin.OrderFeginToGoods;
 import org.gd.order.fegin.OrderFeginToShopping;
 import org.gd.order.fegin.OrderFeginToVip;
 import org.gd.order.mapper.GdOrderMapper;
 import org.gd.order.mapper.GdOrdershopMapper;
+import org.gd.order.mapper.GdReportformMapper;
 import org.gd.order.mapper.GdShoppingcartMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +35,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.xml.ws.Response;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -62,6 +66,8 @@ public class OrderServiceImpl implements GDOrderService {
     @Autowired
     private OrderFeginToVip orderFeginToVip;
 
+    @Autowired
+    private GdReportformMapper gdReportformMapper;
     /**
      * 功能描述:
      * 下订单。订单插入后减库存。
@@ -113,7 +119,7 @@ public class OrderServiceImpl implements GDOrderService {
         Random re = new Random();
         int i = re.nextInt(10000);
         gdOrder.setOrderid((new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date())) + i);
-        gdOrder.setOrderStat(0);
+        gdOrder.setOrderStat(4);
         gdOrder.setOrderTime(VeDate.getStringDate());
         //插入订单
         int save = gdOrderMapper.insert(gdOrder);
@@ -155,7 +161,7 @@ public class OrderServiceImpl implements GDOrderService {
      * 根据用户id信息 查询购物车商品
      *
      * @param requestData
-     * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List       <   org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO>>
+     * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List   < org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO>>
      * @author zgw
      */
     @Override
@@ -382,6 +388,54 @@ public class OrderServiceImpl implements GDOrderService {
         orderStartDTO.setOrderId(orderId);
         orderStartDTO.setOrdStart(8);
         gdOrderMapper.updOrderStartById(orderStartDTO);
+        return responseData;
+    }
+    /**
+     * @Description 统计报表
+     * @Date: 11:48 2019/5/24
+     * @Author: 郭家恒
+     */
+    @Override
+    public ResponseData<List<Float>> QueryDeportForm(@RequestBody GdDeportFormDTO gdDeportFormDTO) {
+        Map<String, List<GdOrder>> map = new HashMap<>();
+        List<GdDeportFormDTO> list = new ArrayList<>();
+        for (int i = 1; i < 13; i++) {
+            gdDeportFormDTO.setMones(i + "");
+            //拿到指定年份中第i个月的指定门店的订单(订单包括营业额)
+            map.put(i + "", gdOrderMapper.SelOrderByYear(gdDeportFormDTO.getSelyear(), i + "", gdDeportFormDTO.getStoreid()));
+            //拿到指定年份第i月的指定门店的营业额
+            GdDeportFormDTO gdDeportFormDTO1 = gdOrderMapper.QueryDeportForm(gdDeportFormDTO);
+            if (gdDeportFormDTO1 == null) {
+                gdDeportFormDTO1 = new GdDeportFormDTO();
+            }
+            list.add(gdDeportFormDTO1);
+        }
+        //用于计算每个月的利润
+        List<Float> lirun = new ArrayList<>();
+        //遍历每个月的订单
+        for (int i = 1; i <= map.size(); i++) {
+            //得到第i个月的订单
+            List<GdOrder> list1 = map.get(i + "");
+            float yingli = 0;
+            //遍历第i个月的订单
+            for (GdOrder gdOrder : list1) {
+                //如果当前这比订单销售额不为空
+                Wrapper<GdReportform> wrapper = new QueryWrapper<>();
+                ((QueryWrapper<GdReportform>) wrapper).eq("orderid", gdOrder.getOrderid());
+                GdReportform gdReportform = gdReportformMapper.selectOne(wrapper);
+                if (gdReportform.getRfmoney() > 0) {
+                    //计算第i个月的成本
+                    yingli += Float.valueOf(gdReportform.getRfmoney());
+                }
+            }
+            //拿到第i个月的营业额
+            GdDeportFormDTO gdDeportFormDTO1 = list.get(i - 1);
+            //盈利-成本
+            float maolirun = gdDeportFormDTO1.getSummoney() - yingli;
+            lirun.add(maolirun);
+        }
+        ResponseData<List<Float>> responseData = new ResponseData<>();
+        responseData.setData(lirun);
         return responseData;
     }
 
