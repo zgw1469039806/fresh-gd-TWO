@@ -2,8 +2,10 @@ package org.managment.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import io.swagger.annotations.ApiModelProperty;
 import org.apache.commons.lang.StringUtils;
 import org.fresh.gd.commons.consts.api.management.ManageService;
+import org.fresh.gd.commons.consts.api.vip.VipInSetService;
 import org.fresh.gd.commons.consts.consts.Consts;
 import org.fresh.gd.commons.consts.exceptions.BizException;
 import org.fresh.gd.commons.consts.pojo.RequestData;
@@ -13,6 +15,7 @@ import org.fresh.gd.commons.consts.pojo.dto.management.GdStoreDTO;
 import org.fresh.gd.commons.consts.pojo.dto.management.ManageStoreDTO;
 import org.fresh.gd.commons.consts.pojo.dto.oauth.UserDTO;
 import org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO;
+import org.fresh.gd.commons.consts.pojo.dto.vip.VipInSetDTO;
 import org.managment.service.entity.GdStore;
 import org.managment.service.entity.GdStoreimage;
 import org.managment.service.mapper.GdStoreMapper;
@@ -43,6 +46,9 @@ public class ManageServiceImpl implements ManageService {
     @Autowired
     ManageImageServiceImpl manageImageService;
 
+    @Autowired
+    VipInSetService vipInSetService;
+
     @Transactional
     @Override
     public ResponseData<Integer> inserStore(@RequestBody GdStoreDTO requestData) {
@@ -61,6 +67,16 @@ public class ManageServiceImpl implements ManageService {
         //存储门店
         Integer save = gdStoreMapper.save(gdStore);
         if (save > 0) {//如果存储成功
+
+            //初始化店铺积分规则
+            RequestData<VipInSetDTO> responseData1 = new RequestData<>();
+            VipInSetDTO vip = new VipInSetDTO();
+            vip.setStoreid(gdStore.getStoreid());
+            vip.setVipinsetgetin(10);
+            vip.setVipinsetmoney("100");
+            responseData1.setData(vip);
+            vipInSetService.initVipInSet(responseData1);
+
             List<ManageStoreDTO> imgs = new ArrayList<>();
             //循环赋值给门店图片list
             for (ManageStoreDTO dto : requestData.getManageStoreDTOList()) {

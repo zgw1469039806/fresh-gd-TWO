@@ -50,6 +50,4 @@ public interface GdVipInSetMapper extends BaseMapper<GdVipInSet> {
     VipInSetDTO selVipInSetById(@Param("storeid") Integer storeid);
 
 
-
-
 }
