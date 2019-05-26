@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.fresh.gd.commons.consts.pojo.RequestData;
 import org.fresh.gd.commons.consts.pojo.ResponseData;
+import org.fresh.gd.commons.consts.pojo.dto.order.GdDeportFormDTO;
 import org.fresh.gd.commons.consts.pojo.dto.order.GdOrderDTO;
 import org.fresh.gd.commons.consts.pojo.dto.order.OrderPageDTO;
 import org.fresh.gd.commons.consts.pojo.dto.order.OrderStartDTO;
@@ -50,4 +51,9 @@ public class OrderController {
         return orderFeginService.updOrderStartById(orderStartDTO);
     }
 
+    @ApiOperation(value = "查询报表")
+    @PostMapping("/QueryDeportForm")
+    ResponseData<List<Float>> QueryDeportForm(@RequestBody GdDeportFormDTO gdDeportFormDTO){
+        return  orderFeginService.QueryDeportForm(gdDeportFormDTO);
+    }
 }

@@ -94,4 +94,12 @@ public interface GDOrderService {
     */
     @PostMapping("/userOrderQuery")
     ResponseData<List<GdUserOrderDTO>> userOrderQuery(RequestData<GdUserOrderDTO> requestData);
+
+    /**
+     * 查询统计报表
+     * @Date: 11:47 2019/5/24
+     * @Author: 郭家恒
+     */
+    @PostMapping("/QueryDeportForm")
+    ResponseData<List<Float>> QueryDeportForm(GdDeportFormDTO gdDeportFormDTO);
 }

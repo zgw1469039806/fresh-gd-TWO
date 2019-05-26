@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.gd.order.mapper.GdReportformMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="org.gd.order.entity.GdReportform">
+        <id column="reid" property="reid"/>
+        <result column="orderid" property="orderid"/>
+        <result column="storeid" property="storeid"/>
+        <result column="userid" property="userid"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        reid, orderid, storeid, userid
+    </sql>
+    <select id="selRfByoid" resultType="org.gd.order.entity.GdReportform" parameterType="list">
+        select sum(rfmoney) from gd_reportform where orderid in list;
+    </select>
+</mapper>

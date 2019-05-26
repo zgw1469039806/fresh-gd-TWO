@@ -38,4 +38,18 @@ public interface GdOrderMapper extends BaseMapper<GdOrder> {
 
     List<GdUserOrderDTO> userOrderQuery(GdUserOrderDTO gdUserOrderDTO);
 
+    /**
+     * 根据年根和月份订单
+     *
+     * @Date: 11:49 2019/5/24
+     * @Author: 郭家恒
+     */
+    GdDeportFormDTO QueryDeportForm(GdDeportFormDTO gdDeportFormDTO);
+
+    /**
+     * 查询指定年份的订单
+     * @Date: 13:26 2019/5/24
+     * @Author: 郭家恒
+     */
+    List<GdOrder> SelOrderByYear(@Param("selYear") String selYear,@Param("selMonse") String Monse,@Param("storeid") String storeid);
 }

@@ -4,14 +4,14 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="org.gd.order.entity.GdOrder">
-        <id column="orderid" property="orderid" />
-        <result column="vipId" property="vipId" />
-        <result column="orderscene" property="orderscene" />
-        <result column="ordermeans" property="ordermeans" />
-        <result column="ordertype" property="ordertype" />
-        <result column="ordermoney" property="ordermoney" />
-        <result column="orderTime" property="orderTime" />
-        <result column="storeid" property="storeid" />
+        <id column="orderid" property="orderid"/>
+        <result column="vipId" property="vipId"/>
+        <result column="orderscene" property="orderscene"/>
+        <result column="ordermeans" property="ordermeans"/>
+        <result column="ordertype" property="ordertype"/>
+        <result column="ordermoney" property="ordermoney"/>
+        <result column="orderTime" property="orderTime"/>
+        <result column="storeid" property="storeid"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -22,7 +22,8 @@
         insert into gd_order(orderid,vipId, orderscene, ordermeans, ordertype, ordermoney, orderStat, orderTime, storeid, belongStoreNam,userId,priceml,addressId)  value (#{orderid},#{vipId},#{orderscene},#{ordermeans},#{ordertype},#{ordermoney},#{orderStat},#{orderTime},#{storeid},#{belongStoreNam},#{userId},#{priceml},#{addressId});
     </insert>
 
-    <select id="orderCount" parameterType="org.fresh.gd.commons.consts.pojo.dto.order.OrderCountDTO" resultType="integer">
+    <select id="orderCount" parameterType="org.fresh.gd.commons.consts.pojo.dto.order.OrderCountDTO"
+            resultType="integer">
         select count(1) from gd_order where 1 = 1
         <if test="orderId != null and orderId != ''">
             and orderid like CONCAT('%',#{orderId},'%')
@@ -32,7 +33,7 @@
             and orderTime &gt;= #{startTime}
         </if>
         <if test="endTime != null and endTime != ''">
-            and  orderTime &lt;= #{endTime}
+            and orderTime &lt;= #{endTime}
         </if>
 
         <if test="orderStat != -1">
@@ -50,7 +51,8 @@
     </select>
 
 
-    <select id="selOrderPage" parameterType="org.fresh.gd.commons.consts.pojo.dto.order.OrderPageDTO" resultType="org.fresh.gd.commons.consts.pojo.dto.order.GdOrderDTO">
+    <select id="selOrderPage" parameterType="org.fresh.gd.commons.consts.pojo.dto.order.OrderPageDTO"
+            resultType="org.fresh.gd.commons.consts.pojo.dto.order.GdOrderDTO">
         select * from gd_order where 1 = 1
         <if test="orderId != null and orderId != ''">
             and orderid like CONCAT('%',#{orderId},'%')
@@ -64,7 +66,7 @@
             and orderTime &gt;= #{startTime}
         </if>
         <if test="endTime != null and endTime != ''">
-            and  orderTime &lt;= #{endTime}
+            and orderTime &lt;= #{endTime}
         </if>
 
         <if test="orderStat != null and orderStat != -1 and orderStat != ''">
@@ -89,9 +91,26 @@
         <where>
 
             <if test="userId !=null and userId != ''">
-             and   userId =#{userId}
+                and userId =#{userId}
             </if>
         </where>
 
+    </select>
+
+    <select id="QueryDeportForm" resultType="org.fresh.gd.commons.consts.pojo.dto.order.GdDeportFormDTO"
+            parameterType="org.fresh.gd.commons.consts.pojo.dto.order.GdDeportFormDTO">
+        SELECT YEAR(o.orderTime) as '2019',
+        SUM(CASE WHEN MONTH(o.orderTime) = #{mones} THEN o.ordermoney ELSE 0 END) as  'summoney',
+        o.storeid as 'storeid'
+        FROM `Order`.gd_order o
+        where YEAR(o.orderTime) = YEAR(#{selyear})
+        and MONTH(o.orderTime) = #{mones}
+        and o.storeid = #{storeid}
+        GROUP BY YEAR(o.orderTime);
+    </select>
+
+    <select id="SelOrderByYear" resultType="org.gd.order.entity.GdOrder" parameterType="String">
+        SELECT YEAR(o.orderTime) '2019',o.* FROM `Order`.gd_order o
+        where YEAR(o.orderTime) = YEAR(#{selYear}) and MONTH(o.orderTime) = #{selMonse} and o.storeid = #{storeid}
     </select>
 </mapper>
