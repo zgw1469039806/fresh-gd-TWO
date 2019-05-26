@@ -3,9 +3,12 @@ package org.gw.shoping.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+import java.util.List;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.fresh.gd.commons.consts.pojo.dto.shoping.GdActivitesdetailDTO;
 
 /**
  * <p>
@@ -43,5 +46,11 @@ public class GdActivities implements Serializable {
      */
     private String aimages;
 
+    /**
+     * 活动详细
+     */
+    private List<GdActivitesdetail> list;
 
+    //门店id
+    private Integer storeid;
 }

@@ -39,6 +39,6 @@ public interface GdActivitiesMapper extends BaseMapper<GdActivities> {
    * @date: 2019/5/15 17:22
    */
    @Select("select * from gd_activities")
-   public List<GdActivitiesDTO> queryActivities();
+   public List<GdActivities> queryActivities();
 
 }

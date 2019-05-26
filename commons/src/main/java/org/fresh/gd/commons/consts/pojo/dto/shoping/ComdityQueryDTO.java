@@ -17,6 +17,12 @@ public class ComdityQueryDTO {
     /**
      * 商品名称
      */
+    @ApiModelProperty("商品id")
+    private String comdityId;
+
+    /**
+     * 商品名称
+     */
     @ApiModelProperty("商品名称")
     private String comdityname;
 

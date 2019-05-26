@@ -19,7 +19,7 @@
 
     <select id="QueryShop" parameterType="org.fresh.gd.commons.consts.pojo.dto.shoping.ComdityQueryDTO"
             resultType="org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO">
-        select * from gd_commodity co,gd_comdityparticular pa,gd_comditytype ty
+        select * from gd_commodity co,gd_comdityparticular pa,gd_comditytype ty,gd_images im
         <where>
             co.comdityId = pa.comdityId and co.comditytypeId = ty.comditytypeId
             <if test="comdityname !=null and comdityname != '' and comdityname != '%%'">
@@ -34,6 +34,10 @@
             <if test="comstate != null">
                 and pa.comstate = #{comstate}
             </if>
+            <if test="comdityId != null and comdityId != ''">
+                and co.comdityId = #{comdityId}
+            </if>
+            and im.comdityId = co.comdityId and im.imageslv = 1
         </where>
     </select>
 
@@ -132,9 +136,9 @@
 
     <select id="QueryShopByIdsTwo" parameterType="list"
             resultType="org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO">
-        select co.*  from gd_commodity co
+        select co.* from gd_commodity co
         <where>
-          and co.comdityId in
+            and co.comdityId in
             <foreach collection="list" open="(" item="item" separator="," close=")">
                 #{item}
             </foreach>

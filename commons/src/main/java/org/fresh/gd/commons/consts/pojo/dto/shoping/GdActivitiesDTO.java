@@ -6,6 +6,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * @author 贾轶飞
  * @dat e2019/5/15 9:41
@@ -37,5 +39,8 @@ public class GdActivitiesDTO {
     @ApiModelProperty("活动图片")
     private String aimages;
 
-
+    /**
+     * 活动详细
+     */
+    private List<GdActivitesdetailDTO> list;
 }

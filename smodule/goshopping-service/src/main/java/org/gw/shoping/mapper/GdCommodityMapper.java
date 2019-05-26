@@ -129,6 +129,7 @@ public interface GdCommodityMapper extends BaseMapper<GdCommodity> {
     List<GdCommodityDTO> QueryShopByIds(List<Integer> list);
 
     List<GdCommodityDTO> QueryShopByIdsTwo(List<Integer> list);
+
     /** 功能描述:
     * 添加商品
     * @param: [gdCommodity]
