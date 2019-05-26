@@ -67,6 +67,8 @@ public class OrderServiceImpl implements GDOrderService {
     @Autowired
     private OrderFeginToVip orderFeginToVip;
 
+    @Autowired
+    private GdReportformMapper gdReportformMapper;
     /**
      * 功能描述:
      * 下订单。订单插入后减库存。

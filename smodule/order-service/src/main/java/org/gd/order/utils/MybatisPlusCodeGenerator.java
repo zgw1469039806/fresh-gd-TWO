@@ -55,10 +55,10 @@ public class MybatisPlusCodeGenerator
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://localhost:3306/Order?useUnicode=true&useSSL=false&characterEncoding=utf8");
+        dsc.setUrl("jdbc:mysql://cdb-l7ztt2ao.bj.tencentcdb.com:10139/Order?serverTimezone=GMT%2B8&useUnicode=true&useSSL=false&characterEncoding=utf8");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
-        dsc.setPassword("123123123");
+        dsc.setPassword("qwe12345");
         mpg.setDataSource(dsc);
 
         // 包配置
