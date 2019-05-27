@@ -129,4 +129,10 @@ public class GdOrderDTO {
      */
     @ApiModelProperty("找零")
     private String gchange;
+
+    /**
+     * 成本
+     */
+    @ApiModelProperty("成本")
+    private float rfmoney;
 }

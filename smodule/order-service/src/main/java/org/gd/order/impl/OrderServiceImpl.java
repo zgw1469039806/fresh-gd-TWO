@@ -138,6 +138,11 @@ public class OrderServiceImpl implements GDOrderService {
             String str = gdOrderDTORequestData.getData().getOrdermoney().trim();
             Integer i1 = orderFeginToVip.upgVipIntegral(gdOrderDTORequestData.getData().getVipId().trim(), gdOrderDTORequestData.getData().getStoreid(), str);
         }
+        //增加订单成本
+        GdReportform gdReportform = new GdReportform();
+        BeanUtils.copyProperties(gdOrder,gdReportform);
+        gdReportform.setRfmoney(gdOrderDTO.getRfmoney());
+        gdReportformMapper.insert(gdReportform);
         responseData.setMsg(gdOrder.getOrderid());
         responseData.setCode(Consts.Result.SUCCESS.getCode());
         return responseData;

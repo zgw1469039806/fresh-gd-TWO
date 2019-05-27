@@ -33,7 +33,7 @@ public class LogService {
 
 
     public String save(GdLog gdLog) {
-        Integer integer = logMapper.insert(gdLog);
+        Integer integer = logMapper.saveLog(gdLog);
         if (integer > 0) {
             return "添加成功";
         }

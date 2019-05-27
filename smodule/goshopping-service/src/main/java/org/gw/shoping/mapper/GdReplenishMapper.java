@@ -19,7 +19,7 @@ import java.util.List;
 @Mapper
 public interface GdReplenishMapper extends BaseMapper<GdReplenish> {
 
-    @Insert("INSERT INTO gd_replenish(replenishTime,username,storeid,supplierID,isnostorage,receiptNo)VALUES(#{replenishTime},#{username},#{storeid},#{supplierID},#{isnostorage},#{receiptNo})")
+    @Insert("INSERT INTO gd_replenish(replenishTime,username,storeid,supplierID,isnostorage,receiptNo,remarks)VALUES(#{replenishTime},#{username},#{storeid},#{supplierID},#{isnostorage},#{receiptNo},#{remarks})")
     @Options(useGeneratedKeys = true, keyProperty = "replenishId", keyColumn = "replenishId")
     Integer saveGdReplen(GdReplenishDTO gdReplenishDTO);
 

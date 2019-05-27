@@ -58,8 +58,9 @@ public class GDActicitesdetailServiceImpl implements GDActicitesdetailService {
     @Override
     public ResponseData<List<GdActivitiesDTO>> queryActivities() {
         ResponseData<List<GdActivitiesDTO>> responseData=new ResponseData<>();
-
         responseData.setData(gdActivitiesMapper.queryActivities());
         return responseData;
     }
+
+
 }

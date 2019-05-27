@@ -79,8 +79,8 @@ public class UserServiceImpl implements UserService {
             //向权限表插入
             gdPositionService.savaPosn(gdPositionDTO);
             GdRole gdRole = new GdRole();
-            gdRole.setRoleid(requestData.getData().getUserId());
-            gdRole.setRolename(requestData.getData().getRolename());
+            gdRole.setRoleid(gdPositionDTO.getUserId());
+            gdRole.setRolename(requestData.getData().getUsername());
             gdRoleMapper.insert(gdRole);
 
             responseData.setMsg(Consts.Result.SUCCESS.getMsg());
