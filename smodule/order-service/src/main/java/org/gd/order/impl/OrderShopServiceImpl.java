@@ -83,8 +83,7 @@ public class OrderShopServiceImpl implements GDOrderShopService {
         Map<String, Object> map = new ConcurrentHashMap<>();
         List<GdUserOrderDTO> ls=gdOrderMapper.userOrderQuery(gdUserOrderDTO);
         RequestData<UserAddressDTO> requestData=new RequestData<>();
-        for (GdUserOrderDTO ds:ls
-             ) {
+        for (GdUserOrderDTO ds:ls) {
             UserAddressDTO uad=new UserAddressDTO();
             uad.setStatus(1);
             uad.setUserid(ds.getUserId());
@@ -101,13 +100,6 @@ public class OrderShopServiceImpl implements GDOrderShopService {
         //TODO:调用商品
         ResponseData<List<GdCommodityDTO>> comList = orderFeginToGoods.QueryShopByIdsTwo(integerList);
         List<GdCommodityDTO> list = orderFeginToGoods.QueryShopByIdsTwo(integerList).getData();
-        for (GdCommodityDTO dto : list
-                ) {
-            ResponseData<GdCommodityListDTO> gcl = orderFeginToGoods.selOne(dto.getComdityId());
-            GdImagesDTO imagesDTO = new GdImagesDTO();
-            imagesDTO.setImagesurl(gcl.getData().getImagesurl());
-            dto.setGdImagesDTO(imagesDTO);
-        }
         comList.setData(list);
         map.put("ordx", ls);
         map.put("ads",ads.getData());

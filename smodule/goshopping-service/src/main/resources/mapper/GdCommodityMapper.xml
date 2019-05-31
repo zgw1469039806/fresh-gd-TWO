@@ -64,9 +64,26 @@
     </select>
 
     <select id="selOne" resultType="org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityListDTO">
-        select * from gd_commodity c,gd_images i where c.comdityId=i.comdityId and c.comdityId=#{comdityId}
+        select * from gd_commodity c,gd_comdityparticular ctt ,gd_comditytype ct
+        <where>
+            c.comdityId=ctt.comdityId and c.comditytypeId=ct.comditytypeId
+            <if test="comdityId !=null">
+                and c.comdityId=#{comdityId} and ctt.storeid =1
+            </if>
+        </where>
+
     </select>
 
+    <select id="selOnes" resultType="org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityListDTO">
+        select * from gd_commodity c,gd_comdityparticular ctt ,gd_comditytype ct
+        <where>
+            c.comdityId=ctt.comdityId and c.comditytypeId=ct.comditytypeId
+            <if test="comdityId !=null and storeid!=null">
+                and c.comdityId=#{comdityId} and ctt.storeid =#{storeid}
+            </if>
+        </where>
+
+    </select>
     <select id="QueryComByType" resultType="org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO"
             parameterType="integer">
         select * from gd_commodity where comditytypeId = #{tid}
@@ -125,23 +142,27 @@
 
     <select id="QueryShopByIds" parameterType="list"
             resultType="org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO">
-        select co.comdityname,co.comdityId,co.comditydw from gd_commodity co
+        select co.comdityname,co.comdityId,co.comditydw,im.imagesurl from gd_commodity co,gd_images im
         <where>
             and co.comdityId in
             <foreach collection="list" open="(" item="item" separator="," close=")">
                 #{item}
             </foreach>
+            and co.comdityId = im.comdityId
+            and im.imageslv =1
         </where>
     </select>
 
     <select id="QueryShopByIdsTwo" parameterType="list"
             resultType="org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO">
-        select co.* from gd_commodity co
+        select co.*,im.* from gd_commodity co,gd_images im
         <where>
             and co.comdityId in
             <foreach collection="list" open="(" item="item" separator="," close=")">
                 #{item}
             </foreach>
+            and im.comdityId = co.comdityId
+            and im.imageslv = 1
         </where>
     </select>
 

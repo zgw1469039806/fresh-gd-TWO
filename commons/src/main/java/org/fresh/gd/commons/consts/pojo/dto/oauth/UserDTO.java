@@ -72,4 +72,13 @@ public class UserDTO {
 
     @ApiModelProperty("员工职位")
     private String pname;
+
+    @ApiModelProperty("会员手机号")
+    private String vipphone;
+
+    @ApiModelProperty("会员折扣")
+    private double vipdiscount;
+
+    @ApiModelProperty("会员等级")
+    private Integer viplv;
 }

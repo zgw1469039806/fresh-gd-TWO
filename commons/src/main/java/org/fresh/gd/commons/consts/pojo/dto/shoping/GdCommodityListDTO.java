@@ -7,6 +7,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * @author 贾轶飞
  * @data 2019/4/22 14:44
@@ -14,30 +16,17 @@ import lombok.Data;
 @ApiModel("商品详细数据模型")
 @Data
 public class GdCommodityListDTO {
-    /**
-     * 图片编号
-     */
-    @ApiModelProperty("图片编号")
-    private Integer imagesId;
 
+    /**
+     * 商品名称
+     */
+    @ApiModelProperty("商品ID")
+    private Integer comdityId;
     /**
      * 图片地址
      */
-    @ApiModelProperty("图片地址")
+    @ApiModelProperty("商品图片Url")
     private String imagesurl;
-
-    /**
-     * 商品ID
-     */
-    @ApiModelProperty("图片等级")
-    private Integer comdityId;
-
-    /**
-     * 图片等级
-     */
-    @ApiModelProperty("图片等级")
-    private String imageslv;
-
 
     /**
      * 商品名称
@@ -50,6 +39,12 @@ public class GdCommodityListDTO {
      */
     @ApiModelProperty("商品类别")
     private Integer comditytypeId;
+
+    /**
+     * 类型名称
+     */
+    @ApiModelProperty("类型名称")
+    private String typename;
 
     /**
      * 商品单位
@@ -70,6 +65,31 @@ public class GdCommodityListDTO {
     private String comdityprice;
 
     /**
+     * 折扣价格
+     */
+    @ApiModelProperty("折扣价格")
+    private String discount;
+
+    /**
+     * 商品编码
+     */
+    @ApiModelProperty("商品编码")
+    private String comdityBM;
+
+    /**
+     * 会员是否享有折扣
+     */
+    @ApiModelProperty("是否享有折扣")
+    private Integer vipishige;
+
+    /**
+     * 图片等级
+     */
+    @ApiModelProperty("图片等级")
+    private String imageslv;
+
+
+    /**
      * 商品数
      */
     @ApiModelProperty("商品数")
@@ -80,5 +100,8 @@ public class GdCommodityListDTO {
      */
     @ApiModelProperty("用户购物车编号")
     private Integer cartid;
+
+    @ApiModelProperty("商品图片")
+    GdImagesDTO gdImagesDTO;
 
 }

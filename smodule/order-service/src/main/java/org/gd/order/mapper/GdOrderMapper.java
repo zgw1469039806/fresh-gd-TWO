@@ -41,8 +41,10 @@ public interface GdOrderMapper extends BaseMapper<GdOrder> {
 
     @Delete("delete from gd_order where orderid=#{orderid}")
     Integer removeOrder(@Param("orderid")String orderid);
-    @Update("update gd_order set recipients=#{recipients},phone=#{phone},address=#{address} where orderid =#{orderid}" +
-            " and userId")
+    @Update("update gd_order set recipients=#{recipients},phone=#{phone},address=#{address},orderStat=1 where orderid" +
+            " " +
+            "=#{orderid}" +
+            " and userId =#{userId}")
     Integer updPayOrder(GdUserOrderDTO gdUserOrderDTO);
 
     /**

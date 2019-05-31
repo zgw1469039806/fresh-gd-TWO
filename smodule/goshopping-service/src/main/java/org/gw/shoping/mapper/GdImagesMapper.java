@@ -4,7 +4,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.fresh.gd.commons.consts.pojo.dto.shoping.GdActivitiesAndShopDTO;
-import org.gw.shoping.entity.GdImages;
+import org.fresh.gd.commons.consts.pojo.dto.shoping.GdImagesDTO;
+import org.fresh.gd.commons.consts.pojo.dto.shoping.GdImages;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 import java.util.List;
@@ -30,4 +31,20 @@ public interface GdImagesMapper extends BaseMapper<GdImages> {
      * @Author: 郭家恒
      */
     Integer saveImages(List<org.fresh.gd.commons.consts.pojo.dto.shoping.GdImages> list);
+
+    /**
+     * 查看商品的一级图片
+     * @param comdityId
+     * @return
+     */
+    @Select("select * from gd_images where comdityId=#{comdityId} and imageslv =1")
+    GdImagesDTO queryimages(@Param("comdityId") Integer comdityId);
+
+    /**
+     * 查看商品的二级图片
+     * @param comdityId
+     * @return
+     */
+    @Select("select * from gd_images where comdityId=#{comdityId} and imageslv =2")
+    List<GdImages> queryimagesTwo(@Param("comdityId") Integer comdityId);
 }

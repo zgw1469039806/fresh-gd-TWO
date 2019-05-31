@@ -80,6 +80,16 @@ public interface GdCommodityMapper extends BaseMapper<GdCommodity> {
 
     /**
      * 功能描述:
+     * 单个商品描述
+     *
+     * @param: [comdityId]商品id +店铺
+     * @return: org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityListDTO
+     * @auther: 贾轶飞
+     * @date: 2019/4/26 15:08
+     */
+    GdCommodityListDTO selOnes(GoodsDetailQueryDTO dto);
+    /**
+     * 功能描述:
      * 根据商品分类查询商品
      *
      * @param: [tid]
