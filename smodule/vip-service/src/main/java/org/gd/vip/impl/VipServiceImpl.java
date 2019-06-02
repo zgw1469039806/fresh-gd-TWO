@@ -8,6 +8,7 @@ import org.fresh.gd.commons.consts.pojo.RequestData;
 import org.fresh.gd.commons.consts.pojo.ResponseData;
 import org.fresh.gd.commons.consts.pojo.dto.user.UserAndVipDTO;
 import org.fresh.gd.commons.consts.pojo.dto.vip.*;
+import org.fresh.gd.commons.consts.utils.CloudMdSms;
 import org.fresh.gd.commons.consts.utils.PageBean;
 import org.fresh.gd.commons.consts.utils.VeDate;
 import org.gd.vip.entity.GdVip;
@@ -94,7 +95,7 @@ public class VipServiceImpl implements VipService {
      *
      * @param pageVipdto
      * @param: [pageVipdto]
-     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<org.fresh.gd.commons.consts.utils.PageBean                               <                               org.fresh.gd.commons.consts.pojo.dto.vip.VipPageDTO>>
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<org.fresh.gd.commons.consts.utils.PageBean                                                               <                                                               org.fresh.gd.commons.consts.pojo.dto.vip.VipPageDTO>>
      * @auther: Mr.Xia
      * @date: 2019/4/29 15:43
      */
@@ -347,14 +348,14 @@ public class VipServiceImpl implements VipService {
     }
 
     /**
-    *
-    * 功能描述:
-    *   根据手机号或用户id查询会员信息
-    * @param: [vipSelVipDTO]
-    * @return: org.fresh.gd.commons.consts.pojo.ResponseData<org.fresh.gd.commons.consts.pojo.dto.vip.VipPageDTO>
-    * @auther: Mr.Xia
-    * @date: 2019/5/22 10:47
-    */
+     * 功能描述:
+     * 根据手机号或用户id查询会员信息
+     *
+     * @param: [vipSelVipDTO]
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<org.fresh.gd.commons.consts.pojo.dto.vip.VipPageDTO>
+     * @auther: Mr.Xia
+     * @date: 2019/5/22 10:47
+     */
     @Override
     public ResponseData<VipPageDTO> selVipByVipPhoneAndUserId(@RequestBody RequestData<VipSelVipDTO> vipSelVipDTO) {
         ResponseData<VipPageDTO> responseData = new ResponseData<>();
@@ -377,6 +378,22 @@ public class VipServiceImpl implements VipService {
     public ResponseData<Integer> updRemoveUserId(@RequestBody RequestData<String> vipPhone) {
         ResponseData<Integer> responseData = new ResponseData<>();
         gdVipMapper.updRemoveUserId(vipPhone.getData());
+        return responseData;
+    }
+
+    @Override
+    public ResponseData<String> cloudSms(@RequestBody RequestData<String> vipPhone) {
+        ResponseData<String> responseData = new ResponseData<>();
+        Integer i = selOneByVipPhone(vipPhone.getData());
+        if (i>0){
+            CloudMdSms cloudMdSms = new CloudMdSms();
+            String sms = cloudMdSms.mdSms(vipPhone.getData());
+            responseData.setMsg("发送成功！");
+            responseData.setData(sms);
+        }else {
+            responseData.setMsg("发送失败,手机无效！");
+        }
+
         return responseData;
     }
 }
