@@ -47,4 +47,10 @@ public class GdStore implements Serializable {
     @TableField("storeaLogo")
     private String storeaLogo;
 
+    /**
+     * 店铺的经纬度
+     */
+    @TableField("lal")
+    private String lal;
+
 }

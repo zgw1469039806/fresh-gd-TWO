@@ -28,6 +28,9 @@ zuul:
     vip:
       path: /vs/**
       serviceId: vip-service
+    management:
+      path: /ms/**
+      serviceId: management-service
 hystrix:
   command:
     default:
