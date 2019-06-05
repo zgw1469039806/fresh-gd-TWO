@@ -47,7 +47,7 @@ public class UserAndVipDTO {
      * 会员ID;
      */
     @ApiModelProperty("会员ID")
-    private Integer vipId;
+    private String vipId;
 
 
     /**
@@ -91,4 +91,7 @@ public class UserAndVipDTO {
      */
     @ApiModelProperty("挂失时间")
     private String vipeportTime;
+
+    @ApiModelProperty("会员绑定的手机号")
+    private String vipphone;
 }

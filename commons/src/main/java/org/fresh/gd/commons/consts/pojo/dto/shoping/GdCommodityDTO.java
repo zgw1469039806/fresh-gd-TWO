@@ -125,4 +125,6 @@ public class GdCommodityDTO {
 
     @ApiModelProperty("商品图片")
     private GdImagesDTO gdImagesDTO;
+    @ApiModelProperty("商品图片Url")
+    private String imagesurl;
 }

@@ -173,4 +173,13 @@ public interface VipService {
     @PostMapping("/updRemoveUserId")
     ResponseData<Integer> updRemoveUserId(RequestData<String> vipPhone);
 
+    /** 功能描述:
+    * 短信验证
+    * @param: []手机号
+    * @return: org.fresh.gd.commons.consts.pojo.RequestData<java.lang.String>
+    * @auther: 贾轶飞
+    * @date: 2019/6/2 7:34
+    */
+    @PostMapping("/sms")
+    ResponseData<String>  cloudSms(RequestData<String> vipPhone);
 }

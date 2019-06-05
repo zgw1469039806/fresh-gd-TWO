@@ -34,6 +34,6 @@ public interface GDActicitesdetailService {
     * @date: 2019/5/15 17:25
     */
     @PostMapping("/queryActivities")
-    public ResponseData<List<GdActivitiesDTO>> queryActivities();
+    public ResponseData<Object> queryActivities();
 
 }

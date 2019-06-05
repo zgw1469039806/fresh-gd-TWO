@@ -1,9 +1,6 @@
 package org.gd.order.mapper;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.fresh.gd.commons.consts.pojo.dto.order.GdOrdershopDTO;
 import org.gd.order.entity.GdOrdershop;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -34,6 +31,22 @@ public interface GdOrdershopMapper extends BaseMapper<GdOrdershop> {
     @Select("select * from gd_ordershop where orderid = #{orderId}")
     List<GdOrdershopDTO> selOrderShopById(String orderId);
 
+    /** 功能描述:
+    * 移除订单中的商品
+    * @param: []
+    * @return: java.lang.Integer
+    * @auther: 贾轶飞
+    * @date: 2019/5/25 18:36
+    */
+    @Delete("delete from gd_ordershop where orderid = #{orderid}")
+    Integer removeOrderGoods(@Param("orderid")String orderid);
 
+    /** 功能描述:
+    * 购物车中的商品数量
+    * @param: [userid]
+    * @return: java.lang.Integer
+    * @auther: 贾轶飞
+    * @date: 2019/5/26 8:30
+    */
 
 }

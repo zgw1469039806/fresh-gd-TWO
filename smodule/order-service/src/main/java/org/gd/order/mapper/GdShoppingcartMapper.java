@@ -67,4 +67,10 @@ public interface GdShoppingcartMapper extends BaseMapper<GdShoppingcart> {
 
     @Select("select count(*) from gd_shoppingcart where userid =#{userid} and comdityId =#{comdityId}")
     public Integer queryCount(@Param("userid")Integer userid, @Param("comdityId")Integer comdityId);
+
+    @Delete("delete from gd_shoppingcart where userid = #{userid} and comdityId = #{comdityId}")
+    public Integer batchDelCart(@Param("comdityId")Integer comdityId,@Param("userid")Integer userid);
+
+    @Select("select count(1) from gd_shoppingcart where userid =#{userid}")
+    Integer cartGoodsCount(@Param("userid")Integer userid);
 }

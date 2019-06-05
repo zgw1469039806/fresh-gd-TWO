@@ -11,22 +11,18 @@ import java.util.List;
 
 /**
  * @author 贾轶飞
- * @data 2019/4/22 14:44
+ * @dat e2019/5/26 11:16
  */
 @ApiModel("商品详细数据模型")
 @Data
-public class GdCommodityListDTO {
+public class MerchandiseDetailsDTO {
+
 
     /**
-     * 商品名称
+     * 商品ID
      */
     @ApiModelProperty("商品ID")
     private Integer comdityId;
-    /**
-     * 图片地址
-     */
-    @ApiModelProperty("商品图片Url")
-    private String imagesurl;
 
     /**
      * 商品名称
@@ -39,12 +35,6 @@ public class GdCommodityListDTO {
      */
     @ApiModelProperty("商品类别")
     private Integer comditytypeId;
-
-    /**
-     * 类型名称
-     */
-    @ApiModelProperty("类型名称")
-    private String typename;
 
     /**
      * 商品单位
@@ -64,23 +54,21 @@ public class GdCommodityListDTO {
     @ApiModelProperty("商品单价")
     private String comdityprice;
 
-    /**
-     * 折扣价格
-     */
-    @ApiModelProperty("折扣价格")
-    private String discount;
+    @ApiModelProperty("店铺名称")
+    private String storename;
 
     /**
-     * 商品编码
+     * 图片编号
      */
-    @ApiModelProperty("商品编码")
-    private String comdityBM;
+    @ApiModelProperty("图片编号")
+    private Integer imagesId;
 
     /**
-     * 会员是否享有折扣
+     * 图片地址
      */
-    @ApiModelProperty("是否享有折扣")
-    private Integer vipishige;
+    @ApiModelProperty("商品图片Url")
+    private String imagesurl;
+
 
     /**
      * 图片等级
@@ -88,20 +76,10 @@ public class GdCommodityListDTO {
     @ApiModelProperty("图片等级")
     private String imageslv;
 
-
     /**
-     * 商品数
+     * 商品详细图片
      */
-    @ApiModelProperty("商品数")
-    private Integer num;
-
-    /**
-     * 用户购物车商品编号
-     */
-    @ApiModelProperty("用户购物车编号")
-    private Integer cartid;
-
-    @ApiModelProperty("商品图片")
-    GdImagesDTO gdImagesDTO;
-
+    @ApiModelProperty("商品详细图片")
+    private List<GdImages> imagesDTOS;
 }
+

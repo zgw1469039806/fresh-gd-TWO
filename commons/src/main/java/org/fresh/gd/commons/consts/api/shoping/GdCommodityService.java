@@ -69,6 +69,14 @@ public interface GdCommodityService {
     @PostMapping("/selOne")
     ResponseData<GdCommodityListDTO> selOne(Integer comdityId);
 
+    /**
+     * @Author: JYF on 2019/4/24 8:57
+     * @param: comdityId 商品ID
+     * @return:
+     * @Description:
+     */
+    @PostMapping("/selOnes")
+    ResponseData<GdCommodityListDTO> selOnes(RequestData<GoodsDetailQueryDTO> requestData);
 
     /**
      * 功能描述

@@ -1,5 +1,7 @@
 package org.fresh.gd.commons.consts.api.order;
 
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.fresh.gd.commons.consts.pojo.RequestData;
 import org.fresh.gd.commons.consts.pojo.ResponseData;
 import org.fresh.gd.commons.consts.pojo.dto.order.*;
@@ -14,6 +16,7 @@ import org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @DATA 2019/4/24 13:44
@@ -153,4 +156,35 @@ public interface GDOrderService {
     @PostMapping("/updOrderStartToGoodsPay")
     ResponseData<Integer> updOrderStartToGoodsPay(@RequestParam("orderId") String orderId);
 
+    /**
+     *
+     * 功能描述:
+     *   线上条数
+     * @param: [orderId]
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+     * @auther: jiayifei
+     * @date: 2019/5/25
+     */
+    @PostMapping("/queryCountOrder")
+    ResponseData<Map<String,Integer>> queryCountOrder(RequestData<Integer> requestData);
+
+    /** 功能描述:
+    * 支付完成的完整的订单
+    * @param: [requestData]
+    * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+    * @auther: 贾轶飞
+    * @date: 2019/5/25 18:28
+    */
+    @PostMapping("/payOrder")
+    ResponseData<Integer> payOrder(RequestData<GdUserOrderDTO> requestData);
+
+    /** 功能描述:
+    * 取消订单
+    * @param: [requestData]
+    * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+    * @auther: 贾轶飞
+    * @date: 2019/5/25 18:30
+    */
+    @PostMapping("/removeOrder")
+    ResponseData<Integer> removeOrder(RequestData<String> requestData);
 }

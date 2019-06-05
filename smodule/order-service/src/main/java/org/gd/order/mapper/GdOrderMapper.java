@@ -36,7 +36,16 @@ public interface GdOrderMapper extends BaseMapper<GdOrder> {
 
     List<GdUserOrderDTO> userOrderQuery(GdUserOrderDTO gdUserOrderDTO);
 
+    @Select(" select count(1) from gd_order where userid=#{userid} and orderStat =#{orderStat}")
+    Integer queryCountOrder(@Param("userid")Integer userid,@Param("orderStat")Integer orderStat);
 
+    @Delete("delete from gd_order where orderid=#{orderid}")
+    Integer removeOrder(@Param("orderid")String orderid);
+    @Update("update gd_order set recipients=#{recipients},phone=#{phone},address=#{address},orderStat=1 where orderid" +
+            " " +
+            "=#{orderid}" +
+            " and userId =#{userId}")
+    Integer updPayOrder(GdUserOrderDTO gdUserOrderDTO);
 
     /**
      * 根据年根和月份订单

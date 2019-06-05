@@ -3,7 +3,6 @@ package org.gd.order.impl;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.api.R;
 import com.codingapi.txlcn.tc.annotation.LcnTransaction;
 import com.codingapi.txlcn.tc.annotation.TccTransaction;
 import com.codingapi.txlcn.tc.annotation.TxTransaction;
@@ -19,6 +18,8 @@ import org.fresh.gd.commons.consts.pojo.dto.order.*;
 import org.fresh.gd.commons.consts.pojo.dto.shoping.GdComdityparticularDTO;
 import org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO;
 import org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityListDTO;
+import org.fresh.gd.commons.consts.pojo.dto.vip.VipPageDTO;
+import org.fresh.gd.commons.consts.pojo.dto.vip.VipSelVipDTO;
 import org.fresh.gd.commons.consts.utils.PageBean;
 import org.fresh.gd.commons.consts.utils.VeDate;
 import org.gd.order.entity.GdOrder;
@@ -49,6 +50,8 @@ import java.util.*;
  */
 @RestController
 public class OrderServiceImpl implements GDOrderService {
+
+
     @Autowired
     private GdOrderMapper gdOrderMapper;
 
@@ -69,6 +72,7 @@ public class OrderServiceImpl implements GDOrderService {
 
     @Autowired
     private GdReportformMapper gdReportformMapper;
+
     /**
      * 功能描述:
      * 下订单。订单插入后减库存。
@@ -120,10 +124,24 @@ public class OrderServiceImpl implements GDOrderService {
         Random re = new Random();
         int i = re.nextInt(10000);
         gdOrder.setOrderid((new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date())) + i);
-        gdOrder.setOrderStat(4);
+        gdOrder.setOrderStat(gdOrderDTORequestData.getData().getOrderStat());
         gdOrder.setOrderTime(VeDate.getStringDate());
         //插入订单
         int save = gdOrderMapper.insert(gdOrder);
+        //订单创建成功，清空选中商品加入订单中的商品
+        if (save > 0) {
+            List<GdOrdershopDTO> list1 = gdOrderDTORequestData.getData().getTableData();
+            for (GdOrdershopDTO dto : list1
+                    ) {
+                Integer p = gdShoppingcartMapper.batchDelCart(dto.getComdityId(), gdOrderDTORequestData.getData()
+                        .getUserId());
+                if (p == 0) {
+                    responseData.setMsg("清除购物车失败");
+                    break;
+                }
+            }
+        }
+
         ResponseData responseData1 = orderFeginToShopping.reduceStock(requestData);//减少库存
         if (responseData1.getCode() == 1000) {//如果减少成功
             for (GdOrdershopDTO dto : gdOrderDTORequestData.getData().getTableData()) {
@@ -134,7 +152,7 @@ public class OrderServiceImpl implements GDOrderService {
             throw new BizException("库存减扣失败");
         }
         //增加积分
-        if (gdOrderDTO.getVipId() != null && gdOrderDTO.getVipId() != "") {
+        if (gdOrderDTO.getVipId() != null && gdOrderDTO.getVipId() != ""&&gdOrderDTO.getVipId().equals("")) {
             String str = gdOrderDTORequestData.getData().getOrdermoney().trim();
             Integer i1 = orderFeginToVip.upgVipIntegral(gdOrderDTORequestData.getData().getVipId().trim(), gdOrderDTORequestData.getData().getStoreid(), str);
         }
@@ -153,7 +171,7 @@ public class OrderServiceImpl implements GDOrderService {
      * 根据用户id信息 查询购物车商品
      *
      * @param requestData
-     * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List   < org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO>>
+     * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List               <       org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO>>
      * @author zgw
      */
     @Override
@@ -278,9 +296,8 @@ public class OrderServiceImpl implements GDOrderService {
         ResponseData<List<GdUserOrderDTO>> responseData = new ResponseData<>();
         List<GdUserOrderDTO> gdUserOrderDTO = gdOrderMapper.userOrderQuery(requestData.getData());
         List<Integer> list = new ArrayList<>();
-
-
         for (GdUserOrderDTO dto : gdUserOrderDTO) {
+            //根据订单编号查询订单详细
             dto.setTable(gdOrdershopMapper.selOrderShopById(dto.getOrderid()));
             for (GdOrdershopDTO shopdto : dto.getTable()) {
                 list.add(shopdto.getComdityId());
@@ -289,14 +306,15 @@ public class OrderServiceImpl implements GDOrderService {
             for (GdOrdershopDTO shop : dto.getTable()) {
                 for (GdCommodityDTO commodityDTO : rq.getData()) {
                     if (shop.getComdityId() == commodityDTO.getComdityId()) {
-                        ResponseData<GdCommodityListDTO> gl = gdCommodityService.selOne(shop.getComdityId());
-                        shop.setImageUrl(gl.getData().getImagesurl());
+                        shop.setImageUrl(commodityDTO.getImagesurl());
                         shop.setComdityName(commodityDTO.getComdityname());
                         break;
                     }
                 }
             }
         }
+
+
         responseData.setData(gdUserOrderDTO);
         return responseData;
     }
@@ -380,6 +398,7 @@ public class OrderServiceImpl implements GDOrderService {
         gdOrderMapper.updOrderStartById(orderStartDTO);
         return responseData;
     }
+
     /**
      * @Description 统计报表
      * @Date: 11:48 2019/5/24
@@ -426,6 +445,103 @@ public class OrderServiceImpl implements GDOrderService {
         }
         ResponseData<List<Float>> responseData = new ResponseData<>();
         responseData.setData(lirun);
+        return responseData;
+    }
+
+    @Override
+    public ResponseData<Map<String, Integer>> queryCountOrder(@RequestBody RequestData<Integer> requestData) {
+        ResponseData<Map<String, Integer>> responseData = new ResponseData<>();
+        Map<String, Integer> map = new HashMap<>();
+        Integer[] i = {0, 1, 2, 3, 4};
+        Integer x;
+        for (int j = 0; j < i.length; j++) {
+            if (i[j] == 0) {
+                x = gdOrderMapper.queryCountOrder(requestData.getData(), i[j]);
+                map.put("pay_num", x);
+            } else if (i[j] == 1) {
+                x = gdOrderMapper.queryCountOrder(requestData.getData(), i[j]);
+                map.put("rec_num", x);
+            } else if (i[j] == 2) {
+                x = gdOrderMapper.queryCountOrder(requestData.getData(), i[j]);
+                map.put("finish_num", x);
+            } else if (i[j] == 3) {
+                x = gdOrderMapper.queryCountOrder(requestData.getData(), i[j]);
+                map.put("refund_num", x);
+            } else if (i[j] == 4) {
+                x = gdOrderMapper.queryCountOrder(requestData.getData(), i[j]);
+                map.put("HasSum", x);
+            }
+        }
+        responseData.setData(map);
+        return responseData;
+    }
+
+    /**
+     * 功能描述:
+     * 支付
+     *
+     * @param: [requestData]
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+     * @auther: 贾轶飞
+     * @date: 2019/5/25 17:54
+     */
+    @Override
+    public ResponseData<Integer> payOrder(@RequestBody RequestData<GdUserOrderDTO> requestData) {
+        ResponseData<Integer> responseData = new ResponseData<>();
+        RequestData<VipSelVipDTO> vipSelVipDTO = new RequestData<>();
+        VipSelVipDTO vip = new VipSelVipDTO();
+        vip.setUserId(requestData.getData().getUserId());
+        vipSelVipDTO.setData(vip);
+        ResponseData<VipPageDTO> responseData1 = orderFeginToVip.selVipByVipPhoneAndUserId(vipSelVipDTO);
+
+        if (Float.parseFloat(responseData1.getData().getVipbalance()) < Float.parseFloat(requestData.getData()
+                .getOrdermoney())) {
+            responseData.setMsg("账户余额不足");
+            return responseData;
+        }
+
+        Integer s = orderFeginToVip.updVipBalanceByVipPhone(requestData.getData().getPhone(), requestData.getData().getOrdermoney()
+                , requestData.getData().getStoreid());
+        if (s > 0) {
+            Integer i = gdOrderMapper.updPayOrder(requestData.getData());
+            if (i > 0) {
+                responseData.setMsg("订单支付完成");
+            } else {
+                responseData.setMsg("订单支付失败");
+            }
+            responseData.setData(i);
+        }
+
+        return responseData;
+    }
+
+    /**
+     * 功能描述:
+     * 取消订单
+     *
+     * @param: [requestData]
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+     * @auther: 贾轶飞
+     * @date: 2019/5/25 18:51
+     */
+    @Override
+    public ResponseData<Integer> removeOrder(@RequestBody RequestData<String> requestData) {
+        ResponseData<Integer> responseData = new ResponseData<>();
+        Integer i = 0;
+        Integer detail = gdOrdershopMapper.removeOrderGoods(requestData.getData());
+        if (detail > 0) {
+            i = gdOrderMapper.removeOrder(requestData.getData());
+            responseData.setMsg("订单取消成功！");
+        } else {
+            List<GdOrdershopDTO> s = gdOrdershopMapper.selOrderShopById(requestData.getData());
+            if (s.size() > 0) {
+                detail = gdOrdershopMapper.removeOrderGoods(requestData.getData());
+            }
+            i = gdOrderMapper.removeOrder(requestData.getData());
+            responseData.setMsg("订单已取消,请稍后查看。");
+        }
+
+        responseData.setData(i);
         return responseData;
     }
 }

@@ -119,10 +119,26 @@ public class GdCommodityServiceImpl implements GdCommodityService {
     @Override
     public ResponseData<GdCommodityListDTO> selOne(@RequestBody Integer comdityId) {
         ResponseData<GdCommodityListDTO> responseData = new ResponseData<>();
-        responseData.setData(gdCommodityMapper.selOne(comdityId));
+        GdCommodityListDTO dto = gdCommodityMapper.selOne(comdityId);
+        //图片信息
+        GdImagesDTO dto2=  gdImagesMapper.queryimages(comdityId);
+        dto2.setImagesDTOS(gdImagesMapper.queryimagesTwo(comdityId));
+        dto.setGdImagesDTO(dto2);
+        responseData.setData(dto);
         return responseData;
     }
-
+    @Override
+    public ResponseData<GdCommodityListDTO> selOnes(@RequestBody RequestData<GoodsDetailQueryDTO> requestData) {
+        ResponseData<GdCommodityListDTO> responseData = new ResponseData<>();
+        //查询信息
+        GdCommodityListDTO dto = gdCommodityMapper.selOnes(requestData.getData());
+        //图片信息
+        GdImagesDTO dto2=  gdImagesMapper.queryimages(requestData.getData().getComdityId());
+        dto2.setImagesDTOS(gdImagesMapper.queryimagesTwo(requestData.getData().getComdityId()));
+        dto.setGdImagesDTO(dto2);
+        responseData.setData(dto);
+        return responseData;
+    }
     /**
      * 功能描述
      * 货品详情信息
