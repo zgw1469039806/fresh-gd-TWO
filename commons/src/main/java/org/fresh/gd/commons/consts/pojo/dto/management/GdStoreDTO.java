@@ -1,5 +1,6 @@
 package org.fresh.gd.commons.consts.pojo.dto.management;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -22,6 +23,9 @@ public class GdStoreDTO {
 
     @ApiModelProperty("店铺名称")
     private String storename;
+
+    @ApiModelProperty("店铺经纬度")
+    private String lal;
 
     @ApiModelProperty("店铺地址")
     private String storeaddress;

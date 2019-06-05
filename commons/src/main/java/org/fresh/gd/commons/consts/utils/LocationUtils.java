@@ -96,7 +96,8 @@ public class LocationUtils {
 
         String lng = "112.434093";//经度
         String lat = "34.598331";//维度
-        String address="河南省洛阳市涧西区";
+        String address="北大青鸟洛阳融科创新创业人才孵化基地";
+//        112.400069,34.650716
         Map<String, Object> map = getxy(address);
         System.out.println(map);
 //        System.out.println("国   籍：" + map.get("nation"));

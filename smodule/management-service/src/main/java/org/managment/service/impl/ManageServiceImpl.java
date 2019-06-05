@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -194,6 +195,7 @@ public class ManageServiceImpl implements ManageService {
     @Override
     public ResponseData<List<GdStoreDTO>> QueryAll(@RequestBody RequestData<String> requestData) {
         ResponseData<List<GdStoreDTO>> responseData = new ResponseData<>();
+
         responseData.setData(gdStoreMapper.selStoreAndImageByName(requestData.getData()));
         return responseData;
     }

@@ -4,6 +4,7 @@ package org.gw.shoping;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.codingapi.txlcn.tc.config.EnableDistributedTransaction;
+import com.mysql.cj.xdevapi.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 
@@ -34,7 +35,6 @@ import javax.sql.DataSource;
 @EnableDiscoveryClient
 @SpringBootApplication
 public class ShoppingApplication extends WebSecurityConfigurerAdapter {
-
 
     /**
      * 功能描述
