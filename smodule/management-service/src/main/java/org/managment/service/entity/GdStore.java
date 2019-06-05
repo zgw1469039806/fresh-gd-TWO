@@ -46,5 +46,4 @@ public class GdStore implements Serializable {
      */
     @TableField("storeaLogo")
     private String storeaLogo;
-
 }
