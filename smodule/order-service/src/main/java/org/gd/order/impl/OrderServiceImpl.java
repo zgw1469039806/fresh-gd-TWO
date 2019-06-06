@@ -539,4 +539,20 @@ public class OrderServiceImpl implements GDOrderService {
         responseData.setData(i);
         return responseData;
     }
+
+    /** 功能描述:
+    * 配送订单根据订单
+    * @param: [requestData]
+    * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List<org.fresh.gd.commons.consts.pojo.dto.order.GdUserOrderDTO>>
+    * @auther: 贾轶飞
+    * @date: 2019/6/5 14:02
+    */
+    @Override
+    public ResponseData<List<GdUserOrderDTO>> dispatchingOrder(@RequestBody RequestData<GdUserOrderDTO> requestData) {
+
+
+        ResponseData<List<GdUserOrderDTO>> responseData=new ResponseData<>();
+        responseData.setData(gdOrderMapper.userOrderQuery(requestData.getData()));
+        return responseData;
+    }
 }

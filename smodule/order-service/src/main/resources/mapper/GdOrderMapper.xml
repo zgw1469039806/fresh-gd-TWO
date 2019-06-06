@@ -96,6 +96,12 @@
             <if test="orderid !=null and orderid !='' ">
                 and   orderid =#{orderid}
             </if>
+            <if test="orderStat !=null and orderStat !=''">
+                and orderStat=#{orderStat}
+            </if>
+            <!--<if test="orderTime !=null and orderTime !=''">-->
+                <!---->
+            <!--</if>-->
         </where>
 
     </select>
