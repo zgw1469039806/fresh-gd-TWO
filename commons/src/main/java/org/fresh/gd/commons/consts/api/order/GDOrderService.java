@@ -195,6 +195,16 @@ public interface GDOrderService {
     @PostMapping("/removeOrder")
     ResponseData<Integer> removeOrder(RequestData<String> requestData);
 
+    /** 功能描述:
+    * 需要配送的订单
+    * @param: [requestData] orderStat暂定条件
+    * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List<org.fresh.gd.commons.consts.pojo.dto.order.GdUserOrderDTO>>
+    * @auther: 贾轶飞
+    * @date: 2019/6/5 13:59
+    */
+    @PostMapping("/dispatching")
+    ResponseData<List<GdUserOrderDTO>> dispatchingOrder(RequestData<GdUserOrderDTO> requestData);
+
     @PostMapping("/jiahengxiaoxixi")
     Integer jiahengxiaoxixi(AliFicePay aliFicePay);
 
