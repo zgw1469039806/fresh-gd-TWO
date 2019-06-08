@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.gd.order.mapper.GdDcMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="org.gd.order.entity.GdDc">
+        <id column="did" property="did" />
+        <result column="orderid" property="orderid" />
+        <result column="pid" property="pid" />
+        <result column="score" property="score" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        did, orderid, pid, score
+    </sql>
+
+</mapper>
