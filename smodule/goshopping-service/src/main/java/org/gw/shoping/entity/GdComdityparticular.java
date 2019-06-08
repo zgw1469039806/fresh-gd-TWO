@@ -26,7 +26,7 @@ public class GdComdityparticular implements Serializable {
      * 商品ID
      */
     @TableId("comdityId")
-    private Integer comdityId;
+    private String comdityId;
 
     /**
      * 是否打折;0为false,2为true

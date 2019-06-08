@@ -55,7 +55,7 @@ public class MybatisPlusCodeGenerator
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://cdb-l7ztt2ao.bj.tencentcdb.com:10139/GoShopping?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=UTC");
+        dsc.setUrl("jdbc:mysql://cdb-fzj79gq5.gz.tencentcdb.com:10012/GoShopping?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=UTC");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
         dsc.setPassword("qwe12345");

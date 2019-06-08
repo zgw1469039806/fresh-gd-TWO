@@ -94,13 +94,14 @@ public class GdCommodityServiceImpl implements GdCommodityService {
         return responseData;
     }
 
-    /** 功能描述:
-    *
-    * @param: []
-    * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List<org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityListDTO>>
-    * @auther: 贾轶飞
-    * @date: 2019/5/23 10:29
-    */
+    /**
+     * 功能描述:
+     *
+     * @param: []
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List < org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityListDTO>>
+     * @auther: 贾轶飞
+     * @date: 2019/5/23 10:29
+     */
     @Override
     public ResponseData<List<GdCommodityListDTO>> selheadlineAll() {
         ResponseData<List<GdCommodityListDTO>> responseData = new ResponseData<>();
@@ -109,36 +110,40 @@ public class GdCommodityServiceImpl implements GdCommodityService {
         return responseData;
     }
 
-    /** 功能描述:
-    *商品id查询
-    * @param: [comdityId]
-    * @return: org.fresh.gd.commons.consts.pojo.ResponseData<org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityListDTO>
-    * @auther: 贾轶飞
-    * @date: 2019/5/23 10:29
-    */
+    /**
+     * 功能描述:
+     * 商品id查询
+     *
+     * @param: [comdityId]
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityListDTO>
+     * @auther: 贾轶飞
+     * @date: 2019/5/23 10:29
+     */
     @Override
     public ResponseData<GdCommodityListDTO> selOne(@RequestBody Integer comdityId) {
         ResponseData<GdCommodityListDTO> responseData = new ResponseData<>();
         GdCommodityListDTO dto = gdCommodityMapper.selOne(comdityId);
         //图片信息
-        GdImagesDTO dto2=  gdImagesMapper.queryimages(comdityId);
+        GdImagesDTO dto2 = gdImagesMapper.queryimages(comdityId);
         dto2.setImagesDTOS(gdImagesMapper.queryimagesTwo(comdityId));
         dto.setGdImagesDTO(dto2);
         responseData.setData(dto);
         return responseData;
     }
+
     @Override
     public ResponseData<GdCommodityListDTO> selOnes(@RequestBody RequestData<GoodsDetailQueryDTO> requestData) {
         ResponseData<GdCommodityListDTO> responseData = new ResponseData<>();
         //查询信息
         GdCommodityListDTO dto = gdCommodityMapper.selOnes(requestData.getData());
         //图片信息
-        GdImagesDTO dto2=  gdImagesMapper.queryimages(requestData.getData().getComdityId());
+        GdImagesDTO dto2 = gdImagesMapper.queryimages(requestData.getData().getComdityId());
         dto2.setImagesDTOS(gdImagesMapper.queryimagesTwo(requestData.getData().getComdityId()));
         dto.setGdImagesDTO(dto2);
         responseData.setData(dto);
         return responseData;
     }
+
     /**
      * 功能描述
      * 货品详情信息
@@ -273,13 +278,15 @@ public class GdCommodityServiceImpl implements GdCommodityService {
         gdCommodityMapper.insert(gdCommodity);
         for (int storeid : requestData.getData().getStoreidlist()) {
             gdComdityparticular.setStock(0);
-            gdComdityparticular.setComdityId(gdCommodity.getComdityId());
+            gdComdityparticular.setComdityId(gdCommodity.getComdityId().toString());
             gdComdityparticular.setStoreid(storeid);
-            String uuid = UUID.randomUUID().toString();
-            uuid = uuid.substring(4);
-            String tiaoxing = "69" + uuid;
-            System.out.println(tiaoxing);
-            gdComdityparticular.setComdityBM(tiaoxing);
+            if (gdComdityparticular.getComdityBM().equals("") || gdComdityparticular.getComdityBM().equals(null)) {
+                String uuid = UUID.randomUUID().toString();
+                uuid = uuid.substring(4);
+                String tiaoxing = "69" + uuid;
+                System.out.println(tiaoxing);
+                gdComdityparticular.setComdityBM(tiaoxing);
+            }
             //todo: 吧商品详细的添加合并为一条sql语句.商品图片的添加
             //添加商品详细
             gdComdityparticularMapper.insert(gdComdityparticular);

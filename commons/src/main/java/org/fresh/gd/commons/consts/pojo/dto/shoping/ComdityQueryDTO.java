@@ -36,7 +36,7 @@ public class ComdityQueryDTO {
      * 商品编码
      */
     @ApiModelProperty("商品编码")
-    private String comdityBM;
+    private String comditybm;
 
     /**
      * 所属店铺ID

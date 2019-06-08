@@ -43,7 +43,7 @@ public interface GDOrderService {
      * 根据用户id信息 查询购物车商品
      *
      * @param: [requestData]
-     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List   <   org.fresh.gd.commons.consts.pojo.ResponseData   <   org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityListDTO>>>
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List < org.fresh.gd.commons.consts.pojo.ResponseData < org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityListDTO>>>
      * @auther: 贾轶飞
      * @date: 2019/5/7 13:55
      */
@@ -68,7 +68,7 @@ public interface GDOrderService {
      * 分页查询订单
      *
      * @param: [orderPageDTO]
-     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List   <   org.fresh.gd.commons.consts.pojo.dto.order.GdOrderDTO>>
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List < org.fresh.gd.commons.consts.pojo.dto.order.GdOrderDTO>>
      * @auther: Mr.Xia
      * @date: 2019/5/13 16:36
      */
@@ -88,18 +88,21 @@ public interface GDOrderService {
     ResponseData<Integer> updOrderStartById(RequestData<OrderStartDTO> orderStartDTO);
 
 
-    /** 功能描述:
-    *用户订单
-    * @param: [requestData]
-    * @return: org.fresh.gd.commons.consts.pojo.ResponseData<org.fresh.gd.commons.consts.pojo.dto.order.GdUserOrderDTO>
-    * @auther: 贾轶飞
-    * @date: 2019/5/23 10:16
-    */
+    /**
+     * 功能描述:
+     * 用户订单
+     *
+     * @param: [requestData]
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<org.fresh.gd.commons.consts.pojo.dto.order.GdUserOrderDTO>
+     * @auther: 贾轶飞
+     * @date: 2019/5/23 10:16
+     */
     @PostMapping("/userOrderQuery")
     ResponseData<List<GdUserOrderDTO>> userOrderQuery(RequestData<GdUserOrderDTO> requestData);
 
     /**
      * 查询统计报表
+     *
      * @Date: 11:47 2019/5/24
      * @Author: 郭家恒
      */
@@ -107,84 +110,92 @@ public interface GDOrderService {
     ResponseData<List<Float>> QueryDeportForm(GdDeportFormDTO gdDeportFormDTO);
 
     /**
-    *
-    * 功能描述:
-    *   线上-根据订单编号修改订单状态为已支付（用于小程序订单支付）
-    * @param: [orderStartDTO]
-    * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
-    * @auther: Mr.Xia
-    * @date: 2019/5/24 10:03
-    */
+     * 功能描述:
+     * 线上-根据订单编号修改订单状态为已支付（用于小程序订单支付）
+     *
+     * @param: [orderStartDTO]
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+     * @auther: Mr.Xia
+     * @date: 2019/5/24 10:03
+     */
     @PostMapping("/updOrderStartPay")
     ResponseData<Integer> updOrderStartPay(@RequestParam("orderId") String orderId);
 
 
     /**
-    *
-    * 功能描述:
-    *   线上-根据订单编号修改订单状态为确认收货（用于小程序订单确认收货）
-    * @param: [orderId]
-    * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
-    * @auther: Mr.Xia
-    * @date: 2019/5/24 10:18
-    */
+     * 功能描述:
+     * 线上-根据订单编号修改订单状态为确认收货（用于小程序订单确认收货）
+     *
+     * @param: [orderId]
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+     * @auther: Mr.Xia
+     * @date: 2019/5/24 10:18
+     */
     @PostMapping("/updOrderStartOK")
     ResponseData<Integer> updOrderStartOK(@RequestParam("orderId") String orderId);
 
     /**
-    *
-    * 功能描述:
-    *   线上-根据订单编号修改订单状态为申请退款（用于小程序点击申请退款）
-    * @param: [orderId]
-    * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
-    * @auther: Mr.Xia
-    * @date: 2019/5/24 11:17
-    */
+     * 功能描述:
+     * 线上-根据订单编号修改订单状态为申请退款（用于小程序点击申请退款）
+     *
+     * @param: [orderId]
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+     * @auther: Mr.Xia
+     * @date: 2019/5/24 11:17
+     */
     @PostMapping("/updOrderStartTuiPay")
     ResponseData<Integer> updOrderStartTuiPay(@RequestParam("orderId") String orderId);
 
 
     /**
-    *
-    * 功能描述:
-    *   线上-根据订单编号修改订单状态为到店支付（用于小程序点击到店支付）
-    * @param: [orderId]
-    * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
-    * @auther: Mr.Xia
-    * @date: 2019/5/24 11:20
-    */
+     * 功能描述:
+     * 线上-根据订单编号修改订单状态为到店支付（用于小程序点击到店支付）
+     *
+     * @param: [orderId]
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+     * @auther: Mr.Xia
+     * @date: 2019/5/24 11:20
+     */
     @PostMapping("/updOrderStartToGoodsPay")
     ResponseData<Integer> updOrderStartToGoodsPay(@RequestParam("orderId") String orderId);
 
     /**
-     *
      * 功能描述:
-     *   线上条数
+     * 线上条数
+     *
      * @param: [orderId]
      * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
      * @auther: jiayifei
      * @date: 2019/5/25
      */
     @PostMapping("/queryCountOrder")
-    ResponseData<Map<String,Integer>> queryCountOrder(RequestData<Integer> requestData);
+    ResponseData<Map<String, Integer>> queryCountOrder(RequestData<Integer> requestData);
 
-    /** 功能描述:
-    * 支付完成的完整的订单
-    * @param: [requestData]
-    * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
-    * @auther: 贾轶飞
-    * @date: 2019/5/25 18:28
-    */
+    /**
+     * 功能描述:
+     * 支付完成的完整的订单
+     *
+     * @param: [requestData]
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+     * @auther: 贾轶飞
+     * @date: 2019/5/25 18:28
+     */
     @PostMapping("/payOrder")
     ResponseData<Integer> payOrder(RequestData<GdUserOrderDTO> requestData);
 
-    /** 功能描述:
-    * 取消订单
-    * @param: [requestData]
-    * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
-    * @auther: 贾轶飞
-    * @date: 2019/5/25 18:30
-    */
+    /**
+     * 功能描述:
+     * 取消订单
+     *
+     * @param: [requestData]
+     * @return: org.fresh.gd.commons.consts.pojo.ResponseData<java.lang.Integer>
+     * @auther: 贾轶飞
+     * @date: 2019/5/25 18:30
+     */
     @PostMapping("/removeOrder")
     ResponseData<Integer> removeOrder(RequestData<String> requestData);
+
+    @PostMapping("/jiahengxiaoxixi")
+    Integer jiahengxiaoxixi(AliFicePay aliFicePay);
+
 }

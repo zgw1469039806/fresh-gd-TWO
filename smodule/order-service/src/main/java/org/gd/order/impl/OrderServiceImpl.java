@@ -1,6 +1,12 @@
 package org.gd.order.impl;
 
 
+import com.alipay.api.AlipayApiException;
+import com.alipay.api.AlipayClient;
+import com.alipay.api.DefaultAlipayClient;
+import com.alipay.api.request.AlipayTradePayRequest;
+import com.alipay.api.response.AlipayTradePayResponse;
+import com.alipay.api.response.AlipayTradePrecreateResponse;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.codingapi.txlcn.tc.annotation.LcnTransaction;
@@ -92,7 +98,6 @@ public class OrderServiceImpl implements GDOrderService {
         RequestData<List<GdComdityparticularDTO>> requestData = new RequestData<>();
         List<GdComdityparticularDTO> list = new ArrayList<>();
         ResponseData<List> responseData = new ResponseData<>();
-        //如果交易场景为线上
         for (GdOrdershopDTO dto : gdOrderDTORequestData.getData().getTableData()) {
             GdComdityparticularDTO gdComdityparticularDTO = new GdComdityparticularDTO();
             gdComdityparticularDTO.setComdityId(dto.getComdityId());
@@ -100,6 +105,7 @@ public class OrderServiceImpl implements GDOrderService {
             list.add(gdComdityparticularDTO);
         }
         requestData.setData(list);
+        //如果交易场景为线上
         if (gdOrderDTORequestData.getData().getOrderscene() == 0) {
             //判断库存
             responseData = orderFeginToShopping.editStock(requestData);
@@ -114,6 +120,13 @@ public class OrderServiceImpl implements GDOrderService {
                 if (upd == 1000) {
                     responseData.setMsg("余额不足");
                     return responseData;
+                }
+                //如果支付手段为支付宝
+            } else if (gdOrderDTORequestData.getData().getOrdermeans() == 2) {
+                AliFicePay aliFicePay = new AliFicePay("格调生鲜商品交易", gdOrderDTO.getOrdermoney().toString(), gdOrderDTO.getFukuanma(), "1", gdOrderDTO.getStoreid().toString());
+                Integer msg = jiahengxiaoxixi(aliFicePay);
+                if (msg==0){
+                    throw new BizException("支付有误");
                 }
             }
         }
@@ -132,7 +145,7 @@ public class OrderServiceImpl implements GDOrderService {
         if (save > 0) {
             List<GdOrdershopDTO> list1 = gdOrderDTORequestData.getData().getTableData();
             for (GdOrdershopDTO dto : list1
-                    ) {
+            ) {
                 Integer p = gdShoppingcartMapper.batchDelCart(dto.getComdityId(), gdOrderDTORequestData.getData()
                         .getUserId());
                 if (p == 0) {
@@ -152,13 +165,13 @@ public class OrderServiceImpl implements GDOrderService {
             throw new BizException("库存减扣失败");
         }
         //增加积分
-        if (gdOrderDTO.getVipId() != null && gdOrderDTO.getVipId() != ""&&gdOrderDTO.getVipId().equals("")) {
+        if (gdOrderDTO.getVipId() != null && gdOrderDTO.getVipId() != "" && gdOrderDTO.getVipId().equals("")) {
             String str = gdOrderDTORequestData.getData().getOrdermoney().trim();
             Integer i1 = orderFeginToVip.upgVipIntegral(gdOrderDTORequestData.getData().getVipId().trim(), gdOrderDTORequestData.getData().getStoreid(), str);
         }
         //增加订单成本
         GdReportform gdReportform = new GdReportform();
-        BeanUtils.copyProperties(gdOrder,gdReportform);
+        BeanUtils.copyProperties(gdOrder, gdReportform);
         gdReportform.setRfmoney(gdOrderDTO.getRfmoney());
         gdReportformMapper.insert(gdReportform);
         responseData.setMsg(gdOrder.getOrderid());
@@ -171,7 +184,7 @@ public class OrderServiceImpl implements GDOrderService {
      * 根据用户id信息 查询购物车商品
      *
      * @param requestData
-     * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List               <       org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO>>
+     * @return org.fresh.gd.commons.consts.pojo.ResponseData<java.util.List < org.fresh.gd.commons.consts.pojo.dto.shoping.GdCommodityDTO>>
      * @author zgw
      */
     @Override
@@ -540,8 +553,37 @@ public class OrderServiceImpl implements GDOrderService {
             i = gdOrderMapper.removeOrder(requestData.getData());
             responseData.setMsg("订单已取消,请稍后查看。");
         }
-
         responseData.setData(i);
         return responseData;
+    }
+
+    @Override
+    public Integer jiahengxiaoxixi(AliFicePay aliFicePay) {
+        AlipayTradePayRequest request = new AlipayTradePayRequest();
+        StringBuffer bizCotent = new StringBuffer("{" +
+                "\"out_trade_no\":\"" + aliFicePay.getOutTradeNo() + "\"," +
+                "\"auth_code\":\"" + aliFicePay.getAuthCode() + "\"," +
+                "\"subject\":\"" + "xxx品牌xxx门店当面付消费" + "\"," +//订单标题粗略描述用户的支付目的
+                "\"total_amount\":" + aliFicePay.getTotalAmount() + "," +//总金额
+                // 订单描述，可以对交易或商品进行一个详细地描述，比如填写"购买商品3件共20.00元"
+                "\"operator_id\":\"yx_001\"," +//商户操作员编号
+                "\"store_id\":\"NJ_001\"," +//商户门店编号
+                "\"timeout_express\":\"90m\"," +
+                "\"scene\":\"bar_code\"" +
+                "  }");
+        request.setBizContent(bizCotent.toString());
+        AlipayClient alipayClient = new DefaultAlipayClient("https://openapi.alipaydev.com/gateway.do", Consts.AliPayConfig.appid, Consts.AliPayConfig.private_key, "json", "GBK", Consts.AliPayConfig.alipay_public_key, Consts.AliPayConfig.sign_type);
+        Integer msg = 0;
+        try {
+            AlipayTradePayResponse response = alipayClient.execute(request);
+            System.out.println("response-------------------------------");
+            System.out.println(response);
+            if (response.getMsg() == "Success") {
+                msg = 1;
+            }
+        } catch (AlipayApiException e) {
+            e.printStackTrace();
+        }
+        return msg;
     }
 }

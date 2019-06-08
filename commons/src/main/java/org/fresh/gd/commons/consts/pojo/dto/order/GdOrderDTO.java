@@ -135,4 +135,10 @@ public class GdOrderDTO {
      */
     @ApiModelProperty("成本")
     private float rfmoney;
+
+    /**
+     *  付款码
+     */
+    @ApiModelProperty("付款码")
+    private String fukuanma;
 }

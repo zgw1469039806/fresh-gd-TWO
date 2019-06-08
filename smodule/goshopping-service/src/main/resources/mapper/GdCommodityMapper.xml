@@ -25,6 +25,9 @@
             <if test="comdityname !=null and comdityname != '' and comdityname != '%%'">
                 and (co.comdityname like #{comdityname} or pa.comdityBM like #{comdityname})
             </if>
+            <if test="comditybm !='' and comditybm !=null ">
+                and pa.comdityBM = #{comditybm}
+            </if>
             <if test="comditytypeId !=null and comditytypeId != 0">
                 and co.comditytypeId = #{comditytypeId}
             </if>

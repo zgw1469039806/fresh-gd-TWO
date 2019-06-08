@@ -114,6 +114,11 @@
             <classifier>jdk15</classifier>
             <version>2.2.3</version>
         </dependency>
-
+        <!-- https://mvnrepository.com/artifact/com.alipay.sdk/alipay-sdk-java -->
+        <dependency>
+            <groupId>com.alipay.sdk</groupId>
+            <artifactId>alipay-sdk-java</artifactId>
+            <version>3.6.0.ALL</version>
+        </dependency>
     </dependencies>
 </project>

@@ -2,6 +2,7 @@ package org.fresh.gd.commons.consts.consts;
 
 
 import com.alibaba.fastjson.JSON;
+
 import java.util.Random;
 
 
@@ -502,7 +503,44 @@ public class Consts {
         public static final String path = "https://api.miaodiyun.com/20150822/industrySMS/sendSMS";
 
 
-
     }
 
+    public class AliPayConfig {
+        /**
+         * appID
+         */
+        public static final String appid = "2016091700534905";
+        /**
+         * pid
+         */
+        public static final String pid = "2088102176086492";
+        /**
+         * 私钥
+         */
+        public static final String private_key = "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCSEkbNTg1TH2iaPRQK52HBbxQW+OrDKvUvpdzcWX+eqzqlVENAtq9JGt0YBnjXIudE5PvVXlvvuna2pn/6tBhf68vdUkA7u6zCV66Enu1YDkBXwmItkcso5hpUfHOnGgcZxwQYYkPqNmY78xv9iGgaSZ+rL8p+hCv/DIMcunculowEGaScUNranK2ibFw3Q/JSLEvsX9EyP1FFms/R+uVvq+SGhjWA8wLvrIeaFmomeg0uz0kM6ZXPRLWAhJRG4WKhOaGZUtf36gIQ8rfZJHX7PIewVmdPCAZaslSamWX3Gy7mdzvGUNKMWJtroYminb73/2YmHsJMA2Cid6jZgD7HAgMBAAECggEAOkwpDc9U6hPi/4vY7/Egxr66WeDGcVY3vOiJmTfvAzh7k3hpzu4aTyb1jp0mpVY8zvZEvAeI0citkIArG7e88qt9Fbu5/x0L+hRchnmXaElnzJ676EwDtTMA1y9ESTDOHK+dJs4xJMzJSKviQ/Go+rTfkMbmHlBJ7uTjfxe8cU7sRFlii//QYDV5sAHJ9NsgFMjyoCtsSCR538cyWeq60FQEtYRifjRI0mYocI3GL0mK9z6lrqc2WVzPuJcTE+w6/LZTR43X5e+QzsfHWF5EsrLTnRDqknB67IH/XDX3dzzgaYtUCOrKw3QbMuTGNxYsmWgXG4HAq2Ij2i3onWn1YQKBgQD9vY4xZZYdOIuJPWDSjptoJF0Tppdb4KPAEn29On7aVMl/xhcX/OvkeoJ6d5f+zZfJ6GY5A0+C0m9b78+tpFIrc/Ji3TtI2t96QVrKMZUniRUKO2fcgzWGCEjWblVkzXmlq6rEq68TJoi6kyrNJ94A1QGTRK1cFZvIoFKvHDfItQKBgQCTX0VsCSzbxzOxW7uJH72/7rCmT78EzobqYVbCKtVgOcjvo84Non+Nk9QXA1kfOtHMQI+xwJQxIJXWoogT5uHpEF96k4WdP6eciYyD1NcYuRkjfeRT4BxxFUBPA9mjTxgLsSackWJoEmUhVb5AfmLX8MFzKdyM4Z43Eg+ml46DCwKBgQCsCx6id5K09WYHA8rmeTL+BcnmTQpLjaD51o/TAhqIxvxo2lNGPINlQ3u8teIlLhlBGYZWGdyLg0tmNs/FmKjuNYufZQmReHYWWsHIXp4XVGcjrOvbJEviOTPJ0L2tv3Q/1InRF+d5QKNsfeSDfgiU39hVljdFPJGIEsx9VtCsEQKBgG9oGyvzt7ShX2OZTCj6FNCuWV4wdN/mXLl8QkDgbpOiu1LlitRl3nUhpriK8GmaZpU4zSf7xEtrLbqm/aXF6Uvt86/PK7fXMhc1KENUuBJZgzaAagY6KmYWQZo59+Hr3eqgzeaYRUMVfNv5XKyWnpRNzYAIylC6EofhIHG4qqRHAoGAFegElc/QCFGdtL6Fl2HOCbtdM0Z32yjylRlJiAH6GeFhXrq3KyBbCTC2bCqrMhnh3rWiXUOWk9e4LjtsP9hxQ/4NtZLxrsVN5jaWRZT+pBiwGoCOAnocWK+I9coNgzYLMu7BSHyrEsnez7quM7ZiHZviedO3Ex7O9raUDu9ztbk=";
+        /**
+         * 公钥
+         */
+        public static final String public_key = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkhJGzU4NUx9omj0UCudhwW8UFvjqwyr1L6Xc3Fl/nqs6pVRDQLavSRrdGAZ41yLnROT71V5b77p2tqZ/+rQYX+vL3VJAO7uswleuhJ7tWA5AV8JiLZHLKOYaVHxzpxoHGccEGGJD6jZmO/Mb/YhoGkmfqy/KfoQr/wyDHLp3LpaMBBmknFDa2pytomxcN0PyUixL7F/RMj9RRZrP0frlb6vkhoY1gPMC76yHmhZqJnoNLs9JDOmVz0S1gISURuFioTmhmVLX9+oCEPK32SR1+zyHsFZnTwgGWrJUmpll9xsu5nc7xlDSjFiba6GJop2+9/9mJh7CTANgoneo2YA+xwIDAQAB";
+        /**
+         * 支付宝公钥
+         */
+        public static final String alipay_public_key = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtjkGCPRBqx0aNuSjcxxgB8aETkBIWs5FtMUrv/dmsUqXeb6ktNzJ6kQ0Ws60XpmO8GgSKFfAsmTadshn4AW5JOHQzAzzYss8OWm2OikcK/owMTEoyWYvhskQ174f/pgmq87Pkd2nUXx1a8uQklN7wqgML73N/lSqa/FPdIJhAh9vgTTSib2p5eG/aeW3QWFajgDTb4VuE3RYZ7B3+M0Q0rwW2JSBqjY/pr0MnVPwL4CsR5XlC9kEdqWD6cxS0/Rmue9e3Kvahjtqc+5FRH0S97v5tZExhNQlNXYwIxlwE2djTK8C3rJQuceiXxfR/+SO/vI5cFDVK5dI6v3rJzwbFwIDAQAB";
+
+        /**
+         * 签名类型
+         */
+        public static final String sign_type = "RSA2";
+        /**
+         * 当面付最大查询次数和查询间隔（毫秒）
+         */
+        public static final String max_query_retry = "5";
+        public static final String query_duration = "5000";
+
+        /**
+         * 交易保障线程第一次调度延迟和调度间隔（秒）
+         */
+        public static final String heartbeat_delay = "5";
+        public static final String heartbeat_duration = "900";
+    }
 }

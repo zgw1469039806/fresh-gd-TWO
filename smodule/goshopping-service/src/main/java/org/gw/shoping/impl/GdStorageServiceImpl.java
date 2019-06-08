@@ -52,7 +52,6 @@ public class GdStorageServiceImpl implements GdStorageService {
      * @date: 2019/4/29 15:08
      */
     @Override
-    @LcnTransaction
     @Transactional
     public ResponseData<Integer> saveStora(@RequestBody RequestData<GdStorageDTO> requestData) {
         ResponseData<Integer> responseData = new ResponseData<>();
