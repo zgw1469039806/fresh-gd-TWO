@@ -21,4 +21,8 @@ public class OrderStartDTO {
     @NotEmpty
     @ApiModelProperty("订单状态")
     private Integer ordStart;
+
+    @NotEmpty
+    @ApiModelProperty("配送员ID")
+    private Integer pid;
 }

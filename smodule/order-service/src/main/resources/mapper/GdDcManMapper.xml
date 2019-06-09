@@ -15,4 +15,7 @@
         pid, pname, loginpwd, phone
     </sql>
 
+    <select id="logind" resultType="Integer" >
+        select count(1)from gd_dc_man where loginpwd=#{loginpwd} and phone=#{phone}
+    </select>
 </mapper>

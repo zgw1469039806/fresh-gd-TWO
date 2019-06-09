@@ -43,5 +43,9 @@ public class GdDc implements Serializable {
      */
     private Integer score;
 
+    /**
+     * 配送所消耗的时间
+     */
+    private String dctime;
 
 }

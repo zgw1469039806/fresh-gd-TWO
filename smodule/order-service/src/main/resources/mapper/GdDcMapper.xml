@@ -15,4 +15,22 @@
         did, orderid, pid, score
     </sql>
 
+    <select id="queryDc" resultType="org.fresh.gd.commons.consts.pojo.dto.order.GdDcDTO">
+        select * from gd_dc d,gd_dc_man m
+        <where>
+            d.pid=m.pid
+            <if test="pid !=null and pid !=null">
+                and d.pid=#{pid}
+            </if>
+            <if test="orderid !=null and orderid !=null">
+                and d.orderid=#{orderid}
+            </if>
+            <if test="pname !=null and pname !=null">
+                and m.pname=#{pname}
+            </if>
+            <if test="score !=null and score !=null">
+                and d.score=#{score}
+            </if>
+        </where>
+    </select>
 </mapper>
