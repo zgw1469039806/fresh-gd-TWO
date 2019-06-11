@@ -29,7 +29,10 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>1.5.6.RELEASE</version>
+                <configuration>
+                    <!-- 工程主入口-->
+                    <mainClass>org.auth.server.AuthApplication</mainClass>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>

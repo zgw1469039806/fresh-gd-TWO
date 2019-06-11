@@ -16,7 +16,7 @@ import java.util.List;
 @Mapper
 public interface LogMapper extends BaseMapper<GdLog> {
 
-    @Insert("insert into gd_Log(username,operation,method,params,ip,createDate) values(username,operation,method,params,ip,createDate)")
+    @Insert("insert into gd_Log(username,operation,method,params,ip,createDate) values(#{username},#{operation},#{method},#{params},#{ip},#{createDate})")
     Integer saveLog(GdLog gdLog);
 
 

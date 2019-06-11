@@ -127,14 +127,14 @@ public class IpUtil {
     }
 
     public static String getServerIP() {
-        InetAddress inet;
-        try {
-            inet = InetAddress.getLocalHost();
-            String hostAddress = inet.getHostAddress();
-            return hostAddress;
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
+//        InetAddress inet;
+//        try {
+//            inet = InetAddress.get129.204.113.113();
+//            String hostAddress = inet.getHostAddress();
+//            return hostAddress;
+//        } catch (UnknownHostException e) {
+//            e.printStackTrace();
+//        }
         return "127.0.0.1";
     }
 }

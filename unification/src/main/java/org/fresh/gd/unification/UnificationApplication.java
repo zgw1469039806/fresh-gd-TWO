@@ -46,7 +46,7 @@ public class UnificationApplication extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.csrf().csrfTokenRepository(tokenRepository()).requireCsrfProtectionMatcher(request -> request.getRequestURI().contains("http://localhost:8080")).and().cors().configurationSource(new CorsConfigurationSource() {
+        http.csrf().csrfTokenRepository(tokenRepository()).requireCsrfProtectionMatcher(request -> request.getRequestURI().contains("http://129.204.113.113:8080")).and().cors().configurationSource(new CorsConfigurationSource() {
             @Override
             public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
                 CorsConfiguration corsConfiguration = new CorsConfiguration();

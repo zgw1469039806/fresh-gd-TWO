@@ -195,7 +195,6 @@ public class ManageServiceImpl implements ManageService {
     @Override
     public ResponseData<List<GdStoreDTO>> QueryAll(@RequestBody RequestData<String> requestData) {
         ResponseData<List<GdStoreDTO>> responseData = new ResponseData<>();
-
         responseData.setData(gdStoreMapper.selStoreAndImageByName(requestData.getData()));
         return responseData;
     }

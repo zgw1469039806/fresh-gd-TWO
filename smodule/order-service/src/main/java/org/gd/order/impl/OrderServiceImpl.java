@@ -594,7 +594,7 @@ public class OrderServiceImpl implements GDOrderService {
             AlipayTradePayResponse response = alipayClient.execute(request);
             System.out.println("response-------------------------------");
             System.out.println(response);
-            if (response.getMsg() == "Success") {
+            if (response.getMsg().equals("Success")) {
                 msg = 1;
             }
         } catch (AlipayApiException e) {

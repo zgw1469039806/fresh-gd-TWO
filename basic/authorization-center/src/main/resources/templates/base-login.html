@@ -60,6 +60,7 @@
     <div class="form-container">
         <p class="title"><strong>后台管理&nbsp;&nbsp;授权登录</strong></p>
         <form name="loginForm" method="post" th:action="${loginProcessUrl}">
+            <h1 th:text="${loginProcessUrl}">123</h1>
             <input type="text" name="username" placeholder="用户名"/>
             <br/>
             <input type="password" name="password" placeholder="密码"/>

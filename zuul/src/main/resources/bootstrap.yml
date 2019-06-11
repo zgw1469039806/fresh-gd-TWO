@@ -6,4 +6,4 @@ spring:
   cloud:
     config:
       profile: local
-      uri: http://localhost:9099
+      uri: http://129.204.113.113:9099
