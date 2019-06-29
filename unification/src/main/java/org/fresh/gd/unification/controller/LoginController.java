@@ -21,6 +21,6 @@ public class LoginController {
 
     @RequestMapping("/")
     public String allReq(Authentication authentication, HttpServletResponse response) {
-        return "redirect:http://www.gediao.com/web";
+        return "redirect:http://localhost:8080";
     }
 }

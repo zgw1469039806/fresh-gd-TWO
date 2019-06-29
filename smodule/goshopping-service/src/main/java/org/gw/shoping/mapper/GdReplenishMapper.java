@@ -19,7 +19,9 @@ import java.util.List;
 @Mapper
 public interface GdReplenishMapper extends BaseMapper<GdReplenish> {
 
-    @Insert("INSERT INTO gd_replenish(replenishTime,username,storeid,supplierID,isnostorage,receiptNo,remarks)VALUES(#{replenishTime},#{username},#{storeid},#{supplierID},#{isnostorage},#{receiptNo},#{remarks})")
+    @Insert("INSERT INTO gd_replenish(replenishTime,username,storeid,supplierID,isnostorage,receiptNo,remarks," +
+            "purcode)VALUES" +
+            "(#{replenishTime},#{username},#{storeid},#{supplierID},#{isnostorage},#{receiptNo},#{remarks},#{purcode})")
     @Options(useGeneratedKeys = true, keyProperty = "replenishId", keyColumn = "replenishId")
     Integer saveGdReplen(GdReplenishDTO gdReplenishDTO);
 
@@ -47,6 +49,17 @@ public interface GdReplenishMapper extends BaseMapper<GdReplenish> {
      * @date: 2019/4/27 11:33
      */
     List<GdPurchaseDTO> QueryPurByreId(@Param("reid") Integer reid);
+
+    /**
+     * 功能描述:
+     * 根据进货编码去查询进货详细
+     *
+     * @param: [list]
+     * @return: java.util.List<org.gw.shoping.entity.GdPurchase>
+     * @auther: 郭家恒
+     * @date: 2019/4/27 11:33
+     */
+    List<GdPurchaseDTO> QueryPurByreCode(@Param("code") String code);
 
     /**
      * 功能描述:

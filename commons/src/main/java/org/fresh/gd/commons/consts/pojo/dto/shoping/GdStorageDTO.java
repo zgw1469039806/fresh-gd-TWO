@@ -78,4 +78,7 @@ public class GdStorageDTO {
      */
     @ApiModelProperty("备注")
     private String remarks;
+
+    @ApiModelProperty("进货编码")
+    private String purcode;
 }

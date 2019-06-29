@@ -87,4 +87,10 @@ public class GdReplenishDTO {
      */
     @ApiModelProperty("供应商名称")
     private String supplierName;
+
+    /**
+     * 进货编码
+     */
+    @ApiModelProperty("进货编码")
+    private String purcode;
 }
